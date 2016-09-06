@@ -1,0 +1,4 @@
+<input #input type="text" [ngFormControl]="searchBox"
+       (scroll)="positionTypeaheadList()"
+       (resize)="positionTypeaheadList()"/>
+<a2ui-suggestions [items]="items"></a2ui-suggestions>
