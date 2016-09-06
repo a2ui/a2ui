@@ -15,12 +15,14 @@ import {TabsExampleComponent} from "./bootstrap/tabs/tabs.example.component";
 import {PaginationExampleComponent} from "./bootstrap/pagination/pagination.example.component";
 import {TableExampleComponent} from "./bootstrap/table/table.example.component";
 import {DatePickerExampleComponent} from "./bootstrap/datepicker/datepicker.example.component";
+import {TypeaheadExampleComponent} from "./bootstrap/typeahead/typeahead.example.component";
 
 export const appRoutes: Routes = [
     {path: "", component: WelcomeExampleComponent, data: {readable: "Welcome"}},
     {
         path: "bootstrap", component: BootstrapExampleComponent, data: {readable: "Bootstrap"},
         children: [
+            {path: "typeahead", component: TypeaheadExampleComponent, data: {readable: "Typeahead"}},
             {path: "modal", component: ModalExampleComponent, data: {readable: "Modal"}},
             {path: "popover", component: PopoverExampleComponent, data: {readable: "Popover"}},
             {path: "dropdown", component: DropdownExampleComponent, data: {readable: "Dropdown"}},

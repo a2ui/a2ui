@@ -1,0 +1,34 @@
+<h3>Sample form input with typeahead</h3>
+<div class="col-md-9">
+    <div class="row">
+        <form class="col-md-6">
+            <div class="form-group"><label for="input">Input</label>
+                <input id="input" class="form-control" #typeahead=a2ui-typeahead a2ui-typeahead
+                       [debounceTime]="500"
+                       [supplier]="wikiService.provide"
+                       [(ngModel)]="modelValue" [ngModelOptions]="{standalone: true}">
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <h4>Selected: {{modelValue}}</h4>
+    </div>
+    <br/>
+    <div class="row">
+        <h3>Directive configuration</h3>
+        <table class="table">
+            <thead>
+            <tr class="info">
+                <th>Property</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let prop of typeaheadProps()">
+                <td>{{prop}}</td>
+                <td>{{typeahead[prop]}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
