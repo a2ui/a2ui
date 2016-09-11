@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Table</h2>
+    </div>
+
+    <div class="card-body card-padding">
+
+        <a2-data-table [data]="tableData" (rowSelection)="rowSelection($event)" selectionMode="multi"
+                    [(selection)]="selectedRows" [availablePageSizes]="[5,10,15]">
+            <a2-header>
+                <div class="text-center"><b><h3><i>Oddities</i></h3></b></div>
+            </a2-header>
+            <a2-column header="Name" content="name" sortBy="name" filterBy="name" [editable]="true"></a2-column>
+            <a2-column header="Surname" content="surname" sortBy="surname" filterBy="surname"></a2-column>
+            <a2-column header="Age" content="age" sortBy="age" filterBy="age"></a2-column>
+            <a2-column header="Nested" content="nested.value" sortBy="nested.value" filterBy="nested.value"
+                    [editable]="true"></a2-column>
+            <footer><i>Example footer content</i></footer>
+        </a2-data-table>
+
+        Selected Rows:
+        <br/>
+        {{selectedRows | json}}
+        <br/>
+        <br/>
+        Table data:
+        <br/>
+        {{ tableData | json}}
+
+    </div>
+</div>

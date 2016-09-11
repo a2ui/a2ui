@@ -1,0 +1,12 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div role="tab" (click)="toggle()" class="panel-title">
+            {{header}}
+        </div>
+    </div>
+    <div [@state]="opened ? 'opened' : 'collapsed'">
+        <div class="panel-body">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

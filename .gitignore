@@ -1,0 +1,5 @@
+.idea/
+a2ui.iml
+node_modules/
+dist/
+typings/

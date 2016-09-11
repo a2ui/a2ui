@@ -1,0 +1,17 @@
+<div>
+    <ul [class]="'nav nav-' + type">
+        <li *ngFor="let tab of tabs" role="tablist" class="nav-item" [class.active]="tab.name === openedTab"
+            [class.disabled]="tab.disabled">
+            <a (click)="open(tab)" class="nav-link">
+                <template [ngTemplateOutlet]="tab.header.templateRef"></template>
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div *ngFor="let tab of tabs">
+            <template [ngTemplateOutlet]="tab.body.templateRef" role="tabpanel" class="tab-pane active"
+                      *ngIf="tab.name === openedTab"></template>
+        </div>
+    </div>
+</div>

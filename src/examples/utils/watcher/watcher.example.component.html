@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Watcher </h2>
+    </div>
+    <div class="card-body card-padding">
+        <form class="row" role="form">
+            <div class="col-sm-3">
+                <div class="form-group fg-line">
+                    <label class="sr-only">Text to copy</label>
+                    <input [(ngModel)]="watchData" [a2Watch]="watchData" (a2Change)="changeEvent = $event" [ngModelOptions]="{standalone: true}" class="form-control input-sm" placeholder="Type here...">
+                    <br>
+                    <span>{{changeEvent | json}}</span> <br>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

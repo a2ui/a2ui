@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Popover</h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <div style="width: 300px; height: 100px; border: dotted; display: flex; justify-content: center; align-items: center"
+             (click)="p.toggle();"
+             #p="popover"
+             [a2Popover]="{ type: componentInsidePopoverComponent, provides: {provide: 42, useValue: 'answer'}, bs: { placement: 'top', trigger: ''} }">
+            Show popover with component inside.
+            Click to toggle
+        </div>
+        <br>
+        <a (click)="p.toggle()">Toggle Popover</a>
+        <a (click)="p.show()">Show Popover</a>
+        <a (click)="p.destroy()">Hide Popover</a>
+    </div>
+</div>

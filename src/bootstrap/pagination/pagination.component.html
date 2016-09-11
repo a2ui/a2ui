@@ -1,0 +1,46 @@
+<div>
+    <div>
+        <template [ngTemplateOutlet]="pageTemplate.templateRef" [ngOutletContext]="preparePageContext()"></template>
+    </div>
+    <div>
+        <nav class="text-center">
+            <ul class="pagination">
+                <li [class.disabled]="!hasPrev()">
+                    <a aria-label="First" (click)="openFirst()">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li [class.disabled]="!hasPrev()">
+                    <a aria-label="Previous" (click)="openPrevious()">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li *ngFor="let pageNumber of pages; let index = index" [class.active]="index === currentPage"><a
+                        (click)="open(index)">{{index + 1}}</a></li>
+                <li [class.disabled]="!hasNext()">
+                    <a aria-label="Next" (click)="openNext()">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li [class.disabled]="!hasNext()">
+                    <a aria-label="Last" (click)="openLast()">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+                <li *ngIf="availablePageSizes">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            {{selectedPageSize}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let size of availablePageSizes">
+                                <a (click)="changePageSize(size)">{{size}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

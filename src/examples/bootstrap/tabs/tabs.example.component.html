@@ -1,0 +1,77 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Tabs</h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <a2-tabs [openedTab]="openedTab" type="tabs">
+            <a2-tab name="a1">
+                <template tabHeader>Tab 1</template>
+                <template tabBody>
+                    <a2-table class="table">
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Age</th>
+                        </tr>
+                        <tr>
+                            <td>Jill</td>
+                            <td>Smith</td>
+                            <td>50</td>
+                        </tr>
+                        <tr>
+                            <td>Eve</td>
+                            <td>Jackson</td>
+                            <td>94</td>
+                        </tr>
+                    </a2-table>
+                </template>
+            </a2-tab>
+            <a2-tab name="a2" [disabled]="true">
+                <template tabHeader>Tab 2</template>
+                <template tabBody>
+                    <a2-table class="table">
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Age</th>
+                        </tr>
+                        <tr>
+                            <td>Dan</td>
+                            <td>Smith</td>
+                            <td>30</td>
+                        </tr>
+                        <tr>
+                            <td>Ben</td>
+                            <td>Jackson</td>
+                            <td>64</td>
+                        </tr>
+                    </a2-table>
+                </template>
+            </a2-tab>
+            <a2-tab name="a3">
+                <template tabHeader>Tab 3</template>
+                <template tabBody>
+                    <a2-table class="table">
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Age</th>
+                        </tr>
+                        <tr>
+                            <td>Bill</td>
+                            <td>Smith</td>
+                            <td>54</td>
+                        </tr>
+                        <tr>
+                            <td>Will</td>
+                            <td>Jackson</td>
+                            <td>34</td>
+                        </tr>
+                    </a2-table>
+                </template>
+            </a2-tab>
+        </a2-tabs>
+
+    </div>
+</div>

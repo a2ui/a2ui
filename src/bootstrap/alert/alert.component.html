@@ -1,0 +1,7 @@
+<div [class]="'alert alert-' + type" role="alert">
+    <button type="button" class="close" *ngIf="skippable" (click)="skippAlert()">
+        <span aria-hidden="true">&times;</span>
+        <span class="hide">Close</span>
+    </button>
+    <ng-content></ng-content>
+</div>

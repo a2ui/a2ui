@@ -1,0 +1,18 @@
+<span  (mouseleave)="reset()">
+    <div style="position:relative;">
+        <div style="position: absolute; top: 0px; left: 0px;">
+            <div *ngFor="let item of range; let index = index" style="display:inline-block">
+                <span class="sr-only">({{ index < rate ? '*' : ' ' }})</span>
+                <i class="glyphicon glyphicon-star-empty"></i>
+          </div>
+        </div>
+        <div style="position: absolute; top: 0px; left: 0px;">
+          <div *ngFor="let item of range; let index = index" style="display:inline-block">
+              <span class="sr-only">({{ index < rate ? '*' : ' ' }})</span>
+              <i class="glyphicon" (click)="save(index + 1)"
+                 (mouseenter)="update(index + 1)" [ngClass]="getClass(index)" [style.width]="getWidth(index)"
+                 style="overflow:hidden;"></i>
+          </div>
+        </div>
+    </div>
+</span>

@@ -1,0 +1,104 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Accordion</h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <button (click)="toggle('ignoreDisabled')" class="btn btn-default btn-sm m-t-5">{{ignoreDisabled ? 'Disable' : 'Enable'}} Ignoring disabled groups
+        </button>
+        <button (click)="toggle('groupPresent')" class="btn btn-default btn-sm m-t-5">{{groupPresent ? 'Remove' : 'Add'}} group</button>
+        <button (click)="toggle('closeOthers')" class="btn btn-default btn-sm m-t-5">{{closeOthers ? 'Disable' : 'Enable'}} Close others</button>
+
+        <button (click)="prev();" class="btn btn-default btn-sm m-t-5">Prev</button>
+        <button (click)="next();" class="btn btn-default btn-sm m-t-5">Next</button>
+
+        <a2-accordion #acc [closeOther]="closeOthers" [ignoreDisabled]="ignoreDisabled">
+            <a2-accordion-group [opened]="true" header="One">
+                <table>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Age</th>
+                    </tr>
+                    <tr>
+                        <td>Jill</td>
+                        <td>Smith</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>Eve</td>
+                        <td>Jackson</td>
+                        <td>94</td>
+                    </tr>
+                </table>
+            </a2-accordion-group>
+            <a2-accordion-group [disabled]="true" header="Two">
+                <table>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Age</th>
+                    </tr>
+                    <tr>
+                        <td>Jill</td>
+                        <td>Smith</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>Eve</td>
+                        <td>Jackson</td>
+                        <td>94</td>
+                    </tr>
+                </table>
+            </a2-accordion-group>
+            <a2-accordion-group header="Three">
+                <table>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Age</th>
+                    </tr>
+                    <tr>
+                        <td>Jill</td>
+                        <td>Smith</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>Eve</td>
+                        <td>Jackson</td>
+                        <td>94</td>
+                    </tr>
+                </table>
+            </a2-accordion-group>
+            <a2-accordion-group *ngIf="groupPresent" header="Four">
+                <table>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Age</th>
+                    </tr>
+                    <tr>
+                        <td>Jill</td>
+                        <td>Smith</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>Eve</td>
+                        <td>Jackson</td>
+                        <td>94</td>
+                    </tr>
+                </table>
+            </a2-accordion-group>
+        </a2-accordion>
+
+        Accordion navigation state:<br/>
+        <ul>
+            <li>Prev: {{accordionNavigationState.prev}}</li>
+            <li>Current: {{accordionNavigationState.current}}</li>
+            <li>Next: {{accordionNavigationState.next}}</li>
+        </ul>
+        Accordion content state:<br/>
+        {{accordionContentState | json}}
+
+    </div>
+</div>

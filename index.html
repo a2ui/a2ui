@@ -1,0 +1,73 @@
+<html>
+<head>
+    <title>a2ui QuickStart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+
+    <link href="/node_modules/material-design-iconic-font/dist/css/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="/node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/res/css/app_1_light.min.css">
+    <link rel="stylesheet" href="/res/css/app_2_light.min.css">
+    <link rel="stylesheet" href="/res/css/styles.css">
+
+    <base href="/">
+</head>
+<!-- 3. Display the application -->
+<body>
+<a2ui-app>Loading...</a2ui-app>
+
+<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- 1. Load libraries -->
+<!-- Polyfill(s) for older browsers -->
+<script src="/node_modules/core-js/client/shim.min.js"></script>
+<script src="/node_modules/zone.js/dist/zone.js"></script>
+<script src="/node_modules/reflect-metadata/Reflect.js"></script>
+<script src="/node_modules/systemjs/dist/system.src.js"></script>
+
+<script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+<!-- 2. Configure SystemJS -->
+<script>
+    $(document).ready(function () {
+
+        /*----------------------------------------------------------
+         Scrollbar
+         -----------------------------------------------------------*/
+        function scrollBar(selector, theme, mousewheelaxis) {
+            $(selector).mCustomScrollbar({
+                theme: theme,
+                scrollInertia: 100,
+                axis: 'mousewheelaxis',
+                mouseWheel: {
+                    enable: true,
+                    axis: mousewheelaxis,
+                    preventDefault: true
+                }
+            });
+        }
+
+        if (!$('html').hasClass('ismobile')) {
+            //On Custom Class
+            if ($('body')[0]) {
+                scrollBar('body', 'minimal-dark', 'y');
+            }
+        }
+    });
+</script>
+<script src="system.config.js"></script>
+<script>
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        $('html').addClass('ismobile');
+    }
+    System.import('app').catch(function (err) {
+        console.error(err);
+    });
+</script>
+</body>
+</html>

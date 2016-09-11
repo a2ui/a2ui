@@ -1,0 +1,26 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Pagination</h2>
+    </div>
+
+    <div class="card-body card-padding">
+
+        <a2-pagination [(selectedPageSize)]="pageSize" [data]="data" [availablePageSizes]="[1,5,10,15]">
+            <template pageTemplate let-persons="var">
+                <table class="table">
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Age</th>
+                    </tr>
+                    <tr *ngFor="let person of persons">
+                        <td>{{person.name}}</td>
+                        <td>{{person.surname}}</td>
+                        <td>{{person.age}}</td>
+                    </tr>
+                </table>
+            </template>
+        </a2-pagination>
+
+    </div>
+</div>
