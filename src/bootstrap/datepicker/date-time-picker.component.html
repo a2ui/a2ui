@@ -1,0 +1,21 @@
+<date-picker-container [activeDate]="activeDate"
+                       (update)="onUpdate($event)"
+                       [initDate]="activeDate"
+                       [minDate]="minDate"
+                       [maxDate]="maxDate">
+    <day-picker [showWeeks]="showWeeks"
+                [showTime]="true">
+    </day-picker>
+    <month-picker></month-picker>
+    <year-picker></year-picker>
+</date-picker-container>
+<div class="paper-actions" style="margin: 5px 0;">
+    <span class="forward">
+        <button type="button"
+                class="btn btn-default btn-done"
+                [disabled]="dateNotSelected()"
+                (click)="onClose()">
+            Done
+        </button>
+    </span>
+</div>

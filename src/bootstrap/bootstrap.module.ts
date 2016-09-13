@@ -12,9 +12,14 @@ import {PAGINATION_DIRECTIVES} from "./pagination/pagination.component";
 import {DataTable, Column, Header, Footer} from "./data-table/data-table.component";
 import {Modal} from "./modal/modal";
 import {HttpModule, JsonpModule} from "@angular/http";
+import {DateTimePickerInputComponent} from "./datepicker/date-time-picker-input.component";
+import {DatePickerInputComponent} from "./datepicker/date-picker-input.component";
+import {DateRangePickerInputComponent} from "./datepicker/date-range-picker-input.component";
+import {DateTimeRangePickerInputComponent} from "./datepicker/date-time-range-picker-input.component";
 
 const BOOTSTRAP_DIRECTIVES: any[] = [PopoverDirective, DropdownDirective, ACCORDION_DIRECTIVES, Rating, Alert,
-    TABS_DIRECTIVES, PAGINATION_DIRECTIVES, DataTable, Column, Header, Footer
+    TABS_DIRECTIVES, PAGINATION_DIRECTIVES, DataTable, Column, Header, Footer, DatePickerInputComponent,
+    DateTimePickerInputComponent, DateRangePickerInputComponent, DateTimeRangePickerInputComponent
 ];
 
 @NgModule({
