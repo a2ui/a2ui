@@ -6,7 +6,7 @@ import {HttpModule} from "@angular/http";
 import {A2uiModule} from "./a2ui.module";
 import {ExamplesModule} from "./examples/examples.module";
 import {RouterModule} from "@angular/router";
-import {HTTP_PROVIDERS} from '@angular/http';
+import {HTTP_PROVIDERS} from "@angular/http";
 
 @NgModule({
     providers: [ HTTP_PROVIDERS ],

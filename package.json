@@ -2,6 +2,7 @@
   "name": "angular2-quickstart",
   "version": "1.0.0",
   "scripts": {
+    "prestart": "tslint -c tslint.json \"src/**/*.ts\"",
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",
     "postinstall": "typings install",

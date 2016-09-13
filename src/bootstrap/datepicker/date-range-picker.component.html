@@ -1,0 +1,38 @@
+<div style="width: 585px; overflow: hidden;">
+    <div style="float:left; margin-right: 5px;">
+        <h4>From:</h4>
+        <date-picker-container [activeDate]="startDate"
+                               (update)="onUpdate($event, 0)"
+                               [initDate]="startDate"
+                               [minDate]="minDate"
+                               [maxDate]="maxDate">
+            <day-picker [showWeeks]="showWeeks">
+            </day-picker>
+            <month-picker></month-picker>
+            <year-picker></year-picker>
+        </date-picker-container>
+    </div>
+    <div style="float:left;">
+        <h4>To:</h4>
+        <date-picker-container [activeDate]="endDate"
+                               (update)="onUpdate($event, 1)"
+                               [initDate]="endDate"
+                               [minDate]="minDate"
+                               [maxDate]="maxDate">
+            <day-picker [showWeeks]="showWeeks">
+            </day-picker>
+            <month-picker></month-picker>
+            <year-picker></year-picker>
+        </date-picker-container>
+    </div>
+    <div class="paper-actions" style="margin-right: 2px;">
+        <span class="forward">
+            <button type="button"
+                    class="btn btn-default btn-done"
+                    [disabled]="dateNotSelected()"
+                    (click)="onClose()">
+                Done
+            </button>
+        </span>
+    </div>
+</div>
