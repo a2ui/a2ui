@@ -8,13 +8,13 @@ import {ACCORDION_DIRECTIVES} from "./accordion/accordion.component";
 import {Rating} from "./rating/rating.component";
 import {Alert} from "./alert/alert.component";
 import {TABS_DIRECTIVES} from "./tabs/tabs.component";
-import {PAGINATION_DIRECTIVES} from "./pagination/pagination.component";
+import {PAGINATION_UI_DIRECTIVES} from "./pagination/pagination.component";
 import {DataTable, Column, Header, Footer} from "./data-table/data-table.component";
 import {Modal} from "./modal/modal";
 import {HttpModule, JsonpModule} from "@angular/http";
 
 const BOOTSTRAP_DIRECTIVES: any[] = [PopoverDirective, DropdownDirective, ACCORDION_DIRECTIVES, Rating, Alert,
-    TABS_DIRECTIVES, PAGINATION_DIRECTIVES, DataTable, Column, Header, Footer
+    TABS_DIRECTIVES, PAGINATION_UI_DIRECTIVES, DataTable, Column, Header, Footer
 ];
 
 @NgModule({
