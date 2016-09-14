@@ -1,0 +1,17 @@
+<div class="timepicker">
+    <div class="select">
+        <select [(ngModel)]="hour" (change)="hourChanged($event.target.value)" class="form-control">
+            <option *ngFor="let hour of hours" value="{{hour[0]}}">
+                {{hour[1]}}
+            </option>
+        </select>
+    </div>
+    <span class="divide">:</span>
+    <div class="select">
+        <select [(ngModel)]="minute" (change)="minuteChanged($event.target.value)" class="form-control">
+            <option *ngFor="let minute of minutes" value="{{minute[0]}}">
+                {{minute[1]}}
+            </option>
+        </select>
+    </div>
+</div>
