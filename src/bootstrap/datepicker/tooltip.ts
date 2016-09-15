@@ -72,9 +72,7 @@ export class Tooltip implements ng.OnInit {
                         return this._show(component.location.nativeElement);
                     });
             }
-
             return controller;
-
         });
     }
 
@@ -105,7 +103,7 @@ export class Tooltip implements ng.OnInit {
                 popover.popover("hide");
                 // Clear click state
                 // Fix issue when popover wont hide after manual hide
-                $(popover).each((): void => {
+                $(popover).each(function (): void {
                     $(this).data("bs.popover").inState.click = false;
                 });
             },
@@ -122,7 +120,6 @@ export class Tooltip implements ng.OnInit {
         };
         return of(this.controller = <PopoverElement>controller);
     }
-
 }
 
 export function isBlank (obj: any): boolean {

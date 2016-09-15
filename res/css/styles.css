@@ -63,7 +63,7 @@ date-picker-input .popover {
 }
 
 date-range-picker-input .popover {
-    max-width: 600px !important;
+    max-width: 650px !important;
 }
 
 date-time-picker-input .popover {
@@ -106,7 +106,7 @@ date-range-picker-input .content {
 
 .timepicker {
     display: flex;
-    width: 110px;
+    width: 140px;
     margin: auto;
     padding-top: 5px;
 }
@@ -117,11 +117,11 @@ date-range-picker-input .content {
 }
 
 .timepicker .select {
-    width: 50px;
+    width: 70px;
 }
 
 .date-picker {
-    width: 585px;
+    width: 618px;
     overflow: hidden;
 }
 
@@ -148,5 +148,5 @@ date-range-picker-input .content {
 
 .date-picker-button {
     margin-left: 3px;
-    height: 28px;
+    height: 30px;
 }
