@@ -40,8 +40,14 @@ export class DataTable implements AfterContentInit {
 
     @ViewChild("paginator") private paginator: Pagination;
     private currentSortedColumn: Column;
+    
+    ngAfterContentInit(): any {
+        if (this.isSingleSelectionMode() && this.selection.length > 1) {
+            this.selection.splice(1, this.selection.length - 1);
+        }
+    }
 
-    private filterFunction: Function = (data: any, restraints: Restraints) => {
+    private filterFunction: Function = (data: Array<any>, restraints: Restraints) => {
         return data.filter(row => {
             let fulfilled: boolean = true;
             for (let key in restraints.filterBy) {
@@ -53,18 +59,12 @@ export class DataTable implements AfterContentInit {
         });
     };
 
-    private sortFunction = (data: any, restraints: Restraints) => {
+    private sortFunction = (data: Array<any>, restraints: Restraints) => {
         let orderBy: OrderMeta = restraints.orderBy;
         if (!orderBy) return data;
-        data.sort((a, b) => this.alphabeticalSort(this.valueOf(a, orderBy.field), this.valueOf(b, orderBy.field), orderBy.order));
+        data.sort((a, b) => this.alphabeticalCompare(this.valueOf(a, orderBy.field), this.valueOf(b, orderBy.field), orderBy.order));
         return data;
     };
-    
-    ngAfterContentInit(): any {
-        if (this.isSingleSelectionMode() && this.selection.length > 1) {
-            this.selection.splice(1, this.selection.length - 1);
-        }
-    }
     
     private sort(restraints: Restraints, column: Column): void {
         if (column.sortBy === undefined) return;
@@ -74,7 +74,7 @@ export class DataTable implements AfterContentInit {
         column.order = column.order * -1;
     }
 
-    private alphabeticalSort(value1: any, value2: any, order: number): number {
+    private alphabeticalCompare(value1: any, value2: any, order: number): number {
         let result: number = 0;
         if (value1 instanceof String && value2 instanceof String) {
             result = value1.localeCompare(value2);
@@ -109,15 +109,15 @@ export class DataTable implements AfterContentInit {
         let unselectedRow: any;
 
         if (this.isSingleSelectionMode()) {
-            //TODO Consider cleaning selection array after selection mode change
-            this.selection.splice(0, this.selection.length);
+            // TODO Consider cleaning selection array after selection mode change
             if (this.isDoubleClickSelectionMode()) {
+                this.selection.splice(0, this.selection.length);
                 selectedRow = row;
                 unselectedRow = undefined;
             } else {
                 unselectedRow = this.selection[0];
                 this.selection.splice(0, this.selection.length);
-                if (this.selection[0] !== row) {
+                if (unselectedRow !== row) {
                     this.selection.push(row);
                     selectedRow = row;
                 }
@@ -139,16 +139,21 @@ export class DataTable implements AfterContentInit {
         let paths: Array<string> = column.content.split(".");
         while (paths.length > 0) {
             let path: string = paths.shift();
-            if(paths.length !== 0) {
+            if (paths.length !== 0) {
                 value = value[path];
             } else {
-                this.rowEdit.emit({editedRow: row, editedField: column.content, oldValue:value[path], newValue: event});
+                this.rowEdit.emit({
+                    editedRow: row,
+                    editedField: column.content,
+                    oldValue: value[path],
+                    newValue: event
+                });
                 value[path] = event;
             }
         }
     }
 
-    private handleLazyLoading(event: LazyLoadEvent) {
+    private handleLazyLoading(event: LazyLoadEvent): void {
         this.onLazy.emit(event);
     }
 

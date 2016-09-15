@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "prestart": "tslint -c tslint.json src/**/*.ts",
     "lite": "lite-server",
     "postinstall": "typings install",
     "tsc": "tsc",

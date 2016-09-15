@@ -46,16 +46,16 @@ export class TableExampleComponent {
     lazyTableData: LazyPageData = <LazyPageData>{};
     selection: Array<any> = [];
     selectionEvent: SelectionEvent;
-    editEvent: any;
+    editEvent: EditEvent;
     tableClasses: Array<any> = [];
 
     selectionType: any = "single";
 
-    onRowSelect(event: SelectionEvent) {
+    onRowSelect(event: SelectionEvent): void {
         this.selectionEvent = event;
     }
 
-    onRowEdit(event: EditEvent) {
+    onRowEdit(event: EditEvent): void {
         this.editEvent = event;
     }
 
@@ -83,7 +83,7 @@ export class TableExampleComponent {
 }
 
 class FakeDatabaseService {
-    static loadData(data: Array<any>, event: any): LazyPageData {
+    static loadData(data: Array<any>, event: LazyLoadEvent): LazyPageData {
         let response: LazyPageData = <LazyPageData>{};
         let restrained: Array<any> = this.sortFunction(this.filterFunction(data, event.restraints), event.restraints);
         response.totalRows = restrained.length;
@@ -91,13 +91,13 @@ class FakeDatabaseService {
         return response;
     }
 
-    static sortFunction(data: any, restraints: Restraints) {
+    static sortFunction(data: Array<any>, restraints: Restraints): Array<any> {
         if (!restraints.orderBy) return data;
-        data.sort((a, b) => this.sort(this.valueOf(a, restraints.orderBy.field), this.valueOf(b, restraints.orderBy.field), restraints.orderBy.order));
+        data.sort((a, b) => this.compare(this.valueOf(a, restraints.orderBy.field), this.valueOf(b, restraints.orderBy.field), restraints.orderBy.order));
         return data;
     }
 
-    static filterFunction(data: any, restraints: Restraints): Array<any> {
+    static filterFunction(data: Array<any>, restraints: Restraints): Array<any> {
         return data.filter(row => {
             let fulfilled: boolean = true;
             for (let key in restraints.filterBy) {
@@ -117,7 +117,7 @@ class FakeDatabaseService {
         return value;
     }
 
-    static sort(a: any, b: any, order: number): number {
+    static compare(a: any, b: any, order: number): number {
         if (a < b) return -1 * order;
         if (a > b) return order;
         return 0;

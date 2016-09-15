@@ -21,11 +21,11 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
     @Input() lazy: boolean = false;
     @Input() pager: string;
     @Input() maxVisiblePages: number = 5;
-    @Input() filterFunction: (data: Array<any>, restraints: Restraints) => Array<any> = (d, r) => {return d};
-    @Input() sortFunction: (data: Array<any>, restraints: Restraints) => Array<any> = (d, r) => {return d};
-
-    @Output() public pageChange: EventEmitter<number> = new EventEmitter<number>();
-    @Output() public onLazy: EventEmitter<LazyLoadEvent> = new EventEmitter<LazyLoadEvent>();
+    @Input() filterFunction: (data: Array<any>, restraints: Restraints) => Array<any> = (d, r) => {return d; };
+    @Input() sortFunction: (data: Array<any>, restraints: Restraints) => Array<any> = (d, r) => {return d; };
+    // tslint:disable-next-line
+    @Output() pageChange: EventEmitter<number> = new EventEmitter<number>();
+    @Output() onLazy: EventEmitter<LazyLoadEvent> = new EventEmitter<LazyLoadEvent>();
 
     @ContentChild(forwardRef(() => PageTemplate)) private pageTemplate: PageTemplate;
 
@@ -57,7 +57,7 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
             this.dataToDisplay = this._data;
             this.totalRows = (<LazyPageData>val).totalRows;
 
-            if (previousPageCount != this.getPageCount()) {
+            if (previousPageCount !== this.getPageCount()) {
                 if (this.currentPage > this.getPageCount() - 1) {
                     // Case when pagination requested page that didn't exists anymore
                     this.openLast();
@@ -67,12 +67,12 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
                 }
             }
 
-            if (this.differ.diff(this._data)) {
+            if (this.hasDataChanged()) {
                 this.preparePageContext();
                 this.shiftVisiblePages();
             }
         } else {
-            if (this.differ.diff(this._data)) {
+            if (this.hasDataChanged()) {
                 this.dataToDisplay = this.sortFunction(this.filterFunction(this._data, this.pageContext.restraints), this.pageContext.restraints);
                 this.totalRows = this.dataToDisplay.length;
                 this.preparePageContext();
@@ -88,8 +88,8 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
         if (this.lazy) this.emitPageDataRequest();
     }
 
-    ngDoCheck(): any {
-        if (!this.lazy) this.data = this._data; //TODO Find better way to detect elements added/removed from array
+    ngDoCheck (): any {
+        if (!this.lazy) this.data = this._data; // TODO Find better way to detect elements added/removed from array
     }
 
     ngOnChanges(changes: SimpleChanges): any {
@@ -101,17 +101,17 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
     filter(): void {
         if (!this.lazy) {
             this.dataToDisplay = this.sortFunction(this.filterFunction(this._data, this.pageContext.restraints), this.pageContext.restraints);
-            this.totalRows = this.dataToDisplay.length
+            this.totalRows = this.dataToDisplay.length;
         }
         this.openFirst();
     }
 
-    sort() {
-        if(!this.lazy) this.sortFunction(this.dataToDisplay, this.pageContext.restraints);
+    sort(): void {
+        if (!this.lazy) this.sortFunction(this.dataToDisplay, this.pageContext.restraints);
         this.refresh();
     }
 
-    refresh() {
+    refresh(): void {
         this.open(this.currentPage);
     }
 
@@ -122,19 +122,19 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
         this.pageChange.emit(this.currentPage);
     }
 
-    private shiftVisiblePages() {
+    private shiftVisiblePages(): void {
         this.pages = [];
-        let boundaries = this.calculatePaginationBoundaries();
-        for (let i = boundaries[0]; i <= boundaries[1]; i++) {
+        let boundaries: Array<number> = this.calculatePaginationBoundaries();
+        for (let i: number = boundaries[0]; i <= boundaries[1]; i++) {
             this.pages.push(i);
         }
     }
 
-    private calculatePaginationBoundaries() {
-        let visiblePages = Math.min(this.maxVisiblePages, this.getPageCount());
-        let start = Math.max(0, this.currentPage - Math.floor(visiblePages / 2));
-        let end = Math.min(this.getPageCount() - 1, start + visiblePages - 1);
-        var delta = this.maxVisiblePages - (end - start + 1);
+    private calculatePaginationBoundaries(): Array<number> {
+        let visiblePages: number = Math.min(this.maxVisiblePages, this.getPageCount());
+        let start: number = Math.max(0, this.currentPage - Math.floor(visiblePages / 2));
+        let end: number = Math.min(this.getPageCount() - 1, start + visiblePages - 1);
+        let delta: number = this.maxVisiblePages - (end - start + 1);
         start = Math.max(0, start - delta);
         return [start, end];
     }
@@ -149,7 +149,7 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
         this.openFirst();
     }
 
-    private emitPageDataRequest() {
+    private emitPageDataRequest(): void {
         this.onLazy.emit({
             page: this.currentPage,
             rows: this.selectedPageSize,
@@ -185,8 +185,12 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
         return this.currentPage > 0;
     }
 
-    private getPageCount() {
+    private getPageCount(): number {
         return Math.ceil(this.totalRows / this.selectedPageSize) || 1;
+    }
+
+    private hasDataChanged(): boolean {
+        return this.differ.diff(this._data);
     }
 }
 
@@ -206,20 +210,20 @@ export interface LazyPageData {
 }
 
 export interface LazyLoadEvent {
-    page: number,
-    rows: number,
-    restraints: Restraints
+    page: number;
+    rows: number;
+    restraints: Restraints;
 }
 
 export interface PageContext {
-    pageData?: Array<any>,
-    restraints: Restraints
+    pageData?: Array<any>;
+    restraints: Restraints;
 }
 
 export interface Restraints {
-    custom: any,
-    orderBy?: OrderMeta,
-    filterBy: FilterMeta
+    custom: any;
+    orderBy?: OrderMeta;
+    filterBy: FilterMeta;
 }
 
 export interface OrderMeta {
