@@ -229,7 +229,7 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
         this.refreshView();
     }
 
-    private isDisabled (date: Date): boolean {
+    public isDisabled (date: Date): boolean {
         return ((this.minDate && this.compare(date, DateFormatter.toDate(this.minDate)) < 0)
         || (this.maxDate && this.compare(date, DateFormatter.toDate(this.maxDate)) > 0));
     }

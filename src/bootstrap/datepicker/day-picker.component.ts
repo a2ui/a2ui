@@ -1,7 +1,6 @@
 import * as ng from "@angular/core";
 import {DatePickerContainer} from "./date-picker-container.component";
 import {DateFormatter} from "./date-formatter";
-import {TimePickerComponent} from "./time-picker.component";
 
 const SHOW_WEEKS: boolean = true;
 const FORMAT_DAY_TITLE: string = "MMMM yyyy";

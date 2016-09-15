@@ -1,9 +1,7 @@
 import * as ng from "@angular/core";
 import * as c from "@angular/forms";
-import {Tooltip} from "./tooltip";
 import {ViewContainerRef} from "@angular/core";
 import {isBlank} from "@angular/core/src/facade/lang";
-import {DateTimePickerComponent} from "./date-time-picker.component";
 import {ComponentRef} from "@angular/core";
 import {ComponentFactory} from "@angular/core";
 
