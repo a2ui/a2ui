@@ -23,10 +23,10 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
     public stepDay: any = {};
     public stepMonth: any = {};
     public stepYear: any = {};
+    public _activeDate: Date;
+    public uniqueId: string;
 
     private modes: Array<string> = ["day", "month", "year"];
-    private uniqueId: string;
-    private _activeDate: Date;
     private selectedDate: Date;
     private _initDate: Date;
     private activeDateId: string;
@@ -59,11 +59,11 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
     }
 
     @ng.Input()
-    private get activeDate (): Date {
+    public get activeDate (): Date {
         return this._activeDate;
     }
 
-    private set activeDate (value: Date) {
+    public set activeDate (value: Date) {
         this._activeDate = value;
         if (value) {
             this.selectedDate = new Date(value.getTime());
@@ -234,6 +234,24 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
         || (this.maxDate && this.compare(date, DateFormatter.toDate(this.maxDate)) > 0));
     }
 
+    public createDateObject (date: Date, format: string): any {
+        let dateObject: any = {};
+        dateObject.date = date;
+        dateObject.label = DateFormatter.format(date, format);
+        dateObject.selected = this.compare(date, this.selectedDate) === 0;
+        dateObject.disabled = this.isDisabled(date);
+        dateObject.current = this.compare(date, new Date()) === 0;
+        return dateObject;
+    }
+
+    public isDateEmpty (): boolean {
+        return !this._activeDate;
+    }
+
+    public getDate (): Date {
+        return this.isDateEmpty() ? null : this._activeDate;
+    }
+
     private isValid (date: Date): boolean {
         return !this.isDisabled(date);
     }
@@ -246,16 +264,6 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
         return false;
     }
 
-    private createDateObject (date: Date, format: string): any {
-        let dateObject: any = {};
-        dateObject.date = date;
-        dateObject.label = DateFormatter.format(date, format);
-        dateObject.selected = this.compare(date, this.selectedDate) === 0;
-        dateObject.disabled = this.isDisabled(date);
-        dateObject.current = this.compare(date, new Date()) === 0;
-        return dateObject;
-    }
-
     private currentDate (): DateDecorator {
         return {
             date: this.activeDate,
@@ -265,14 +273,6 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
 
     private isDatePickerMode (mode: string): boolean {
         return this.datepickerMode === mode;
-    }
-
-    private isDateEmpty (): boolean {
-        return !this._activeDate;
-    }
-
-    private getDate (): Date {
-        return this.isDateEmpty() ? null : this._activeDate;
     }
 }
 

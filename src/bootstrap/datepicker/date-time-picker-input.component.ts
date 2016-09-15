@@ -47,10 +47,10 @@ export class DateTimePickerInputComponent implements c.ControlValueAccessor {
     }
 
     registerOnChange (fn: any): void {
-        this.onChange = (l: any) => {
-            this.model = l;
+        this.onChange = (value: any) => {
+            this.model = value;
             this.instance.model = this.model;
-            fn(l);
+            fn(value);
         };
         this.instance.onChange = (val: any) => {
             this.writeValue(val);
@@ -92,27 +92,7 @@ export class DateTimePickerInputComponent implements c.ControlValueAccessor {
 @ng.Component({
     selector: "date-time-picker-input",
     styles: [".content {float: right; bottom: 30px; position: relative;}"],
-    template: `<div class="content">
-            <button [tooltip]="dateTimePicker"
-                    [trigger]="'click'"
-                    (tooltipCtrl)="dateTimePickerCtrl=$event"
-                    (click)="directive.changeAvailability(hidden)"
-                    type="button"
-                    class="btn btn-default with"
-                    placement="bottom"
-                    aria-label="Calendar"
-                    style="margin-left: 3px; height: 28px;">
-                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-            </button>
-            <template #dateTimePicker>
-                <date-time-picker [(ngModel)]="model"
-                            (ngModelChange)="onChange($event);"
-                            (close)="onTouched(); dateTimePickerCtrl.hide();"
-                            [showWeeks]="true"
-                            [minDate]="minDate"
-                            [maxDate]="maxDate">
-                </date-time-picker>
-            </template></div>`
+    templateUrl: "/src/bootstrap/datepicker/date-time-picker-input.component.html"
 })
 export class DateTimePicker {
 }

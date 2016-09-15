@@ -23,22 +23,22 @@ export class MonthPickerComponent implements ng.OnInit {
 
         this.datePicker.stepMonth = {years: 1};
 
-        this.datePicker.setRefreshViewHandler(function (): void {
+        this.datePicker.setRefreshViewHandler((): void => {
             let months: Array<any> = new Array(12);
-            let year: number = this.activeDate.getFullYear();
+            let year: number = this.datePicker.activeDate.getFullYear();
             let date: Date;
 
             for (let i: number = 0; i < 12; i++) {
                 date = new Date(year, i, 1);
-                months[i] = this.createDateObject(date, self.formatMonth);
-                months[i].uid = this.uniqueId + "-" + i;
+                months[i] = this.datePicker.createDateObject(date, self.formatMonth);
+                months[i].uid = this.datePicker.uniqueId + "-" + i;
             }
 
-            self.title = DateFormatter.format(this.activeDate, self.formatMonthTitle);
+            self.title = DateFormatter.format(this.datePicker.activeDate, self.formatMonthTitle);
             self.rows = DatePickerContainer.split(months, 3);
         }, "month");
 
-        this.datePicker.setCompareHandler(function (date1: Date, date2: Date): number {
+        this.datePicker.setCompareHandler((date1: Date, date2: Date): number => {
             let d1: Date = new Date(date1.getFullYear(), date1.getMonth());
             let d2: Date = new Date(date2.getFullYear(), date2.getMonth());
             return d1.getTime() - d2.getTime();

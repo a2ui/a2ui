@@ -47,10 +47,10 @@ export class DateRangePickerInputComponent implements c.ControlValueAccessor {
     }
 
     registerOnChange (fn: any): void {
-        this.onChange = (l: any) => {
-            this.model = l;
+        this.onChange = (value: any) => {
+            this.model = value;
             this.instance.model = this.model;
-            fn(l);
+            fn(value);
         };
         this.instance.onChange = (val: any) => {
             this.writeValue(val);
@@ -91,27 +91,7 @@ export class DateRangePickerInputComponent implements c.ControlValueAccessor {
 
 @ng.Component({
     selector: "date-range-picker-input",
-    template: `<div class="content">
-            <button [tooltip]="dateRangePicker"
-                    [trigger]="'click'"
-                    (tooltipCtrl)="datePickerCtrl=$event"
-                    (click)="directive.changeAvailability(hidden)"
-                    type="button"
-                    class="btn btn-default with"
-                    placement="bottom"
-                    aria-label="Calendar"
-                    style="margin-left: 3px; height: 28px;">
-                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-            </button>
-            <template #dateRangePicker>
-                <date-range-picker [(ngModel)]="model"                            
-                            (ngModelChange)="onChange($event);"
-                            (close)="onTouched(); datePickerCtrl.hide();"
-                            [showWeeks]="true"
-                            [minDate]="minDate"
-                            [maxDate]="maxDate">
-                </date-range-picker>
-            </template></div>`
+    templateUrl: "/src/bootstrap/datepicker/date-range-picker-input.component.html"
 })
 export class DateRangePicker {
 }

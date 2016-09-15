@@ -24,21 +24,21 @@ export class YearPickerComponent implements ng.OnInit {
 
         this.datePicker.stepYear = {years: this.yearRange};
 
-        this.datePicker.setRefreshViewHandler(function (): void {
+        this.datePicker.setRefreshViewHandler((): void => {
             let years: Array<any> = new Array(this.yearRange);
             let date: Date;
 
-            for (let i: number = 0, start: number = self.getStartingYear(this.activeDate.getFullYear() - 7); i < self.yearRange; i++) {
+            for (let i: number = 0, start: number = self.getStartingYear(this.datePicker.activeDate.getFullYear() - 7); i < self.yearRange; i++) {
                 date = new Date(start + i, 0, 1);
-                years[i] = this.createDateObject(date, self.formatYear);
-                years[i].uid = this.uniqueId + "-" + i;
+                years[i] = this.datePicker.createDateObject(date, self.formatYear);
+                years[i].uid = this.datePicker.uniqueId + "-" + i;
             }
 
             self.title = [years[0].label, years[self.yearRange - 1].label].join(" - ");
             self.rows = DatePickerContainer.split(years, 4);
         }, "year");
 
-        this.datePicker.setCompareHandler(function (date1: Date, date2: Date): number {
+        this.datePicker.setCompareHandler((date1: Date, date2: Date): number => {
             return date1.getFullYear() - date2.getFullYear();
         }, "year");
 

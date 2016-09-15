@@ -33,12 +33,10 @@ export class DateTimePickerComponent implements c.ControlValueAccessor {
     };
 
     writeValue (value: any): void {
-        if (value) {
-            if (value instanceof Date) {
-                this.activeDate = new Date(value.getTime());
-            } else {
-                this.activeDate = DateFormatter.parse(value);
-            }
+        if (value instanceof Date) {
+            this.activeDate = new Date(value.getTime());
+        } else if (value) {
+            this.activeDate = DateFormatter.parse(value);
         }
     }
 

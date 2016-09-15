@@ -58,7 +58,6 @@
     display: block;
 }
 
-
 date-picker-input .popover {
     max-width: 340px !important;
 }
@@ -119,4 +118,35 @@ date-range-picker-input .content {
 
 .timepicker .select {
     width: 50px;
+}
+
+.date-picker {
+    width: 585px;
+    overflow: hidden;
+}
+
+.date-picker-header {
+    height: 20px;
+}
+
+.date-range-picker-from {
+    float: left;
+    margin-right: 5px;
+}
+
+.date-range-picker-to {
+    float: left;
+}
+
+.date-picker-footer {
+    margin-right: 2px;
+}
+
+.date-time-picker-footer {
+    margin: 5px 0;
+}
+
+.date-picker-button {
+    margin-left: 3px;
+    height: 28px;
 }

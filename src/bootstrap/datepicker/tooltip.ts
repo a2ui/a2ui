@@ -105,7 +105,7 @@ export class Tooltip implements ng.OnInit {
                 popover.popover("hide");
                 // Clear click state
                 // Fix issue when popover wont hide after manual hide
-                $(popover).each(function (): void {
+                $(popover).each((): void => {
                     $(this).data("bs.popover").inState.click = false;
                 });
             },

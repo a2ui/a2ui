@@ -19,25 +19,25 @@ export class TimePickerComponent implements ng.OnInit {
     ngOnInit (): void {
         let self: TimePickerComponent = this;
         for (let i: number = 0; i <= 23; i++) {
-            this.hours.push([i, TimePickerComponent.prepareValue(i)]);
+            this.hours.push([i, TimePickerComponent.prefixWithZeroIfSmallerThanTen(i)]);
         }
         for (let i: number = 0; i <= 59; i++) {
-            this.minutes.push([i, TimePickerComponent.prepareValue(i)]);
+            this.minutes.push([i, TimePickerComponent.prefixWithZeroIfSmallerThanTen(i)]);
         }
 
-        this.container.setRefreshViewHandler(function (): void {
-            if (this.isDateEmpty()) {
+        this.container.setRefreshViewHandler((): void => {
+            if (this.container.isDateEmpty()) {
                 let now: Date = new Date();
                 self.hour = now.getHours();
                 self.minute = now.getMinutes();
-                this.selectTime(self.hour, self.minute);
+                this.container.selectTime(self.hour, self.minute);
             } else {
-                self.hour = this.getDate().getHours();
-                self.minute = this.getDate().getMinutes();
+                self.hour = this.container.getDate().getHours();
+                self.minute = this.container.getDate().getMinutes();
             }
         }, "time");
 
-        this.container.setCompareHandler(function (date1: Date, date2: Date): number {
+        this.container.setCompareHandler((date1: Date, date2: Date): number => {
             return TimePickerComponent.dateWithTime(date1).getTime() - TimePickerComponent.dateWithTime(date2).getTime();
         }, "time");
 
@@ -52,7 +52,7 @@ export class TimePickerComponent implements ng.OnInit {
         this.container.selectTime(this.hour, minute);
     }
 
-    private static prepareValue (i: number): string {
+    private static prefixWithZeroIfSmallerThanTen (i: number): string {
         return i < 10 ? "0" + i : i + "";
     }
 

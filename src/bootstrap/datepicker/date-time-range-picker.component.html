@@ -1,5 +1,5 @@
-<div style="width: 585px; overflow: hidden;">
-    <div style="height: 20px;">
+<div class="date-picker">
+    <div class="date-picker-header">
         <button type="button"
                 class="close"
                 aria-label="Close"
@@ -7,7 +7,7 @@
             <span aria-hidden="true">×</span>
         </button>
     </div>
-    <div style="float:left; margin-right: 5px;">
+    <div class="date-range-picker-from">
         <date-picker-container [activeDate]="startDate"
                                (update)="onUpdate($event, 0)"
                                [initDate]="startDate"
@@ -20,7 +20,7 @@
             <year-picker></year-picker>
         </date-picker-container>
     </div>
-    <div style="float:left;">
+    <div class="date-range-picker-to">
         <date-picker-container [activeDate]="endDate"
                                (update)="onUpdate($event, 1)"
                                [initDate]="endDate"
@@ -33,7 +33,7 @@
             <year-picker></year-picker>
         </date-picker-container>
     </div>
-    <div class="paper-actions" style="margin-right: 2px;">
+    <div class="paper-actions date-picker-footer">
         <span class="forward">
             <button type="button"
                     class="btn btn-default btn-done"

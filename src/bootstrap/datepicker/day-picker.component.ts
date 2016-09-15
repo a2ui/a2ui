@@ -35,11 +35,11 @@ export class DayPickerComponent implements ng.OnInit {
 
         this.container.stepDay = {months: 1};
 
-        this.container.setRefreshViewHandler(function (): void {
-            let year: number = this.activeDate.getFullYear();
-            let month: number = this.activeDate.getMonth();
+        this.container.setRefreshViewHandler((): void => {
+            let year: number = this.container.activeDate.getFullYear();
+            let month: number = this.container.activeDate.getMonth();
             let firstDayOfMonth: Date = new Date(year, month, 1);
-            let difference: number = this.startingDay - firstDayOfMonth.getDay();
+            let difference: number = this.container.startingDay - firstDayOfMonth.getDay();
             let numDisplayedFromPreviousMonth: number = (difference > 0) ? 7 - difference : -difference;
             let firstDate: Date = new Date(firstDayOfMonth.getTime());
 
@@ -51,9 +51,9 @@ export class DayPickerComponent implements ng.OnInit {
             let _days: Array<Date> = DayPickerComponent.getDates(firstDate, 42);
             let days: Array<any> = [];
             for (let i: number = 0; i < 42; i++) {
-                let _dateObject: any = this.createDateObject(_days[i], self.formatDay);
+                let _dateObject: any = this.container.createDateObject(_days[i], self.formatDay);
                 _dateObject.secondary = _days[i].getMonth() !== month;
-                _dateObject.uid = this.uniqueId + "-" + i;
+                _dateObject.uid = this.container.uniqueId + "-" + i;
                 days[i] = _dateObject;
             }
 
@@ -64,12 +64,12 @@ export class DayPickerComponent implements ng.OnInit {
                 self.labels[j].full = DateFormatter.format(days[j].date, "EEE");
             }
 
-            self.title = DateFormatter.format(this.activeDate, self.formatDayTitle);
+            self.title = DateFormatter.format(this.container.activeDate, self.formatDayTitle);
             self.rows = DatePickerContainer.split(days, 7);
 
             if (self.showWeeks) {
                 self.weekNumbers = [];
-                let thursdayIndex: number = (4 + 7 - this.startingDay) % 7,
+                let thursdayIndex: number = (4 + 7 - this.container.startingDay) % 7,
                     numWeeks: number = self.rows.length;
                 for (let curWeek: number = 0; curWeek < numWeeks; curWeek++) {
                     self.weekNumbers.push(DayPickerComponent.getISO8601WeekNumber(self.rows[curWeek][thursdayIndex].date));
@@ -77,7 +77,7 @@ export class DayPickerComponent implements ng.OnInit {
             }
         }, "day");
 
-        this.container.setCompareHandler(function (date1: any, date2: any): number {
+        this.container.setCompareHandler((date1: any, date2: any): number => {
             if (date1 instanceof String) {
                 date1 = new Date(date1);
             }
@@ -92,7 +92,7 @@ export class DayPickerComponent implements ng.OnInit {
         this.container.refreshView();
     }
 
-    today (): void {
+    selectToday (): void {
         if (!this.isCurrentDateDisbled()) {
             this.container.select(new Date());
         }

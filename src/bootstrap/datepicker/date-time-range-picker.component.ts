@@ -34,14 +34,12 @@ export class DateTimeRangePickerComponent implements c.ControlValueAccessor {
     };
 
     writeValue (value: any): void {
-        if (value) {
-            if (value instanceof Date) {
-                this.startDate = value;
-            } else {
-                let parts: string[] = value.split(" - ");
-                this.startDate = parts[0] ? DateFormatter.parse(parts[0]) : new Date();
-                this.endDate = parts[1] ? DateFormatter.parse(parts[1]) : new Date();
-            }
+        if (value instanceof Date) {
+            this.startDate = value;
+        } else if (value) {
+            let parts: string[] = value.split(" - ");
+            this.startDate = parts[0] ? DateFormatter.parse(parts[0]) : new Date();
+            this.endDate = parts[1] ? DateFormatter.parse(parts[1]) : new Date();
         }
     }
 

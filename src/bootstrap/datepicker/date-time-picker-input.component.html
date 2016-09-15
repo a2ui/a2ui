@@ -1,0 +1,21 @@
+<div class="content">
+    <button [tooltip]="dateTimePicker"
+            [trigger]="'click'"
+            (tooltipCtrl)="dateTimePickerCtrl=$event"
+            (click)="directive.changeAvailability(hidden)"
+            type="button"
+            class="btn btn-default with date-picker-button"
+            placement="bottom"
+            aria-label="Calendar">
+        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+    </button>
+    <template #dateTimePicker>
+        <date-time-picker [(ngModel)]="model"
+                          (ngModelChange)="onChange($event);"
+                          (close)="onTouched(); dateTimePickerCtrl.hide();"
+                          [showWeeks]="true"
+                          [minDate]="minDate"
+                          [maxDate]="maxDate">
+        </date-time-picker>
+    </template>
+</div>
