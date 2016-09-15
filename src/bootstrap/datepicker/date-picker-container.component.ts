@@ -47,7 +47,7 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
     private compareHandlerMonth: Function;
     private refreshViewHandlerYear: Function;
     private compareHandlerYear: Function;
-    private update: ng.EventEmitter<Date> = new ng.EventEmitter<Date>();
+    private update: ng.EventEmitter<DateDecorator> = new ng.EventEmitter<DateDecorator>();
 
     @ng.Input()
     private get initDate (): any {
@@ -181,7 +181,7 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
         this.activeDate.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
 
         this.selectedDate = new Date(this.activeDate.getTime());
-        this.update.emit(this.activeDate);
+        this.update.emit(this.currentDate());
         this.refreshView();
     }
 
@@ -190,7 +190,7 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
         this.activeDate.setMinutes(minutes);
         this.activeDate.setSeconds(0);
         this.selectedDate = new Date(this.activeDate.getTime());
-        this.update.emit(this.activeDate);
+        this.update.emit(this.currentDate());
         this.refreshView();
     }
 
@@ -229,9 +229,13 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
         this.refreshView();
     }
 
-    isDisabled (date: Date): boolean {
+    private isDisabled (date: Date): boolean {
         return ((this.minDate && this.compare(date, DateFormatter.toDate(this.minDate)) < 0)
         || (this.maxDate && this.compare(date, DateFormatter.toDate(this.maxDate)) > 0));
+    }
+
+    private isValid (date: Date): boolean {
+        return !this.isDisabled(date);
     }
 
     private isActive (dateObject: any): boolean {
@@ -252,6 +256,13 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
         return dateObject;
     }
 
+    private currentDate (): DateDecorator {
+        return {
+            date: this.activeDate,
+            valid: this.isValid(this.activeDate)
+        };
+    }
+
     private isDatePickerMode (mode: string): boolean {
         return this.datepickerMode === mode;
     }
@@ -265,4 +276,8 @@ export class DatePickerContainer implements ng.OnInit, ng.OnChanges {
     }
 }
 
+export class DateDecorator {
+    date: Date;
+    valid: boolean;
+}
 

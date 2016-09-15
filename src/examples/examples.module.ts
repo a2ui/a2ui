@@ -22,6 +22,7 @@ import {TabsExampleComponent} from "./bootstrap/tabs/tabs.example.component";
 import {PaginationExampleComponent} from "./bootstrap/pagination/pagination.example.component";
 import {TableExampleComponent} from "./bootstrap/table/table.example.component";
 import {DatePickerExampleComponent} from "./bootstrap/datepicker/datepicker.example.component";
+import {DatePickerModule} from "../bootstrap/datepicker/date-picker.module";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, A2uiModule, routing],

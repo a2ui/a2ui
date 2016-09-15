@@ -10,8 +10,7 @@ const FORMAT_DAY: string = "dd";
 
 @ng.Component({
     selector: "day-picker",
-    templateUrl: "/src/bootstrap/datepicker/day-picker.component.html",
-    directives: [TimePickerComponent]
+    templateUrl: "/src/bootstrap/datepicker/day-picker.component.html"
 })
 export class DayPickerComponent implements ng.OnInit {
 

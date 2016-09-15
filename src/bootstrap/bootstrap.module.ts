@@ -12,20 +12,16 @@ import {PAGINATION_DIRECTIVES} from "./pagination/pagination.component";
 import {DataTable, Column, Header, Footer} from "./data-table/data-table.component";
 import {Modal} from "./modal/modal";
 import {HttpModule, JsonpModule} from "@angular/http";
-import {DateTimePickerInputComponent} from "./datepicker/date-time-picker-input.component";
-import {DatePickerInputComponent} from "./datepicker/date-picker-input.component";
-import {DateRangePickerInputComponent} from "./datepicker/date-range-picker-input.component";
-import {DateTimeRangePickerInputComponent} from "./datepicker/date-time-range-picker-input.component";
+import {DatePickerModule} from "./datepicker/date-picker.module";
 
 const BOOTSTRAP_DIRECTIVES: any[] = [PopoverDirective, DropdownDirective, ACCORDION_DIRECTIVES, Rating, Alert,
-    TABS_DIRECTIVES, PAGINATION_DIRECTIVES, DataTable, Column, Header, Footer, DatePickerInputComponent,
-    DateTimePickerInputComponent, DateRangePickerInputComponent, DateTimeRangePickerInputComponent
+    TABS_DIRECTIVES, PAGINATION_DIRECTIVES, DataTable, Column, Header, Footer
 ];
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpModule, JsonpModule],
+    imports: [BrowserModule, FormsModule, HttpModule, JsonpModule, DatePickerModule],
     declarations: BOOTSTRAP_DIRECTIVES,
-    exports: BOOTSTRAP_DIRECTIVES,
+    exports: [BOOTSTRAP_DIRECTIVES, DatePickerModule],
     providers: [BOOTSTRAP_EVENTS_PLUGIN, Modal]
 })
 export class BootstrapModule {

@@ -4,6 +4,8 @@ import {Tooltip} from "./tooltip";
 import {ViewContainerRef} from "@angular/core";
 import {isBlank} from "@angular/core/src/facade/lang";
 import {DateTimePickerComponent} from "./date-time-picker.component";
+import {ComponentRef} from "@angular/core";
+import {ComponentFactory} from "@angular/core";
 
 const DATE_TIME_PICKER_ACCESS: any = {
     provide: c.NG_VALUE_ACCESSOR,
@@ -31,25 +33,17 @@ export class DateTimePickerInputComponent implements c.ControlValueAccessor {
     };
 
     constructor (private vcr: ViewContainerRef,
-                 private componentResolver: ng.ComponentResolver,
+                 private componentFactoryResolver: ng.ComponentFactoryResolver,
                  private _renderer: ng.Renderer) {
-        this.createComponent().then((ref: ng.ComponentRef<any>) => {
-            this.instance = <any>ref.instance;
-            this.instance.onTouched = this.onTouched;
-            this.instance.onChange = (val: any) => {
-                this.writeValue(val);
-                this.onChange(val);
-            };
-            this.instance.model = this.model;
-            this.instance.hidden = false;
-            this.instance.minDate = this._minDate;
-            this.instance.maxDate = this._maxDate;
-            this.instance.directive = this;
-        });
+        let ref: ng.ComponentRef<DateTimePicker> = this.createComponent();
+        this.instance = <any>ref.instance;
+        this.instance.hidden = false;
+        this.instance.directive = this;
     }
 
     writeValue (obj: any): void {
         this.model = obj;
+        this.instance.model = this.model;
         let normalizedValue: string = isBlank(obj) ? "" : obj;
         this._renderer.setElementProperty(this.vcr.element.nativeElement, "value", normalizedValue);
     }
@@ -60,6 +54,10 @@ export class DateTimePickerInputComponent implements c.ControlValueAccessor {
             this.instance.model = this.model;
             fn(l);
         };
+        this.instance.onChange = (val: any) => {
+            this.writeValue(val);
+            this.onChange(val);
+        };
     }
 
     registerOnTouched (fn: any): void {
@@ -67,13 +65,12 @@ export class DateTimePickerInputComponent implements c.ControlValueAccessor {
             this.changeAvailability(true);
             fn();
         };
+        this.instance.onTouched = this.onTouched;
     }
 
-    createComponent (): Promise<any> {
-        return this.componentResolver.resolveComponent(DateTimePicker)
-            .then((componentFactory: ng.ComponentFactory<any>) => {
-                return this.vcr.createComponent(componentFactory);
-            });
+    createComponent (): ComponentRef<DateTimePicker> {
+        let componentFactory: ComponentFactory<DateTimePicker> = this.componentFactoryResolver.resolveComponentFactory(DateTimePicker);
+        return this.vcr.createComponent(componentFactory);
     }
 
     changeAvailability (disabled: boolean): void {
@@ -83,27 +80,19 @@ export class DateTimePickerInputComponent implements c.ControlValueAccessor {
 
     @ng.Input("minDate")
     set minDate (minDate: Date) {
-        if (this.instance !== undefined) {
-            this.instance.minDate = minDate;
-        }
         this._minDate = minDate;
+        this.instance.minDate = this._minDate;
     }
 
     @ng.Input("maxDate")
     set maxDate (maxDate: Date) {
-        if (this.instance !== undefined) {
-            this.instance.maxDate = maxDate;
-        }
         this._maxDate = maxDate;
+        this.instance.maxDate = this._maxDate;
     }
 }
 
 @ng.Component({
     selector: "date-time-picker-input",
-    directives: [
-        Tooltip,
-        DateTimePickerComponent
-    ],
     styles: [".content {float: right; bottom: 30px; position: relative;}"],
     template: `<div class="content">
             <button [tooltip]="dateTimePicker"

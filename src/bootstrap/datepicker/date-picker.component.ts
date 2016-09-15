@@ -1,10 +1,7 @@
 import * as ng from "@angular/core";
 import * as c from "@angular/forms";
-import {DatePickerContainer} from "./date-picker-container.component";
-import {DayPickerComponent} from "./day-picker.component";
-import {MonthPickerComponent} from "./month-picker.component";
-import {YearPickerComponent} from "./year-picker.component";
 import {DateFormatter} from "./date-formatter";
+import {DateDecorator} from "./date-picker-container.component";
 
 const DATE_PICKER_VALUE_ACCESSOR: any = {
     provide: c.NG_VALUE_ACCESSOR,
@@ -15,12 +12,6 @@ const DATE_PICKER_VALUE_ACCESSOR: any = {
 @ng.Component({
     selector: "date-picker",
     templateUrl: "/src/bootstrap/datepicker/date-picker.component.html",
-    directives: [
-        DatePickerContainer,
-        DayPickerComponent,
-        MonthPickerComponent,
-        YearPickerComponent
-    ],
     providers: [DATE_PICKER_VALUE_ACCESSOR]
 })
 export class DatePickerComponent implements c.ControlValueAccessor {
@@ -32,6 +23,7 @@ export class DatePickerComponent implements c.ControlValueAccessor {
     @ng.Output("close") close: ng.EventEmitter<Date> = new ng.EventEmitter<Date>();
 
     private activeDate: Date;
+    private isValid: boolean;
 
     onChange = (_: any) => {
     };
@@ -61,18 +53,27 @@ export class DatePickerComponent implements c.ControlValueAccessor {
         this.onTouched = fn;
     }
 
-    private onUpdate (event: any): void {
+    setValid (valid: boolean): void {
+        this.isValid = valid;
+    }
+
+    private onUpdate (value: DateDecorator): void {
         setTimeout(() => {
-            this.writeValue(event);
+            this.writeValue(value.date);
+            this.setValid(value.valid);
         }, 50);
+    }
+
+    private onDone (): void {
+        this.onClose();
+        this.onChange(this.activeDateToDateTime());
     }
 
     private onClose (): void {
         this.close.emit(this.activeDate);
-        this.onChange(this.activeDateToDateTime());
     }
 
-    private dateNotSelected (): boolean {
-        return this.activeDate === null;
+    private dateNotValid (): boolean {
+        return this.activeDate === null || !this.isValid;
     }
 }

@@ -1,3 +1,11 @@
+<div style="height: 20px;">
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="onClose()">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
 <date-picker-container [activeDate]="activeDate"
                        (update)="onUpdate($event)"
                        [initDate]="activeDate"
@@ -12,8 +20,8 @@
     <span class="forward">
         <button type="button"
                 class="btn btn-default btn-done"
-                [disabled]="dateNotSelected()"
-                (click)="onClose()">
+                [disabled]="dateNotValid()"
+                (click)="onDone()">
             Done
         </button>
     </span>

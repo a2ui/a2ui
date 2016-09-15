@@ -1,10 +1,7 @@
 import * as ng from "@angular/core";
 import * as c from "@angular/forms";
-import {DatePickerContainer} from "./date-picker-container.component";
-import {DayPickerComponent} from "./day-picker.component";
-import {MonthPickerComponent} from "./month-picker.component";
-import {YearPickerComponent} from "./year-picker.component";
 import {DateFormatter} from "./date-formatter";
+import {DateDecorator} from "./date-picker-container.component";
 
 const DATE_RANGE_PICKER_VALUE_ACCESSOR: any = {
     provide: c.NG_VALUE_ACCESSOR,
@@ -15,12 +12,6 @@ const DATE_RANGE_PICKER_VALUE_ACCESSOR: any = {
 @ng.Component({
     selector: "date-range-picker",
     templateUrl: "/src/bootstrap/datepicker/date-range-picker.component.html",
-    directives: [
-        DatePickerContainer,
-        DayPickerComponent,
-        MonthPickerComponent,
-        YearPickerComponent
-    ],
     providers: [DATE_RANGE_PICKER_VALUE_ACCESSOR]
 })
 export class DateRangePickerComponent implements c.ControlValueAccessor {
@@ -33,6 +24,7 @@ export class DateRangePickerComponent implements c.ControlValueAccessor {
 
     private startDate: Date;
     private endDate: Date;
+    private isValid: boolean;
 
     onChange = (_: any) => {
     };
@@ -81,29 +73,38 @@ export class DateRangePickerComponent implements c.ControlValueAccessor {
         return true;
     }
 
-    private onUpdate (value: any, type: RangeType): void {
-        if (value) {
+    setValid (valid: boolean): void {
+        this.isValid = valid;
+    }
+
+    private onUpdate (value: DateDecorator, type: RangeType): void {
+        if (value && value.date) {
             if (type === RangeType.START) {
-                this.startDate = DateFormatter.parse(value);
+                this.startDate = value.date;
                 if (DateRangePickerComponent.isDateLater(this.startDate, this.endDate)) {
                     this.endDate = new Date(this.startDate.getTime());
                 }
             } else if (type === RangeType.END) {
-                this.endDate = DateFormatter.parse(value);
+                this.endDate = value.date;
                 if (DateRangePickerComponent.isDateLater(this.startDate, this.endDate)) {
                     this.startDate = new Date(this.endDate.getTime());
                 }
             }
+            this.setValid(value.valid);
         }
     }
 
     private onClose (): void {
         this.close.emit();
+    }
+
+    private onDone (): void {
+        this.onClose();
         this.onChange(this.toDateRange());
     }
 
-    private dateNotSelected (): boolean {
-        return this.startDate === null && this.endDate === null;
+    private dateNotValid (): boolean {
+        return (this.startDate === null && this.endDate === null) || !this.isValid;
     }
 }
 

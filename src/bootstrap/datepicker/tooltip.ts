@@ -21,7 +21,8 @@ export class Tooltip implements ng.OnInit {
     tooltipContent: any;
     private controller: PopoverElement;
 
-    constructor (private cr: ng.ComponentResolver, private vcr: ng.ViewContainerRef) {
+    constructor (private cr: ng.ComponentResolver,
+                 private vcr: ng.ViewContainerRef) {
     }
 
     ngOnInit (): void {

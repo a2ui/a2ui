@@ -1,6 +1,13 @@
 <div style="width: 585px; overflow: hidden;">
+    <div style="height: 20px;">
+        <button type="button"
+                class="close"
+                aria-label="Close"
+                (click)="onClose()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
     <div style="float:left; margin-right: 5px;">
-        <h4>From:</h4>
         <date-picker-container [activeDate]="startDate"
                                (update)="onUpdate($event, 0)"
                                [initDate]="startDate"
@@ -14,7 +21,6 @@
         </date-picker-container>
     </div>
     <div style="float:left;">
-        <h4>To:</h4>
         <date-picker-container [activeDate]="endDate"
                                (update)="onUpdate($event, 1)"
                                [initDate]="endDate"
@@ -31,8 +37,8 @@
         <span class="forward">
             <button type="button"
                     class="btn btn-default btn-done"
-                    [disabled]="dateNotSelected()"
-                    (click)="onClose()">
+                    [disabled]="dateNotValid()"
+                    (click)="onDone()">
                 Done
             </button>
         </span>
