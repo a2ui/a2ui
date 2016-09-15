@@ -1,3 +1,5 @@
+// https://opensource.org/licenses/MIT
+
 export class DateFormatter {
 
     private static DATETIME_FORMATS: any = {
