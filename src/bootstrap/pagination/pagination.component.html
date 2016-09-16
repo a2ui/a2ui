@@ -1,10 +1,22 @@
 <div>
     <div>
-        <template [ngTemplateOutlet]="pageTemplate.templateRef" [ngOutletContext]="preparePageContext()"></template>
+        <template [ngTemplateOutlet]="pageTemplate.templateRef" [ngOutletContext]="pageContext"></template>
     </div>
     <div>
         <nav class="text-center">
-            <ul class="pagination">
+            <ul *ngIf="pager" class="pager">
+                <li [class.previous]="pager === 'aligned'" [class.disabled]="!hasPrev()">
+                    <a aria-label="Previous" (click)="openPrevious()">
+                        <span aria-hidden="true">&larr;</span>Previous
+                    </a>
+                </li>
+                <li [class.next]="pager === 'aligned'" [class.disabled]="!hasNext()">
+                    <a aria-label="Next" (click)="openNext()">
+                        Next<span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            </ul>
+            <ul *ngIf="!pager" class="pagination">
                 <li [class.disabled]="!hasPrev()">
                     <a aria-label="First" (click)="openFirst()">
                         <span aria-hidden="true">&laquo;&laquo;</span>
@@ -15,8 +27,11 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li *ngFor="let pageNumber of pages; let index = index" [class.active]="index === currentPage"><a
-                        (click)="open(index)">{{index + 1}}</a></li>
+
+                <li *ngFor="let pageNumber of pages;" [class.active]="pageNumber === currentPage">
+                    <a (click)="open(pageNumber)">{{pageNumber + 1}}</a>
+                </li>
+
                 <li [class.disabled]="!hasNext()">
                     <a aria-label="Next" (click)="openNext()">
                         <span aria-hidden="true">&raquo;</span>
@@ -39,6 +54,10 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li *ngIf="lazy">
+                    <button (click)="refresh()" class="btn btn-primary"><span
+                            class="glyphicon glyphicon-refresh"></span></button>
                 </li>
             </ul>
         </nav>
