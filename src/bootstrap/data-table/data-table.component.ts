@@ -1,63 +1,87 @@
-import {Component, Input, Output, Directive, QueryList, forwardRef, ContentChildren, AfterContentInit, ContentChild, EventEmitter} from "@angular/core";
+import {
+    Component,
+    Input,
+    Output,
+    Directive,
+    QueryList,
+    EventEmitter,
+    forwardRef,
+    ContentChildren,
+    AfterContentInit,
+    ContentChild,
+    ViewChild
+} from "@angular/core";
 import {NgClass} from "@angular/common";
-import {PAGINATION_DIRECTIVES} from "../pagination/pagination.component";
+import {
+    PAGINATION_UI_DIRECTIVES, Pagination, LazyPageData, Restraints, LazyLoadEvent, OrderMeta
+} from "../pagination/pagination.component";
 
 @Component({
     selector: "a2-data-table",
     templateUrl: "src/bootstrap/data-table/data-table.component.html",
-    directives: [PAGINATION_DIRECTIVES, NgClass]
+    directives: [PAGINATION_UI_DIRECTIVES, NgClass]
 })
 export class DataTable implements AfterContentInit {
-    pageSize: number = 5;
-    @Input()
-    public data: Array<any>;
-    @Input()
-    public selectionMode: string;
-    @Input()
-    public selection: Array<any> = [];
-    @Input()
-    public availablePageSizes: number[];
-    @Output()
-    public rowSelection: EventEmitter<any> = new EventEmitter<any>();
-    @ContentChildren(forwardRef(() => Column))
-    private columns: QueryList<Column>;
-    @ContentChild(forwardRef(() => Header))
-    private header: Header;
-    @ContentChild(forwardRef(() => Footer))
-    private footer: Footer;
 
-    private dataToDisplay: Array<any>;
-    private filters: any = {};
+    @Input() pageSize: number = 10;
+    @Input() lazy: boolean = false;
+    @Input() data: Array<any> | LazyPageData;
+    @Input() selectionMode: string;
+    @Input() selection: Array<any> = [];
+    @Input() availablePageSizes: number[];
+    @Input() tableClasses: string = "";
 
+    @Output() onLazy: EventEmitter<LazyLoadEvent> = new EventEmitter<LazyLoadEvent>();
+    @Output() rowSelection: EventEmitter<SelectionEvent> = new EventEmitter<SelectionEvent>();
+    @Output() rowEdit: EventEmitter<EditEvent> = new EventEmitter<EditEvent>();
+    @ContentChildren(forwardRef(() => Column)) private columns: QueryList<Column>;
+    @ContentChild(forwardRef(() => Header)) private header: Header;
+    @ContentChild(forwardRef(() => Footer)) private footer: Footer;
+
+    @ViewChild("paginator") private paginator: Pagination;
+    private currentSortedColumn: Column;
+    
     ngAfterContentInit(): any {
-        this.dataToDisplay = this.data.slice();
         if (this.isSingleSelectionMode() && this.selection.length > 1) {
             this.selection.splice(1, this.selection.length - 1);
         }
     }
 
-    private filter(): void {
-        this.dataToDisplay = this.data.filter(row => {
+    private filterFunction: Function = (data: Array<any>, restraints: Restraints) => {
+        return data.filter(row => {
             let fulfilled: boolean = true;
-            for (let key in this.filters) {
-                if (this.filters.hasOwnProperty(key)) {
-                    fulfilled = fulfilled && this.valueOf(row, key).includes(this.filters[key]);
+            for (let key in restraints.filterBy) {
+                if (restraints.filterBy.hasOwnProperty(key)) {
+                    fulfilled = fulfilled && this.valueOf(row, key).includes(restraints.filterBy[key]);
                 }
             }
             return fulfilled;
         });
-    }
+    };
 
-    private orderBy(column: Column): void {
+    private sortFunction = (data: Array<any>, restraints: Restraints) => {
+        let orderBy: OrderMeta = restraints.orderBy;
+        if (!orderBy) return data;
+        data.sort((a, b) => this.alphabeticalCompare(this.valueOf(a, orderBy.field), this.valueOf(b, orderBy.field), orderBy.order));
+        return data;
+    };
+    
+    private sort(restraints: Restraints, column: Column): void {
         if (column.sortBy === undefined) return;
-        this.dataToDisplay.sort((a, b) => this.alphabeticalSort(this.valueOf(a, column.sortBy), this.valueOf(b, column.sortBy), column.order));
+        this.currentSortedColumn = column;
+        restraints.orderBy = {field: column.content, order: column.order};
+        this.paginator.sort();
         column.order = column.order * -1;
     }
 
-    private alphabeticalSort(a: any, b: any, order: number): number {
-        if (a < b) return -1 * order;
-        if (a > b) return order;
-        return 0;
+    private alphabeticalCompare(value1: any, value2: any, order: number): number {
+        let result: number = 0;
+        if (value1 instanceof String && value2 instanceof String) {
+            result = value1.localeCompare(value2);
+        } else {
+            result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
+        }
+        return result * order;
     }
 
     private valueOf(root: any, path: string): any {
@@ -81,17 +105,33 @@ export class DataTable implements AfterContentInit {
     }
 
     private select(row: any): void {
+        let selectedRow: any;
+        let unselectedRow: any;
+
         if (this.isSingleSelectionMode()) {
-            let current: any = this.selection[0];
-            this.selection.splice(0, this.selection.length);
-            if (this.isDoubleClickSelectionMode() || current !== row) {
-                this.selection.push(row);
+            // TODO Consider cleaning selection array after selection mode change
+            if (this.isDoubleClickSelectionMode()) {
+                this.selection.splice(0, this.selection.length);
+                selectedRow = row;
+                unselectedRow = undefined;
+            } else {
+                unselectedRow = this.selection[0];
+                this.selection.splice(0, this.selection.length);
+                if (unselectedRow !== row) {
+                    this.selection.push(row);
+                    selectedRow = row;
+                }
             }
         } else if (this.isMultiSelectionMode()) {
             let index: number = this.selection.indexOf(row);
-            index !== -1 ? this.selection.splice(index, 1) : this.selection.push(row);
+            if (index !== -1) {
+                unselectedRow = this.selection.splice(index, 1);
+            } else {
+                this.selection.push(row);
+                selectedRow = row;
+            }
         }
-        this.rowSelection.emit(this.selection);
+        this.rowSelection.emit({selected: selectedRow, unselected: unselectedRow});
     }
 
     private edit(event: any, column: Column, row: any): void {
@@ -99,8 +139,22 @@ export class DataTable implements AfterContentInit {
         let paths: Array<string> = column.content.split(".");
         while (paths.length > 0) {
             let path: string = paths.shift();
-            paths.length !== 0 ? value = value[path] : value[path] = event;
+            if (paths.length !== 0) {
+                value = value[path];
+            } else {
+                this.rowEdit.emit({
+                    editedRow: row,
+                    editedField: column.content,
+                    oldValue: value[path],
+                    newValue: event
+                });
+                value[path] = event;
+            }
         }
+    }
+
+    private handleLazyLoading(event: LazyLoadEvent): void {
+        this.onLazy.emit(event);
     }
 
     private isSingleSelectionMode(): boolean {
@@ -123,13 +177,18 @@ export class DataTable implements AfterContentInit {
         return this.selectionMode === "multi" || this.selectionMode === "single";
     }
 
-    private getTableStyle(): string {
-        let tableClasses: string = "table";
+    private getTableClass(): string {
+        let tableClasses: string = "table " + this.tableClasses;
 
         if (this.isSelectionMode()) {
             tableClasses += " table-hover";
         }
         return tableClasses;
+    }
+
+    private getSortClass(column: Column): string {
+        return "glyphicon glyphicon-" + ((column === this.currentSortedColumn) ?
+            column.order === 1 ? "sort-by-attributes-alt" : "sort-by-attributes" : "sort");
     }
 
     private isSelected(row: any): boolean {
@@ -142,28 +201,37 @@ export class DataTable implements AfterContentInit {
     selector: "a2-column",
 })
 export class Column {
-    @Input()
-    public header: string;
-    @Input()
-    public content: string;
-    @Input()
-    public sortBy: string;
-    @Input()
-    public filterBy: string;
-    @Input()
-    public editable: boolean;
+    @Input() header: string;
+    @Input() content: string;
+    @Input() sortBy: string;
+    @Input() filterBy: string;
+    @Input() editable: boolean;
 
-    public order: number = 1;
+    order: number = 1;
 }
 
 @Component({
     selector: "a2-header",
     template: "<ng-content></ng-content>"
 })
-export class Header {}
+export class Header {
+}
 
 @Component({
     selector: "a2-footer",
     template: "<ng-content></ng-content>"
 })
-export class Footer {}
+export class Footer {
+}
+
+export interface SelectionEvent {
+    selected?: any;
+    unselected?: any;
+}
+
+export interface EditEvent {
+    editedRow: any;
+    editedField: string;
+    oldValue: any;
+    newValue: any;
+}

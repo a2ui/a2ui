@@ -1,26 +1,95 @@
 <div class="card">
+
     <div class="card-header">
         <h2>Pagination</h2>
     </div>
 
     <div class="card-body card-padding">
-
-        <a2-pagination [(selectedPageSize)]="pageSize" [data]="data" [availablePageSizes]="[1,5,10,15]">
-            <template pageTemplate let-persons="var">
-                <table class="table">
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Age</th>
-                    </tr>
-                    <tr *ngFor="let person of persons">
-                        <td>{{person.name}}</td>
-                        <td>{{person.surname}}</td>
-                        <td>{{person.age}}</td>
-                    </tr>
-                </table>
+        <a2-pagination [selectedPageSize]="pageSize" [data]="eagerData">
+            <template pageTemplate let-persons="pageData">
+                    <ul>
+                        <li *ngFor="let person of persons">{{person.name}} {{person.surname}} Age:{{person.age}}</li>
+                    </ul>
             </template>
         </a2-pagination>
+    </div>
 
+    <div class="card-header">
+        <h2>Pager</h2>
+    </div>
+
+    <button (click)="changePagerType()"> Change pager type</button><br/><br/>
+    <div class="card-body card-padding">
+        <a2-pagination [selectedPageSize]="pageSize" [data]="eagerData" [pager]="pagerType" >
+            <template pageTemplate let-persons="pageData">
+                <ul>
+                    <li *ngFor="let person of persons">{{person.name}} {{person.surname}} Age:{{person.age}}</li>
+                </ul>
+            </template>
+        </a2-pagination>
+    </div>
+
+    <div class="card-header">
+        <h2>Filtering and sorting</h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <a2-pagination #eagerPaginator [(selectedPageSize)]="pageSize" [data]="eagerData" [availablePageSizes]="[5,10,15]"
+                       [filterFunction]="filterFunction" [sortFunction]="sortFunction">
+            <template pageTemplate let-persons="pageData" let-restraints="restraints">
+                Filter oddities by name: <input [(ngModel)]="restraints.filterBy.name" (keyup)="eagerPaginator.filter()">
+                <button (click)="sort('name', restraints)">Sort oddities {{eagerOrder === 1 ? 'ascending': 'descending'}} by name</button><br/><br/>
+                <ul>
+                    <li *ngFor="let person of persons">{{person.name}} {{person.surname}} age {{person.age}}</li>
+                </ul>
+            </template>
+        </a2-pagination>
+    </div>
+
+    <div class="card-header">
+        <h2>Lazy Pagination</h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <a2-pagination [(selectedPageSize)]="pageSize" [data]="lazyData" [availablePageSizes]="[5,10,15]" (onLazy)="onLazy($event)" [lazy]="true">
+            <template pageTemplate let-persons="pageData">
+                <ul>
+                    <li *ngFor="let person of persons">{{person.name}} {{person.surname}} age {{person.age}}</li>
+                </ul>
+            </template>
+        </a2-pagination>
+    </div>
+
+    <div class="card-header">
+        <h2>Lazy filtering and sorting</h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <a2-pagination #lazyPaginator [(selectedPageSize)]="pageSize" [data]="lazyDataWithFiltering" [availablePageSizes]="[5,10,15]" (onLazy)="onLazyWithFiltering($event)" [lazy]="true">
+            <template pageTemplate let-persons="pageData" let-restraints="restraints">
+                Filter oddities by name: <input [(ngModel)]="restraints.filterBy.name" (keyup)="lazyPaginator.filter()">
+                <button (click)="sortLazy('name', restraints)">Sort oddities {{lazyOrder === 1 ? 'ascending': 'descending'}} by name</button><br/><br/>
+                <ul>
+                    <li *ngFor="let person of persons">{{person.name}} {{person.surname}} Age:{{person.age}}</li>
+                </ul>
+            </template>
+        </a2-pagination>
+    </div>
+
+    <div class="card-header">
+        <h2>Custom filtering</h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <a2-pagination #eagerPaginatorCustom [(selectedPageSize)]="pageSize" [data]="eagerData" [availablePageSizes]="[5,10,15]"
+                       [filterFunction]="filterFunctionWithCustomImpl" [sortFunction]="sortFunction">
+            <template pageTemplate let-persons="pageData" let-restraints="restraints">
+                Filter oddities by name: <input [(ngModel)]="restraints.filterBy.name" (keyup)="eagerPaginatorCustom.filter()">
+                Filter by name and surname:  <input [(ngModel)]="restraints.custom.allFieldsFilter" (keyup)="eagerPaginatorCustom.filter()">
+                <ul>
+                    <li *ngFor="let person of persons">{{person.name}} {{person.surname}} age {{person.age}}</li>
+                </ul>
+            </template>
+        </a2-pagination>
     </div>
 </div>
