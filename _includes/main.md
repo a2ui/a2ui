@@ -13,8 +13,10 @@
 * [Bootstrap events](/bootstrap/events) `ready`
 * Bootstrap typeahead
 * Bootstrap accordion
-* Bootstrap date and time picker
-* Bootstrap date and time range picker
+* [Bootstrap date picker](/bootstrap/date-picker) `ready`
+* [Bootstrap date time picker](/bootstrap/date-time-picker) `ready`
+* [Bootstrap date range picker](/bootstrap/date-range-picker) `ready`
+* [Bootstrap date time range picker](/bootstrap/date-time-range-picker) `ready`
 * Bootstrap vertical/horizontal tabs
 * Bootstrap tost / alert
 * Bootstrap feedback panel
