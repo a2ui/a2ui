@@ -30,7 +30,9 @@ export class DatePickerExampleComponent {
 {% endraw %}
 {% endhighlight %}
 
-option name: (type) - description
+{% highlight ts %}
+options: (type) - description
+{% endhighlight %}
 
 * minDate: (Date) - earliest possible date, 
 * maxDate: (Date) - latest possible date.
