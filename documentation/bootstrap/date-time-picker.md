@@ -13,7 +13,6 @@ Returns date time as string in format 'yyyy-MM-dd HH:mm' (2016-08-31 12:22).
 {% raw %}
 <input date-picker 
     [(ngModel)]="dateWithTime"
-    class="form-control"
     type="text"
     [minDate]="minDate"
     [maxDate]="maxDate" />

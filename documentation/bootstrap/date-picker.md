@@ -13,7 +13,6 @@ Returns date as string in format 'yyyy-MM-dd' (2016-08-30).
 {% raw %}
 <input date-picker 
     [(ngModel)]="date"
-    class="form-control"
     type="text"
     [minDate]="minDate"
     [maxDate]="maxDate" />
@@ -31,9 +30,7 @@ export class DatePickerExampleComponent {
 {% endraw %}
 {% endhighlight %}
 
-{% highlight ts %}
-options: (type) - description
-{% endhighlight %}
+option name: (type) - description
 
 * minDate: (Date) - earliest possible selectable date, 
 * maxDate: (Date) - latest possible selectable date.
