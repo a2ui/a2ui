@@ -1,22 +1,19 @@
-import * as ng from "@angular/core";
-import * as c from "@angular/forms";
-import {ViewContainerRef} from "@angular/core";
-import {isBlank} from "@angular/core/src/facade/lang";
-import {ComponentRef} from "@angular/core";
-import {ComponentFactory} from "@angular/core";
+import {Component, Input, Output, Directive, forwardRef, ViewContainerRef, ComponentRef, ComponentFactory, ComponentFactoryResolver, Renderer} from "@angular/core";
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from "@angular/forms";
+import {isBlank} from "./tooltip";
 
 const DATE_RANGE_PICKER_ACCESS: any = {
-    provide: c.NG_VALUE_ACCESSOR,
-    useExisting: ng.forwardRef(() => DateRangePickerInputComponent),
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => DateRangePickerInputComponent),
     multi: true
 };
 
-@ng.Directive({
+@Directive({
     selector: "[date-range-picker]",
     host: {"(input)": "onChange($event.target.value)", "(blur)": "onTouched()"},
     providers: [DATE_RANGE_PICKER_ACCESS]
 })
-export class DateRangePickerInputComponent implements c.ControlValueAccessor {
+export class DateRangePickerInputComponent implements ControlValueAccessor {
 
     model: any;
     instance: any;
@@ -31,9 +28,9 @@ export class DateRangePickerInputComponent implements c.ControlValueAccessor {
     };
 
     constructor (private vcr: ViewContainerRef,
-                 private componentFactoryResolver: ng.ComponentFactoryResolver,
-                 private _renderer: ng.Renderer) {
-        let ref: ng.ComponentRef<DateRangePicker> = this.createComponent();
+                 private componentFactoryResolver: ComponentFactoryResolver,
+                 private _renderer: Renderer) {
+        let ref: ComponentRef<DateRangePicker> = this.createComponent();
         this.instance = <any>ref.instance;
         this.instance.hidden = false;
         this.instance.directive = this;
@@ -66,30 +63,30 @@ export class DateRangePickerInputComponent implements c.ControlValueAccessor {
         this.instance.onTouched = this.onTouched;
     }
 
-    createComponent (): ComponentRef<DateRangePicker> {
+    private createComponent (): ComponentRef<DateRangePicker> {
         let componentFactory: ComponentFactory<DateRangePicker> = this.componentFactoryResolver.resolveComponentFactory(DateRangePicker);
         return this.vcr.createComponent(componentFactory);
     }
 
-    changeAvailability (disabled: boolean): void {
+    private changeAvailability (disabled: boolean): void {
         this.instance.hidden = !disabled;
         this._renderer.setElementProperty(this.vcr.element.nativeElement, "disabled", !disabled);
     }
 
-    @ng.Input("minDate")
+    @Input("minDate")
     set minDate (minDate: Date) {
         this._minDate = minDate;
         this.instance.minDate = this._minDate;
     }
 
-    @ng.Input("maxDate")
+    @Input("maxDate")
     set maxDate (maxDate: Date) {
         this._maxDate = maxDate;
         this.instance.maxDate = this._maxDate;
     }
 }
 
-@ng.Component({
+@Component({
     selector: "date-range-picker-input",
     templateUrl: "/src/bootstrap/datepicker/date-range-picker-input.component.html"
 })

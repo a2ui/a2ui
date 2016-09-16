@@ -12,14 +12,12 @@
             </button>
         </th>
         <th [attr.colspan]="showWeeks ? 6 : 5">
-            <button [id]="container.uniqueId + '-title'"
-                    type="button"
-                    class="btn btn-default btn-secondary btn-sm"
+            <button type="button"
+                    class="btn btn-default btn-secondary btn-sm day-picker-button"
                     (click)="container.toggleMode()"
                     [disabled]="container.datepickerMode === container.maxMode"
                     [ngClass]="{disabled: container.datepickerMode === container.maxMode}"
-                    tabindex="-1"
-                    style="width:100%;height:24px">
+                    tabindex="-1">
                 <strong>{{title}}</strong>
             </button>
         </th>
@@ -31,7 +29,7 @@
             </button>
         </th>
     </tr>
-    <tr style="line-height:30px;">
+    <tr class="day-picker-headers">
         <th [hidden]="!showWeeks"></th>
         <th *ngFor="let label of labels" class="text-center">
             <small aria-label="label.full"><b>{{label.abbr}}</b></small>
@@ -42,8 +40,8 @@
     <template ngFor let-rowz [ngForOf]="rows" let-index="index">
         <tr *ngIf="!rowz[0].secondary || !rowz[6].secondary">
             <td [hidden]="!showWeeks" class="text-center h6"><em>{{ weekNumbers[index] }}</em></td>
-            <td *ngFor="let dtz of rowz" class="text-center" role="gridcell" [id]="dtz.uid">
-                <button type="button" style="min-width:100%;" class="btn btn-default btn-sm"
+            <td *ngFor="let dtz of rowz" class="text-center" role="gridcell">
+                <button type="button" class="btn btn-default btn-sm"
                         [ngClass]="{'btn-info': dtz.selected, 'active': container.isActive(dtz), 'disabled': dtz.disabled}"
                         [disabled]="dtz.disabled"
                         (click)="container.select(dtz.date)" tabindex="-1">
@@ -57,8 +55,7 @@
 <div [hidden]="container.datepickerMode!=='day'" class="text-center">
     <div>
         <button [disabled]="isCurrentDateDisbled()"
-                class="btn btn-default"
-                style="margin-top: 10px !important;"
+                class="btn btn-default day-picker-btn-today"
                 (click)="selectToday()">Today
         </button>
     </div>

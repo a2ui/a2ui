@@ -1,14 +1,14 @@
-import * as ng from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {DatePickerContainer} from "./date-picker-container.component";
 
 const YEAR_RANGE: number = 16;
 const FORMAT_YEAR: string = "yyyy";
 
-@ng.Component({
+@Component({
     selector: "year-picker",
     templateUrl: "/src/bootstrap/datepicker/year-picker.component.html"
 })
-export class YearPickerComponent implements ng.OnInit {
+export class YearPickerComponent implements OnInit {
 
     public rows: Array<any> = [];
 

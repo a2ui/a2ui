@@ -5,14 +5,14 @@
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle angular2-quickstart@1.0.0~prestart: angular2-quickstart@1.0.0
 6 verbose lifecycle angular2-quickstart@1.0.0~prestart: unsafe-perm in lifecycle true
-7 verbose lifecycle angular2-quickstart@1.0.0~prestart: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/k.zarychta/Project/a2ui_new/a2ui-1/node_modules/.bin:/usr/bin:/home/k.zarychta/.rbenv/plugins/ruby-build/bin:/home/k.zarychta/.rbenv/shims:/home/k.zarychta/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-8 verbose lifecycle angular2-quickstart@1.0.0~prestart: CWD: /home/k.zarychta/Project/a2ui_new/a2ui-1
+7 verbose lifecycle angular2-quickstart@1.0.0~prestart: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/k.zarychta/Project/a2ui_new/a2ui/a2ui-1/node_modules/.bin:/usr/bin:/home/k.zarychta/.rbenv/plugins/ruby-build/bin:/home/k.zarychta/.rbenv/shims:/home/k.zarychta/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+8 verbose lifecycle angular2-quickstart@1.0.0~prestart: CWD: /home/k.zarychta/Project/a2ui_new/a2ui/a2ui-1
 9 silly lifecycle angular2-quickstart@1.0.0~prestart: Args: [ '-c', 'tslint -c tslint.json "src/**/*.ts"' ]
 10 silly lifecycle angular2-quickstart@1.0.0~prestart: Returned: code: 0  signal: null
 11 info lifecycle angular2-quickstart@1.0.0~start: angular2-quickstart@1.0.0
 12 verbose lifecycle angular2-quickstart@1.0.0~start: unsafe-perm in lifecycle true
-13 verbose lifecycle angular2-quickstart@1.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/k.zarychta/Project/a2ui_new/a2ui-1/node_modules/.bin:/usr/bin:/home/k.zarychta/.rbenv/plugins/ruby-build/bin:/home/k.zarychta/.rbenv/shims:/home/k.zarychta/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-14 verbose lifecycle angular2-quickstart@1.0.0~start: CWD: /home/k.zarychta/Project/a2ui_new/a2ui-1
+13 verbose lifecycle angular2-quickstart@1.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/k.zarychta/Project/a2ui_new/a2ui/a2ui-1/node_modules/.bin:/usr/bin:/home/k.zarychta/.rbenv/plugins/ruby-build/bin:/home/k.zarychta/.rbenv/shims:/home/k.zarychta/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+14 verbose lifecycle angular2-quickstart@1.0.0~start: CWD: /home/k.zarychta/Project/a2ui_new/a2ui/a2ui-1
 15 silly lifecycle angular2-quickstart@1.0.0~start: Args: [ '-c', 'tsc && concurrently "npm run tsc:w" "npm run lite" ' ]
 16 silly lifecycle angular2-quickstart@1.0.0~start: Returned: code: 2  signal: null
 17 info lifecycle angular2-quickstart@1.0.0~start: Failed to exec start script
@@ -27,8 +27,8 @@
 18 verbose stack     at maybeClose (internal/child_process.js:877:16)
 18 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 19 verbose pkgid angular2-quickstart@1.0.0
-20 verbose cwd /home/k.zarychta/Project/a2ui_new/a2ui-1
-21 error Linux 3.13.0-93-generic
+20 verbose cwd /home/k.zarychta/Project/a2ui_new/a2ui/a2ui-1
+21 error Linux 3.13.0-95-generic
 22 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
 23 error node v6.5.0
 24 error npm  v3.10.3

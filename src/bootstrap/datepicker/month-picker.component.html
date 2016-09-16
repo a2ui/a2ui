@@ -8,11 +8,11 @@
             </button>
         </th>
         <th>
-            <button [id]="uniqueId + '-title'"
-                    type="button" class="btn btn-default btn-sm"
+            <button type="button"
+                    class="btn btn-default btn-sm"
                     (click)="datePicker.toggleMode()"
                     [disabled]="datePicker.datepickerMode === maxMode"
-                    [ngClass]="{disabled: datePicker.datepickerMode === maxMode}" tabindex="-1" style="width:100%;">
+                    [ngClass]="{disabled: datePicker.datepickerMode === maxMode}" tabindex="-1">
                 <strong>{{title}}</strong>
             </button>
         </th>
@@ -27,7 +27,7 @@
     <tbody>
     <tr *ngFor="let rowz of rows">
         <td *ngFor="let dtz of rowz" class="text-center" role="gridcell" id="{{dtz.uid}}" [ngClass]="dtz.customClass">
-            <button type="button" style="width:85px;" class="btn btn-default"
+            <button type="button" class="btn btn-default month-picker-button"
                     [ngClass]="{'btn-info': dtz.selected, active: datePicker.isActive(dtz), disabled: dtz.disabled}"
                     [disabled]="dtz.disabled"
                     (click)="datePicker.select(dtz.date)" tabindex="-1">
