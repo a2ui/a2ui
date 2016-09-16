@@ -3,6 +3,7 @@
 * [Clipboard copy and cut](/utils/copy-and-cut) `ready`
 * [On initialize expression](/utils/on-init) `ready`
 * [Upload component](/utils/upload) `ready`
+* [File drag events](/utils/file-drag-events) `ready`
 * [Changes watcher](/utils/watcher) `ready`
 * Table helpers
 * Validation helpers

@@ -38,7 +38,8 @@ interface UploadEvent {
     onFinish: Subject<Response>; // Way to listen to upload Response
 }
 {% endhighlight %}
-
+In case where user will drop or select multiple files then this event will be emitted for every uploaded files.
+Every file is uploaded independently.
 
 ### Example
 {% highlight html %}
