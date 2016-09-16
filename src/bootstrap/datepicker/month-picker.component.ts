@@ -1,15 +1,15 @@
-import * as ng from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {DatePickerContainer} from "./date-picker-container.component";
 import {DateFormatter} from "./date-formatter";
 
 const FORMAT_MONTH_TITLE: string = "yyyy";
 const FORMAT_MONTH: string = "MMMM";
 
-@ng.Component({
+@Component({
     selector: "month-picker",
     templateUrl: "/src/bootstrap/datepicker/month-picker.component.html"
 })
-export class MonthPickerComponent implements ng.OnInit {
+export class MonthPickerComponent implements OnInit {
     public title: string;
     public rows: Array<any> = [];
     private formatMonthTitle: string = FORMAT_MONTH_TITLE;

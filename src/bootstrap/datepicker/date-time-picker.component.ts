@@ -1,26 +1,26 @@
-import * as ng from "@angular/core";
-import * as c from "@angular/forms";
+import {Component, Input, Output, Directive, forwardRef, EventEmitter} from "@angular/core";
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from "@angular/forms";
 import {DateFormatter} from "./date-formatter";
 import {DateDecorator} from "./date-picker-container.component";
 
 const DATE_TIME_PICKER_VALUE_ACCESSOR: any = {
-    provide: c.NG_VALUE_ACCESSOR,
-    useExisting: ng.forwardRef(() => DateTimePickerComponent),
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => DateTimePickerComponent),
     multi: true
 };
 
-@ng.Component({
+@Component({
     selector: "date-time-picker",
     templateUrl: "/src/bootstrap/datepicker/date-time-picker.component.html",
     providers: [DATE_TIME_PICKER_VALUE_ACCESSOR]
 })
-export class DateTimePickerComponent implements c.ControlValueAccessor {
+export class DateTimePickerComponent implements ControlValueAccessor {
 
-    @ng.Input("showWeeks") showWeeks: boolean;
-    @ng.Input() minDate: Date;
-    @ng.Input() maxDate: Date;
+    @Input("showWeeks") showWeeks: boolean;
+    @Input() minDate: Date;
+    @Input() maxDate: Date;
 
-    @ng.Output("close") close: ng.EventEmitter<Date> = new ng.EventEmitter<Date>();
+    @Output("close") close: EventEmitter<Date> = new EventEmitter<Date>();
 
     private activeDate: Date;
     private isValid: boolean;
@@ -40,9 +40,6 @@ export class DateTimePickerComponent implements c.ControlValueAccessor {
         }
     }
 
-    activeDateToDateTime (format ?: string): string {
-        return this.activeDate ? DateFormatter.format(this.activeDate, format ? format : "yyyy-MM-dd HH:mm") : null;
-    }
 
     registerOnChange (fn: any): void {
         this.onChange = fn;
@@ -54,6 +51,10 @@ export class DateTimePickerComponent implements c.ControlValueAccessor {
 
     setValid (valid: boolean): void {
         this.isValid = valid;
+    }
+
+    private activeDateToDateTime (format ?: string): string {
+        return this.activeDate ? DateFormatter.format(this.activeDate, format ? format : "yyyy-MM-dd HH:mm") : null;
     }
 
     private onUpdate (value: DateDecorator): void {

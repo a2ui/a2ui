@@ -1,4 +1,4 @@
-import * as ng from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {DatePickerContainer} from "./date-picker-container.component";
 import {DateFormatter} from "./date-formatter";
 
@@ -7,20 +7,20 @@ const FORMAT_DAY_TITLE: string = "MMMM yyyy";
 const FORMAT_DAY_HEADER: string = "EEE";
 const FORMAT_DAY: string = "dd";
 
-@ng.Component({
+@Component({
     selector: "day-picker",
     templateUrl: "/src/bootstrap/datepicker/day-picker.component.html"
 })
-export class DayPickerComponent implements ng.OnInit {
+export class DayPickerComponent implements OnInit {
 
     public labels: Array<any> = [];
     public title: string;
     public rows: Array<any> = [];
     public weekNumbers: Array<number> = [];
 
-    @ng.Input()
+    @Input()
     private showWeeks: boolean = SHOW_WEEKS;
-    @ng.Input()
+    @Input()
     private showTime: boolean = false;
 
     private formatDayHeader: string = FORMAT_DAY_HEADER;

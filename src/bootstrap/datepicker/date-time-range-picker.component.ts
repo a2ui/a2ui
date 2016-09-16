@@ -1,27 +1,27 @@
-import * as ng from "@angular/core";
-import * as c from "@angular/forms";
+import {Component, Input, Output, Directive, forwardRef, EventEmitter} from "@angular/core";
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from "@angular/forms";
 import {DateFormatter} from "./date-formatter";
 import {DateRangePickerComponent} from "./date-range-picker.component";
 import {DateDecorator} from "./date-picker-container.component";
 
 const DATE_TIME_RANGE_PICKER_VALUE_ACCESSOR: any = {
-    provide: c.NG_VALUE_ACCESSOR,
-    useExisting: ng.forwardRef(() => DateTimeRangePickerComponent),
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => DateTimeRangePickerComponent),
     multi: true
 };
 
-@ng.Component({
+@Component({
     selector: "date-time-range-picker",
     templateUrl: "/src/bootstrap/datepicker/date-time-range-picker.component.html",
     providers: [DATE_TIME_RANGE_PICKER_VALUE_ACCESSOR]
 })
-export class DateTimeRangePickerComponent implements c.ControlValueAccessor {
+export class DateTimeRangePickerComponent implements ControlValueAccessor {
 
-    @ng.Input("showWeeks") showWeeks: boolean;
-    @ng.Input() minDate: Date;
-    @ng.Input() maxDate: Date;
+    @Input("showWeeks") showWeeks: boolean;
+    @Input() minDate: Date;
+    @Input() maxDate: Date;
 
-    @ng.Output("close") close: ng.EventEmitter<Date> = new ng.EventEmitter<Date>();
+    @Output("close") close: EventEmitter<Date> = new EventEmitter<Date>();
 
     private startDate: Date;
     private endDate: Date;
@@ -43,7 +43,19 @@ export class DateTimeRangePickerComponent implements c.ControlValueAccessor {
         }
     }
 
-    toDateRange (format ?: string): string {
+    registerOnChange (fn: any): void {
+        this.onChange = fn;
+    }
+
+    registerOnTouched (fn: any): void {
+        this.onTouched = fn;
+    }
+
+    setValid (valid: boolean): void {
+        this.isValid = valid;
+    }
+
+    private toDateRange (format ?: string): string {
         let result: string = "";
         if (this.startDate !== undefined && this.startDate !== null) {
             result += DateFormatter.format(this.startDate, format ? format : "yyyy-MM-dd HH:mm");
@@ -55,18 +67,6 @@ export class DateTimeRangePickerComponent implements c.ControlValueAccessor {
             result += DateFormatter.format(this.endDate, format ? format : "yyyy-MM-dd HH:mm");
         }
         return result;
-    }
-
-    registerOnChange (fn: any): void {
-        this.onChange = fn;
-    }
-
-    registerOnTouched (fn: any): void {
-        this.onTouched = fn;
-    }
-
-    setValid (valid: boolean): void {
-        this.isValid = valid;
     }
 
     private onUpdate (value: DateDecorator, type: RangeType): void {

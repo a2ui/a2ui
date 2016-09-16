@@ -44,11 +44,11 @@ export class TimePickerComponent implements ng.OnInit {
         this.container.refreshView();
     }
 
-    hourChanged (hour: any): void {
+    private hourChanged (hour: any): void {
         this.container.selectTime(hour, this.minute);
     }
 
-    minuteChanged (minute: any): void {
+    private minuteChanged (minute: any): void {
         this.container.selectTime(this.hour, minute);
     }
 
