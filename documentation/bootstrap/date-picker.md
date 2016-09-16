@@ -32,5 +32,5 @@ export class DatePickerExampleComponent {
 
 option name: (type) - description
 
-* minDate: (Date) - earliest possible date, 
-* maxDate: (Date) - latest possible date.
+* minDate: (Date) - earliest possible selectable date, 
+* maxDate: (Date) - latest possible selectable date.
