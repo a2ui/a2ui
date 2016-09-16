@@ -12,7 +12,7 @@ import {Subject} from "rxjs/Subject";
     }
 })
 export class UploadDirective {
-    private onUpload: EventEmitter<any> = new EventEmitter<Response>();
+    private onUpload: EventEmitter<UploadEvent> = new EventEmitter<UploadEvent>();
     private options: UploadOptions = {};
 
     constructor(private http: Http) {
@@ -66,7 +66,7 @@ export class UploadDirective {
             let formData: FormData = new FormData();
             formData.append(nameGenerator(files.item(i), i), files.item(i));
 
-            let upload: any = {
+            let upload: UploadEvent = {
                 item: files.item(i),
                 name: files.item(i).name,
                 response: undefined,
