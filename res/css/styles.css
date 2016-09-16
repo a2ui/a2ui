@@ -58,13 +58,12 @@
     display: block;
 }
 
-
 date-picker-input .popover {
     max-width: 340px !important;
 }
 
 date-range-picker-input .popover {
-    max-width: 600px !important;
+    max-width: 650px !important;
 }
 
 date-time-picker-input .popover {
@@ -107,7 +106,7 @@ date-range-picker-input .content {
 
 .timepicker {
     display: flex;
-    width: 110px;
+    width: 140px;
     margin: auto;
     padding-top: 5px;
 }
@@ -118,5 +117,57 @@ date-range-picker-input .content {
 }
 
 .timepicker .select {
-    width: 50px;
+    width: 70px;
+}
+
+.date-picker {
+    width: 618px;
+    overflow: hidden;
+}
+
+.date-picker-header {
+    height: 20px;
+}
+
+.date-range-picker-from {
+    float: left;
+    margin-right: 5px;
+}
+
+.date-range-picker-to {
+    float: left;
+}
+
+.date-picker-footer {
+    margin-right: 2px;
+}
+
+.date-time-picker-footer {
+    margin: 5px 0;
+}
+
+.date-picker-button {
+    margin-left: 3px;
+    height: 30px;
+}
+
+.margin-bottom-8 {
+    margin-bottom: 8px;
+}
+
+.day-picker-button {
+    width: 100%;
+    height: 24px
+}
+
+.day-picker-btn-today {
+    margin-top: 10px !important;
+}
+
+.day-picker-headers {
+    line-height:30px;
+}
+
+.month-picker-button {
+    width:85px;
 }

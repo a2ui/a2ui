@@ -1,0 +1,46 @@
+<div class="date-picker">
+    <div class="date-picker-header">
+        <button type="button"
+                class="close"
+                aria-label="Close"
+                (click)="onClose()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="date-range-picker-from">
+        <date-picker-container [activeDate]="startDate"
+                               (update)="onUpdate($event, 0)"
+                               [initDate]="startDate"
+                               [minDate]="minDate"
+                               [maxDate]="maxDate">
+            <day-picker [showWeeks]="showWeeks"
+                        [showTime]="true">
+            </day-picker>
+            <month-picker></month-picker>
+            <year-picker></year-picker>
+        </date-picker-container>
+    </div>
+    <div class="date-range-picker-to">
+        <date-picker-container [activeDate]="endDate"
+                               (update)="onUpdate($event, 1)"
+                               [initDate]="endDate"
+                               [minDate]="minDate"
+                               [maxDate]="maxDate">
+            <day-picker [showWeeks]="showWeeks"
+                        [showTime]="true">
+            </day-picker>
+            <month-picker></month-picker>
+            <year-picker></year-picker>
+        </date-picker-container>
+    </div>
+    <div class="paper-actions date-picker-footer">
+        <span class="forward">
+            <button type="button"
+                    class="btn btn-default btn-done"
+                    [disabled]="dateNotValid()"
+                    (click)="onDone()">
+                Done
+            </button>
+        </span>
+    </div>
+</div>

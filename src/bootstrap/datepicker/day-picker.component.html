@@ -1,0 +1,64 @@
+<table class="paper-datepicker" [hidden]="container.datepickerMode!=='day'" role="grid"
+       aria-labelledby="uniqueId+'-title'"
+       aria-activedescendant="activeDateId">
+    <thead>
+    <tr>
+        <th>
+            <button type="button"
+                    class="btn btn-default btn-secondary btn-sm pull-left"
+                    (click)="container.move(-1)"
+                    tabindex="-1">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+            </button>
+        </th>
+        <th [attr.colspan]="showWeeks ? 6 : 5">
+            <button type="button"
+                    class="btn btn-default btn-secondary btn-sm day-picker-button"
+                    (click)="container.toggleMode()"
+                    [disabled]="container.datepickerMode === container.maxMode"
+                    [ngClass]="{disabled: container.datepickerMode === container.maxMode}"
+                    tabindex="-1">
+                <strong>{{title}}</strong>
+            </button>
+        </th>
+        <th>
+            <button type="button" class="btn btn-default btn-secondary btn-sm pull-right"
+                    (click)="container.move(1)"
+                    tabindex="-1">
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </button>
+        </th>
+    </tr>
+    <tr class="day-picker-headers">
+        <th [hidden]="!showWeeks"></th>
+        <th *ngFor="let label of labels" class="text-center">
+            <small aria-label="label.full"><b>{{label.abbr}}</b></small>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <template ngFor let-rowz [ngForOf]="rows" let-index="index">
+        <tr *ngIf="!rowz[0].secondary || !rowz[6].secondary">
+            <td [hidden]="!showWeeks" class="text-center h6"><em>{{ weekNumbers[index] }}</em></td>
+            <td *ngFor="let dtz of rowz" class="text-center" role="gridcell">
+                <button type="button" class="btn btn-default btn-sm"
+                        [ngClass]="{'btn-info': dtz.selected, 'active': container.isActive(dtz), 'disabled': dtz.disabled}"
+                        [disabled]="dtz.disabled"
+                        (click)="container.select(dtz.date)" tabindex="-1">
+                    <span [ngClass]="{'text-muted': dtz.secondary, 'text-info': dtz.current}">{{dtz.label}}</span>
+                </button>
+            </td>
+        </tr>
+    </template>
+    </tbody>
+</table>
+<div [hidden]="container.datepickerMode!=='day'" class="text-center">
+    <div>
+        <button [disabled]="isCurrentDateDisbled()"
+                class="btn btn-default day-picker-btn-today"
+                (click)="selectToday()">Today
+        </button>
+    </div>
+    <time-picker *ngIf="showTime">
+    </time-picker>
+</div>
