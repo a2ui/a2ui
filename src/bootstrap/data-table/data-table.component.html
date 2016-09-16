@@ -1,30 +1,35 @@
-<a2-pagination [selectedPageSize]="pageSize" [data]="dataToDisplay" [availablePageSizes]="availablePageSizes">
-    <template pageTemplate let-rows="var">
-        <table [class]="getTableStyle()">
+<a2-pagination #paginator [selectedPageSize]="pageSize" [data]="data" [availablePageSizes]="availablePageSizes"
+               [lazy]="lazy" [filterFunction]="filterFunction" [sortFunction]="sortFunction"
+               (onLazy)="handleLazyLoading($event)">
+    <template pageTemplate let-rows="pageData" let-restraints="restraints">
+        <table [class]="getTableClass()">
             <caption *ngIf="header">
-                <ng-content select="header"></ng-content>
+                <ng-content select="a2-header"></ng-content>
             </caption>
             <thead>
-            <tr>
-                <th *ngFor="let column of columns">
-                    <p class="text-center" (click)="orderBy(column)">{{column.header}}</p>
-                    <input class="form-control" (keyup)="filter()" [(ngModel)]="filters[column.content]"
-                           *ngIf="column.filterBy">
-                </th>
-            </tr>
+                <tr>
+                    <th *ngFor="let column of columns">
+                        <p class="text-center" (click)="sort(restraints, column)">
+                            {{column.header}}
+                            <i *ngIf="column.sortBy" [class]="getSortClass(column)"></i>
+                        </p>
+                        <input class="form-control" (keyup)="paginator.filter()" [(ngModel)]="restraints.filterBy[column.content]"
+                               *ngIf="column.filterBy">
+                    </th>
+                </tr>
             </thead>
             <tbody>
-            <tr (dblclick)="handleRowDblClick(row)" (click)="handleRowClick(row)" *ngFor="let row of rows"
-                [ngClass]="{'success': isSelected(row)}">
-                <td *ngFor="let column of columns">
-                    <div *ngIf="!column.editable">{{valueOf(row, column.content)}}</div>
-                    <input style="background-color: inherit; border: none; outline: none;" *ngIf="column.editable"
-                           [ngModel]="valueOf(row, column.content)" (ngModelChange)="edit($event, column, row)">
-                </td>
-            </tr>
+                <tr (dblclick)="handleRowDblClick(row)" (click)="handleRowClick(row)" *ngFor="let row of rows"
+                    [ngClass]="{'success': isSelected(row)}">
+                    <td *ngFor="let column of columns">
+                        <div *ngIf="!column.editable">{{valueOf(row, column.content)}}</div>
+                        <input class="form-control"  *ngIf="column.editable"
+                               [ngModel]="valueOf(row, column.content)" (ngModelChange)="edit($event, column, row)">
+                    </td>
+                </tr>
             </tbody>
             <tfoot *ngIf="footer">
-            <ng-content select="footer"></ng-content>
+                <ng-content select="a2-footer"></ng-content>
             </tfoot>
         </table>
     </template>
