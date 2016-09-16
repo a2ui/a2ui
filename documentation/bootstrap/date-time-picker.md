@@ -11,12 +11,10 @@ Returns date time as string in format 'yyyy-MM-dd HH:mm' (2016-08-31 12:22).
 
 {% highlight html %}
 {% raw %}
-<!-- date-picker.example.component.html -->
 <input date-picker 
     [(ngModel)]="dateWithTime"
     class="form-control"
     type="text"
-    name="myDateTime"
     [minDate]="minDate"
     [maxDate]="maxDate" />
     
@@ -25,7 +23,6 @@ Returns date time as string in format 'yyyy-MM-dd HH:mm' (2016-08-31 12:22).
 
 {% highlight ts %}
 {% raw %}
-<!-- date-picker.example.component.ts -->
 export class DatePickerExampleComponent {
     dateWithTime: string = "2016-08-30 12:22";
     minDate: Date = new Date(new Date().getTime() - 7 * 86400000);
@@ -33,3 +30,10 @@ export class DatePickerExampleComponent {
 }
 {% endraw %}
 {% endhighlight %}
+
+{% highlight ts %}
+options: (type) - description
+{% endhighlight %}
+
+* minDate: (Date) - earliest possible selectable date, 
+* maxDate: (Date) - latest possible selectable date.
