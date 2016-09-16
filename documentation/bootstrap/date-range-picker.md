@@ -14,7 +14,6 @@ Returns date range as string in format 'yyyy-MM-dd - yyyy-MM-dd' (2016-08-31 - 2
 {% raw %}
 <input date-range-picker 
     [(ngModel)]="dateRange"
-    class="form-control"
     type="text"
     [minDate]="minDate"
     [maxDate]="maxDate" />
@@ -32,9 +31,7 @@ export class DatePickerExampleComponent {
 {% endraw %}
 {% endhighlight %}
 
-{% highlight ts %}
-options: (type) - description
-{% endhighlight %}
+option name: (type) - description
 
-* minDate: (Date) - earliest possible selectable date, 
-* maxDate: (Date) - latest possible selectable date.
+* minDate: (Date) - earliest possible date, 
+* maxDate: (Date) - latest possible date.
