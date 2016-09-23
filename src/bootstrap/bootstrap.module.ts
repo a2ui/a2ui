@@ -9,10 +9,11 @@ import {Rating} from "./rating/rating.component";
 import {Alert} from "./alert/alert.component";
 import {TABS_DIRECTIVES} from "./tabs/tabs.component";
 import {PAGINATION_UI_DIRECTIVES} from "./pagination/pagination.component";
-import {DataTable, Column, Header, Footer} from "./data-table/data-table.component";
+import {DataTable, Column} from "./data-table/data-table.component";
 import {Modal} from "./modal/modal";
 import {HttpModule, JsonpModule} from "@angular/http";
 import {DatePickerModule} from "./datepicker/date-picker.module";
+import {Header, Footer} from "./common/common";
 
 const BOOTSTRAP_DIRECTIVES: any[] = [PopoverDirective, DropdownDirective, ACCORDION_DIRECTIVES, Rating, Alert,
     TABS_DIRECTIVES, PAGINATION_UI_DIRECTIVES, DataTable, Column, Header, Footer
