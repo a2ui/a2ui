@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnChanges, EventEmitter} from "@angular/core";
+import {Component, Input, OnInit, OnChanges, EventEmitter, Output} from "@angular/core";
 import {DateFormatter} from "./date-formatter";
 
 const INIT_DATE_PICKER_MODE: string = "day";
@@ -9,7 +9,6 @@ const STARTING_DAY: number = 0;
 
 @Component({
     selector: "date-picker-container",
-    events: ["update"],
     template: `
     <div [hidden]="!datepickerMode" class="well well-sm bg-faded p-a card margin-bottom-8" role="application" >
       <ng-content></ng-content>
@@ -18,24 +17,24 @@ const STARTING_DAY: number = 0;
 })
 export class DatePickerContainer implements OnInit, OnChanges {
 
-    public datepickerMode: string = INIT_DATE_PICKER_MODE;
-    public startingDay: number = STARTING_DAY;
-    public stepDay: any = {};
-    public stepMonth: any = {};
-    public stepYear: any = {};
-    public _activeDate: Date;
-    public uniqueId: string;
+    @Input() minDate: Date;
+    @Input() maxDate: Date;
+
+    @Output() update: EventEmitter<DateDecorator> = new EventEmitter<DateDecorator>();
+    
+    datepickerMode: string = INIT_DATE_PICKER_MODE;
+    startingDay: number = STARTING_DAY;
+    stepDay: any = {};
+    stepMonth: any = {};
+    stepYear: any = {};
+    _activeDate: Date;
+    uniqueId: string;
 
     private modes: Array<string> = ["day", "month", "year"];
     private selectedDate: Date;
     private _initDate: Date;
     private activeDateId: string;
-
-    @Input()
-    private minDate: Date;
-    @Input()
-    private maxDate: Date;
-
+    
     private minMode: string = INIT_MIN_MODE;
     private maxMode: string = INIT_MAX_MODE;
 
@@ -47,7 +46,6 @@ export class DatePickerContainer implements OnInit, OnChanges {
     private compareHandlerMonth: Function;
     private refreshViewHandlerYear: Function;
     private compareHandlerYear: Function;
-    private update: EventEmitter<DateDecorator> = new EventEmitter<DateDecorator>();
 
     @Input()
     private get initDate (): any {
