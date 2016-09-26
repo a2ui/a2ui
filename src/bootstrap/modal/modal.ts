@@ -13,7 +13,6 @@ import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Subject";
 import "rxjs/add/operator/share";
 import "rxjs/add/operator/cache";
-import {ConcreteType} from "@angular/core/src/facade/lang";
 
 type ModalBackdrop = "static" | boolean;
 
@@ -93,7 +92,7 @@ export class Modal {
         return instanceSubject;
     }
 
-    private createComponent(component: ConcreteType<any>, providers: Array<Type | any[] | any>): Promise<ComponentRef<any>> {
+    private createComponent(component: Type<any>, providers: Array<Type<any> | any[] | any>): Promise<ComponentRef<any>> {
         let injector: ReflectiveInjector = ReflectiveInjector.fromResolvedProviders(
             ReflectiveInjector.resolve(providers), this.injector);
         let componentFactory: ComponentFactory<any> = this.componentResolver.resolveComponentFactory(component);
@@ -109,8 +108,8 @@ export class Modal {
 }
 
 export interface ModalOptions {
-    component: ConcreteType<any>;
-    providers?: Array<Type | any[] | any>;
+    component: Type<any>;
+    providers?: Array<Type<any> | any[] | any>;
     modalParentSelector?: string;
     backdrop?: ModalBackdrop;
     show?: boolean;

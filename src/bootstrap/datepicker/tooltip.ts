@@ -1,28 +1,29 @@
-import * as ng from "@angular/core";
-import {ComponentRef} from "@angular/core";
 import {Observable} from "rxjs/Rx";
 import {of} from "rxjs/observable/of";
 import {empty} from "rxjs/observable/empty";
-import {fromPromise} from "rxjs/observable/fromPromise";
 import {TimerObservable} from "rxjs/observable/TimerObservable";
+import {
+    OpaqueToken, Directive, OnInit, EventEmitter, ComponentFactoryResolver, ViewContainerRef,
+    TemplateRef, EmbeddedViewRef, ReflectiveInjector, Input, Output
+} from "@angular/core";
 
-export let TOOLTIP_ARGS: any = new ng.OpaqueToken("tooltipArgs");
+export let TOOLTIP_ARGS: any = new OpaqueToken("tooltipArgs");
 
-@ng.Directive({
+@Directive({
     selector: "[tooltip]",
     inputs: ["tool" + "tip"]
 })
-export class Tooltip implements ng.OnInit {
-    @ng.Input("tooltip-args") tooltipDep: any;
+export class Tooltip implements OnInit {
+    @Input("tooltip-args") tooltipDep: any;
 
-    @ng.Input("trigger") trigger: string;
-    @ng.Input("placement") placement: string = "right";
-    @ng.Output("tooltipCtrl") tooltipCtrl: ng.EventEmitter<Tooltip> = new ng.EventEmitter<Tooltip>();
+    @Input("trigger") trigger: string;
+    @Input("placement") placement: string = "right";
+    @Output("tooltipCtrl") tooltipCtrl: EventEmitter<Tooltip> = new EventEmitter<Tooltip>();
     tooltipContent: any;
     private controller: PopoverElement;
 
-    constructor (private cr: ng.ComponentResolver,
-                 private vcr: ng.ViewContainerRef) {
+    constructor (private cr: ComponentFactoryResolver,
+                 private vcr: ViewContainerRef) {
     }
 
     ngOnInit (): void {
@@ -44,8 +45,8 @@ export class Tooltip implements ng.OnInit {
 
             let controller: Observable<PopoverElement> = empty<PopoverElement>();
 
-            if (tooltip instanceof ng.TemplateRef) {
-                let ref: ng.EmbeddedViewRef<any> = this.vcr.createEmbeddedView(tooltip);
+            if (tooltip instanceof TemplateRef) {
+                let ref: EmbeddedViewRef<any> = this.vcr.createEmbeddedView(tooltip);
                 let parent: any = document.createElement("div");
                 forEach(ref.rootNodes, (el: HTMLElement) => {
                     el.remove();
@@ -60,17 +61,11 @@ export class Tooltip implements ng.OnInit {
 
                 let injector: any = this.vcr.injector;
                 if (!isBlank(this.tooltipDep)) {
-                    injector = ng.ReflectiveInjector.fromResolvedProviders(
-                        ng.ReflectiveInjector.resolve([{provide: TOOLTIP_ARGS, useValue: this.tooltipDep}]), injector);
+                    injector = ReflectiveInjector.fromResolvedProviders(
+                        ReflectiveInjector.resolve([{provide: TOOLTIP_ARGS, useValue: this.tooltipDep}]), injector);
                 }
 
-                controller = fromPromise(this.cr.resolveComponent(tooltip)
-                    .then((factory: ng.ComponentFactory<any>) => {
-                        return factory.create(injector);
-                    }))
-                    .mergeMap((component: ComponentRef<any>) => {
-                        return this._show(component.location.nativeElement);
-                    });
+                this._show(this.cr.resolveComponentFactory(tooltip).create(injector).location.nativeElement);
             }
             return controller;
         });
