@@ -9,32 +9,24 @@
         <p>Date</p>
         <input date-picker [(ngModel)]="date"
                class="form-control input-sm"
-               type="text"
-               name="testDate"
                [minDate]="minDate"
                [maxDate]="maxDate" />
 
         <p>Date range</p>
         <input date-range-picker [(ngModel)]="dateRange"
                class="form-control input-sm"
-               type="text"
-               name="testDate"
                [minDate]="minDate"
                [maxDate]="maxDate" />
 
         <p>Date time</p>
         <input date-time-picker [(ngModel)]="dateWithTime"
                class="form-control input-sm"
-               type="text"
-               name="testDateTime"
                [minDate]="minDate"
                [maxDate]="maxDate" />
 
         <p>Date time range</p>
         <input date-time-range-picker [(ngModel)]="dateWithTimeRange"
                class="form-control input-sm"
-               type="text"
-               name="testDateTime"
                [minDate]="minDate"
                [maxDate]="maxDate" />
     </div>

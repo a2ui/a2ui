@@ -4,7 +4,6 @@
   "scripts": {
     "prestart": "tslint -c tslint.json \"src/**/*.ts\"",
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "prestart": "tslint -c tslint.json src/**/*.ts",
     "lite": "lite-server",
     "postinstall": "typings install",
     "tsc": "tsc",

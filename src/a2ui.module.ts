@@ -3,8 +3,9 @@ import {WatchDirective} from "./watch/watch.directive";
 import {OnInitDirective} from "./on-init/on-init.directive";
 import {BootstrapModule} from "./bootstrap/bootstrap.module";
 import {UPLOAD_DIRECTIVES} from "./upload/upload.directive";
+import MaskedInputDirective from "./mask/input-mask.directive";
 
-const ANGULAR_HELPERS: any[] = [WatchDirective, OnInitDirective, UPLOAD_DIRECTIVES];
+const ANGULAR_HELPERS: any[] = [WatchDirective, OnInitDirective, UPLOAD_DIRECTIVES, MaskedInputDirective];
 
 @NgModule({
     imports: [BootstrapModule],
