@@ -1,11 +1,9 @@
-import {Inject, forwardRef, Component} from "@angular/core";
+import {
+    Inject, forwardRef, Component, animate, transition, style, state, trigger, Input,
+    ContentChild
+} from "@angular/core";
 import {Accordion} from "./accordion.component";
-import {animate} from "@angular/core";
-import {transition} from "@angular/core";
-import {style} from "@angular/core";
-import {state} from "@angular/core";
-import {trigger} from "@angular/core";
-import {Input} from "@angular/core";
+import {Header, Footer} from "../common/common";
 
 let nextId: number = 0;
 
@@ -15,43 +13,31 @@ let nextId: number = 0;
     animations: [
         trigger("state", [
             state("collapsed", style({
-                display: "none"
+                display: "none",
+                position: "relative",
+                height: 0,
+                overflow: "hidden"
             })),
-            state("opened", style({
-                display: "block"
+            state("expanded", style({
+                display: "block",
             })),
-            transition("collapsed => opened", [
-                    style({
-                        position: "relative",
-                        height: 0,
-                        overflow: "hidden"
-                    }),
-                    animate("800ms ease")
-                ]
-            ),
-            transition("opened => collapsed", [
-                    animate("800ms ease", style({
-                        position: "relative",
-                        height: 0,
-                        overflow: "hidden"
-                    }))
-                ]
-            )
+            transition("collapsed => expanded", animate("800ms ease-in-out")),
+            transition("expanded => collapsed", animate("800ms ease-in-out"))
         ])
     ]
 })
 export class AccordionGroup {
 
-    @Input()
-    public opened: boolean = false;
-    @Input()
-    public disabled: boolean = false;
-    @Input()
-    public name: string = "group-" + nextId++;
-    @Input()
-    public header: string;
+    @Input() opened: boolean = false;
+    @Input() disabled: boolean = false;
+    @Input() name: string = "group-" + nextId++;
+    @Input() header: string;
+    @Input() type: string = "default";
 
-    constructor(@Inject(forwardRef(() => Accordion)) public parent: Accordion) {
+    @ContentChild(Header) private headerTemplate: Header;
+    @ContentChild(Footer) private footerTemplate: Footer;
+
+    constructor(@Inject(forwardRef(() => Accordion)) private parent: Accordion) {
     }
 
     private toggle(): void {

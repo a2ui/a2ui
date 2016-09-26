@@ -15,7 +15,6 @@ import {TabsExampleComponent} from "./bootstrap/tabs/tabs.example.component";
 import {PaginationExampleComponent} from "./bootstrap/pagination/pagination.example.component";
 import {TableExampleComponent} from "./bootstrap/table/table.example.component";
 import {DatePickerExampleComponent} from "./bootstrap/datepicker/datepicker.example.component";
-import {MaskExampleComponent} from "./bootstrap/mask/mask.example.component";
 
 export const appRoutes: Routes = [
     {path: "", component: WelcomeExampleComponent, data: {readable: "Welcome"}},
@@ -29,8 +28,7 @@ export const appRoutes: Routes = [
             {path: "tabs", component: TabsExampleComponent, data: {readable: "Tabs"}},
             {path: "pagination", component: PaginationExampleComponent, data: {readable: "Pagination"}},
             {path: "table", component: TableExampleComponent, data: {readable: "Table"}},
-            {path: "datepicker", component: DatePickerExampleComponent, data: {readable: "Datepicker"}},
-            {path: "mask", component: MaskExampleComponent, data: {readable: "Mask"}}
+            {path: "datepicker", component: DatePickerExampleComponent, data: {readable: "Datepicker"}}
         ]
     },
     {

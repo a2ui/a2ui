@@ -265,7 +265,7 @@ function inSide(element: Node, container: HTMLElement): boolean {
     return true;
 }
 
-export const UPLOAD_DIRECTIVES: Type[] = [UploadDirective, LocalUploadDirective, GlobalUploadDirective];
+export const UPLOAD_DIRECTIVES: Type<any>[] = [UploadDirective, LocalUploadDirective, GlobalUploadDirective];
 
 export interface UploadOptions {
     url?: string;

@@ -1,12 +1,20 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div role="tab" (click)="toggle()" class="panel-title">
-            {{header}}
+<div class="panel panel-{{type}}" style="overflow: hidden">
+    <div class="panel-heading " (click)="toggle()" [style.cursor]="disabled ? 'default' : 'hand'">
+        <div *ngIf="!headerTemplate">
+            <h4 class="panel-title">
+                <a role="tab">{{header}}</a>
+            </h4>
+        </div>
+        <div *ngIf="headerTemplate">
+            <ng-content select="a2-header"></ng-content>
         </div>
     </div>
-    <div [@state]="opened ? 'opened' : 'collapsed'">
+    <div [@state]="opened ? 'expanded' : 'collapsed'">
         <div class="panel-body">
             <ng-content></ng-content>
+        </div>
+        <div *ngIf="footerTemplate" class="panel-footer">
+            <ng-content select="a2-footer"></ng-content>
         </div>
     </div>
 </div>

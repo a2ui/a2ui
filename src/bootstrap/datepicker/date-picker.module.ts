@@ -26,7 +26,8 @@ const DECLARATIONS: any[] = [
     Tooltip, TimePickerComponent, MonthPickerComponent, DayPickerComponent, YearPickerComponent,
     DatePickerInputComponent, DateTimePickerInputComponent, DateRangePickerInputComponent,
     DateTimeRangePickerInputComponent, DatePickerComponent, DatePickerContainer,
-    DateRangePickerComponent, DateTimePickerComponent, DateTimeRangePickerComponent
+    DateRangePickerComponent, DateTimePickerComponent, DateTimeRangePickerComponent, 
+    DatePicker, DateRangePicker, DateTimePicker, DateTimeRangePicker
 ];
 
 @NgModule({

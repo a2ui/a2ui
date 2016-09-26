@@ -23,7 +23,6 @@ import {PaginationExampleComponent} from "./bootstrap/pagination/pagination.exam
 import {TableExampleComponent} from "./bootstrap/table/table.example.component";
 import {DatePickerExampleComponent} from "./bootstrap/datepicker/datepicker.example.component";
 import {DatePickerModule} from "../bootstrap/datepicker/date-picker.module";
-import {MaskExampleComponent} from "./bootstrap/mask/mask.example.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, A2uiModule, routing],
@@ -31,8 +30,7 @@ import {MaskExampleComponent} from "./bootstrap/mask/mask.example.component";
         WelcomeExampleComponent, BootstrapExampleComponent, MyModalComponent, NavigationBar, OnInitExampleComponent,
         UtilsExampleComponent, WatcherExampleComponent, CopyAndCutExampleComponent, UploadExampleComponent, ModalExampleComponent,
         PopoverExampleComponent, ComponentInsidePopoverComponent, AccordionExampleComponent, DropdownExampleComponent,
-        TabsExampleComponent, PaginationExampleComponent, TableExampleComponent, DatePickerExampleComponent,
-        MaskExampleComponent
+        TabsExampleComponent, PaginationExampleComponent, TableExampleComponent, DatePickerExampleComponent
     ],
     entryComponents: [MyModalComponent, ComponentInsidePopoverComponent],
     providers: [appRoutingProviders],
