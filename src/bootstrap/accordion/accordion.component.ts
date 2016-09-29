@@ -1,4 +1,15 @@
-import {ContentChildren, QueryList, forwardRef, AfterContentInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, Component } from "@angular/core";
+import {
+    ContentChildren,
+    QueryList,
+    forwardRef,
+    AfterContentInit,
+    Input,
+    Output,
+    EventEmitter,
+    OnChanges,
+    SimpleChanges,
+    Component
+} from "@angular/core";
 import {AccordionGroup} from "./accordion-group.component";
 
 @Component({
@@ -7,47 +18,50 @@ import {AccordionGroup} from "./accordion-group.component";
 })
 export class Accordion implements AfterContentInit, OnChanges {
 
-    @Input()
-    public closeOther: boolean = true;
-    @Input()
-    public ignoreDisabled: boolean = false;
-    @Output()
-    public contentChange: EventEmitter<Array<AccordionGroupState>> = new EventEmitter<Array<AccordionGroupState>>();
-    @Output()
-    public navigation: EventEmitter<AccordionNavigationEvent> = new EventEmitter<AccordionNavigationEvent>();
-    @ContentChildren(forwardRef(() => AccordionGroup))
-    private children: QueryList<AccordionGroup>;
+    @Input() closeOther: boolean = true;
+    @Input() ignoreDisabled: boolean = false;
+    @Output() contentChange: EventEmitter<Array<AccordionGroupState>> = new EventEmitter<Array<AccordionGroupState>>();
+    @Output() navigation: EventEmitter<AccordionNavigationEvent> = new EventEmitter<AccordionNavigationEvent>();
+    @Output() change: EventEmitter<AccordionChangeEvent> = new EventEmitter<AccordionChangeEvent>();
+    @ContentChildren(forwardRef(() => AccordionGroup)) children: QueryList<AccordionGroup>;
 
     private groups: Array<AccordionGroup> = [];
 
-    ngAfterContentInit (): void {
+    ngAfterContentInit(): void {
         this.children.changes.subscribe(() => {
             this.getAvailableGroups();
         });
         this.getAvailableGroups();
         if (this.closeOther) {
             let openedGroup: number = this.groups.findIndex(group => group.opened);
-            let index: number = openedGroup ? openedGroup : 0;
-            this.notifyNavigationState(index - 1, index, index + 1);
+            this.notifyNavigationState(openedGroup - 1, openedGroup, openedGroup + 1);
         }
     }
 
-    ngOnChanges (changes: SimpleChanges): any {
+    ngOnChanges(changes: SimpleChanges): any {
         if (this.children && changes.hasOwnProperty("ignoreDisabled")) {
             this.getAvailableGroups();
         }
     }
 
-    public open (toBeOpened: string): void {
+    public open(toBeOpened: string): void {
         this.groups.forEach((group, index) => {
             if (group.name === toBeOpened) {
                 group.opened = true;
-                if (this.closeOther) this.notifyNavigationState(index - 1, index, index + 1);
-            } else if (this.closeOther) group.opened = false;
+                this.change.emit({name: group.name, opened: group.opened});
+                if (this.closeOther) {
+                    this.notifyNavigationState(index - 1, index, index + 1);
+                }
+            } else if (this.closeOther) {
+                if (group.opened) {
+                    group.opened = false;
+                    this.change.emit({name: group.name, opened: group.opened});
+                }
+            }
         });
     }
 
-    public close (toBeClosed: string): void {
+    public close(toBeClosed: string): void {
         this.groups.forEach((group, index) => {
             if (group.name === toBeClosed) {
                 group.opened = false;
@@ -56,16 +70,16 @@ export class Accordion implements AfterContentInit, OnChanges {
         });
     }
 
-    private getAvailableGroups (): void {
+    private getAvailableGroups(): void {
         this.groups = this.children.filter((child) => !this.ignoreDisabled || !child.disabled);
         this.contentChange.emit(this.groups.map((group) => {
             return {name: group.name, opened: group.opened, disabled: group.disabled};
         }));
     }
 
-    private notifyNavigationState (prev: number, current: number, next: number): void {
+    private notifyNavigationState(prev: number, current: number, next: number): void {
         let navigationState: AccordionNavigationEvent = {
-            current: current !== undefined ? this.groups[current].name : undefined,
+            current: current !== undefined && current >= 0 ? this.groups[current].name : undefined,
             next: next !== undefined && next < this.groups.length ? this.groups[next].name : undefined,
             prev: prev !== undefined && prev >= 0 ? this.groups[prev].name : undefined
         };
@@ -78,6 +92,11 @@ export interface AccordionNavigationEvent {
     prev: string;
     current: string;
     next: string;
+}
+
+export interface AccordionChangeEvent {
+    name: string;
+    opened: boolean;
 }
 
 export interface AccordionGroupState {

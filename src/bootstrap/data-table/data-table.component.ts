@@ -11,15 +11,14 @@ import {
     ContentChild,
     ViewChild
 } from "@angular/core";
-import {NgClass} from "@angular/common";
 import {
-    PAGINATION_UI_DIRECTIVES, Pagination, LazyPageData, Restraints, LazyLoadEvent, OrderMeta
+    Pagination, LazyPageData, Restraints, LazyLoadEvent, OrderMeta
 } from "../pagination/pagination.component";
+import {Header, Footer} from "../common/common";
 
 @Component({
     selector: "a2-data-table",
-    templateUrl: "src/bootstrap/data-table/data-table.component.html",
-    directives: [PAGINATION_UI_DIRECTIVES, NgClass]
+    templateUrl: "src/bootstrap/data-table/data-table.component.html"
 })
 export class DataTable implements AfterContentInit {
 
@@ -77,7 +76,7 @@ export class DataTable implements AfterContentInit {
     private alphabeticalCompare(value1: any, value2: any, order: number): number {
         let result: number = 0;
         if (value1 instanceof String && value2 instanceof String) {
-            result = value1.localeCompare(value2);
+            result = value1.localeCompare(value2.toString());
         } else {
             result = (value1 < value2) ? -1 : (value1 > value2) ? 1 : 0;
         }
@@ -208,20 +207,6 @@ export class Column {
     @Input() editable: boolean;
 
     order: number = 1;
-}
-
-@Component({
-    selector: "a2-header",
-    template: "<ng-content></ng-content>"
-})
-export class Header {
-}
-
-@Component({
-    selector: "a2-footer",
-    template: "<ng-content></ng-content>"
-})
-export class Footer {
 }
 
 export interface SelectionEvent {
