@@ -14,12 +14,16 @@ import {Modal} from "./modal/modal";
 import {HttpModule, JsonpModule} from "@angular/http";
 import {DatePickerModule} from "./datepicker/date-picker.module";
 import {Header, Footer} from "./common/common";
+import {TypeaheadComponent} from "./typeahead/typeahead.component";
+import {SuggestionsComponent} from "./typeahead/hints.component";
+import {Hint} from "./typeahead/hint.directive";
 
 const BOOTSTRAP_DIRECTIVES: any[] = [PopoverDirective, DropdownDirective, ACCORDION_DIRECTIVES, Rating, Alert,
-    TABS_DIRECTIVES, PAGINATION_UI_DIRECTIVES, DataTable, Column, Header, Footer
+    TABS_DIRECTIVES, PAGINATION_UI_DIRECTIVES, DataTable, Column, Header, Footer, TypeaheadComponent, SuggestionsComponent, Hint
 ];
 
 @NgModule({
+    entryComponents: [SuggestionsComponent],
     imports: [BrowserModule, FormsModule, HttpModule, JsonpModule, DatePickerModule],
     declarations: BOOTSTRAP_DIRECTIVES,
     exports: [BOOTSTRAP_DIRECTIVES, DatePickerModule],

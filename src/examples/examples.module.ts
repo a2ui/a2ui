@@ -23,6 +23,7 @@ import {PaginationExampleComponent} from "./bootstrap/pagination/pagination.exam
 import {TableExampleComponent} from "./bootstrap/table/table.example.component";
 import {DatePickerExampleComponent} from "./bootstrap/datepicker/datepicker.example.component";
 import {DatePickerModule} from "../bootstrap/datepicker/date-picker.module";
+import {TypeaheadExampleComponent} from "./bootstrap/typeahead/typeahead.example.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, A2uiModule, routing],
@@ -30,7 +31,7 @@ import {DatePickerModule} from "../bootstrap/datepicker/date-picker.module";
         WelcomeExampleComponent, BootstrapExampleComponent, MyModalComponent, NavigationBar, OnInitExampleComponent,
         UtilsExampleComponent, WatcherExampleComponent, CopyAndCutExampleComponent, UploadExampleComponent, ModalExampleComponent,
         PopoverExampleComponent, ComponentInsidePopoverComponent, AccordionExampleComponent, DropdownExampleComponent,
-        TabsExampleComponent, PaginationExampleComponent, TableExampleComponent, DatePickerExampleComponent
+        TabsExampleComponent, PaginationExampleComponent, TableExampleComponent, DatePickerExampleComponent, TypeaheadExampleComponent
     ],
     entryComponents: [MyModalComponent, ComponentInsidePopoverComponent],
     providers: [appRoutingProviders],
