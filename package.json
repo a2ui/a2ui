@@ -1,6 +1,6 @@
 {
   "name": "a2ui",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "prestart": "tslint -c tslint.json \"src/**/*.ts\"",
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
