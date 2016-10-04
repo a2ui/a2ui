@@ -1,27 +1,32 @@
 # Speed up your Angular 2 applications development using:
 
-* [Clipboard copy and cut](/utils/copy-and-cut) `ready`
-* [On initialize expression](/utils/on-init) `ready`
-* [Upload component](/utils/upload) `ready`
-* [File drag events](/utils/file-drag-events) `ready`
-* [Changes watcher](/utils/watcher) `ready`
+# Utils:
+* `ready` [Clipboard copy and cut](/utils/copy-and-cut)
+* `ready` [On initialize expression](/utils/on-init)
+* `ready` [Upload component](/utils/upload)
+* `ready` [File drag events](/utils/file-drag-events)
+* `ready` [Changes watcher](/utils/watcher)
 * Table helpers
 * Validation helpers
 * Utility pipes collection
 * Http cache
-* [Bootstrap popover](/bootstrap/popover) `ready`
-* [Bootstrap modal](/bootstrap/modal) `ready`
-* [Bootstrap events](/bootstrap/events) `ready`
-* Bootstrap typeahead
-* Bootstrap accordion
-* [Bootstrap date picker](/bootstrap/date-picker) `ready`
-* [Bootstrap date time picker](/bootstrap/date-time-picker) `ready`
-* [Bootstrap date range picker](/bootstrap/date-range-picker) `ready`
-* [Bootstrap date time range picker](/bootstrap/date-time-range-picker) `ready`
-* Bootstrap vertical/horizontal tabs
-* Bootstrap tost / alert
-* Bootstrap feedback panel
-* Bootstrap image viewer, image gallery
+
+# Bootstrap:
+* `ready` [Accordion](/bootstrap/accordion)
+* `ready` [Alert](/bootstrap/alert)
+* `ready` [Date picker](/bootstrap/date-picker)
+* `ready` [Date time picker](/bootstrap/date-time-picker)
+* `ready` [Date range picker](/bootstrap/date-range-picker)
+* `ready` [Date time range picker](/bootstrap/date-time-range-picker)
+* `ready` [Data table](/bootstrap/data-table)
+* `ready` [Modal](/bootstrap/modal)
+* `ready` [Pagination](/bootstrap/pagination)
+* `ready` [Popover](/bootstrap/popover)
+* `ready` [Rating](/bootstrap/rating)
+* `ready` [Tabs](/bootstrap/tabs)
+* Typeahead
+* Feedback panel
+* Image viewer, image gallery
 
 # Components under consideration
 
