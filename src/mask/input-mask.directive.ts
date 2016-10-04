@@ -1,3 +1,31 @@
+/*
+ PART OF SOURCE TAKEN FRoM https://github.com/text-mask/text-mask/
+
+ This is free and unencumbered software released into the public domain.
+
+ Anyone is free to copy, modify, publish, use, compile, sell, or
+ distribute this software, either in source code form or as a compiled
+ binary, for any purpose, commercial or non-commercial, and by any
+ means.
+
+ In jurisdictions that recognize copyright laws, the author or authors
+ of this software dedicate any and all copyright interest in the
+ software to the public domain. We make this dedication for the benefit
+ of the public at large and to the detriment of our heirs and
+ successors. We intend this dedication to be an overt act of
+ relinquishment in perpetuity of all present and future rights to this
+ software under copyright law.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+ OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ OTHER DEALINGS IN THE SOFTWARE.
+
+ For more information, please refer to <http://unlicense.org>
+ */
 import {Directive, ElementRef, Input, OnInit} from "@angular/core";
 import {FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor} from "@angular/forms";
 
@@ -5,14 +33,14 @@ import {FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor} from "@angular/for
     host: {
         "(input)": "onInput()"
     },
-    selector: "[mask]",
+    selector: "[a2Mask]",
     providers: [
-        {provide: NG_VALUE_ACCESSOR, useExisting: MaskedInputDirective, multi: true}
+        {provide: NG_VALUE_ACCESSOR, useExisting: MaskedDirective, multi: true}
     ]
 })
-export default class MaskedInputDirective implements OnInit, ControlValueAccessor {
+export class MaskedDirective implements OnInit, ControlValueAccessor {
 
-    @Input("mask") mask: any;
+    @Input("a2Mask") mask: any;
 
     maskingCharacters: string[] = [
         "1",
@@ -78,7 +106,7 @@ export default class MaskedInputDirective implements OnInit, ControlValueAccesso
         const state: any = {previousConformedInput: ""};
         const placeholderChar: string = "_";
         const componentPlaceholder: string = this.convertMaskToPlaceholder(this.mask, placeholderChar);
-        let self: MaskedInputDirective = this;
+        let self: MaskedDirective = this;
 
         this.inputElement.placeholder = (this.inputElement.placeholder !== "") ? this.inputElement.placeholder : componentPlaceholder;
 
@@ -92,11 +120,11 @@ export default class MaskedInputDirective implements OnInit, ControlValueAccesso
 
                 const {selectionStart: currentCaretPosition}: any = self.inputElement;
                 const {previousConformedInput}: any = state;
-                const safeValueToConform: string = MaskedInputDirective.getSafeInputValue(valueToConform);
+                const safeValueToConform: string = MaskedDirective.getSafeInputValue(valueToConform);
                 const conformToMaskConfig: any = {previousConformedInput, placeholderChar};
                 const conformToMaskResults: any = self.conformToMask(safeValueToConform, self.mask, conformToMaskConfig);
                 const {output: outputOfConformToMask}: any = conformToMaskResults;
-                const adjustedCaretPosition: number = MaskedInputDirective.adjustCaretPosition(
+                const adjustedCaretPosition: number = MaskedDirective.adjustCaretPosition(
                     previousConformedInput,
                     conformToMaskResults,
                     currentCaretPosition
@@ -108,15 +136,15 @@ export default class MaskedInputDirective implements OnInit, ControlValueAccesso
 
                 self.inputElement.value = conformedInput;
                 state.previousConformedInput = conformedInput;
-                MaskedInputDirective.safeSetSelection(self.inputElement, adjustedCaretPosition);
+                MaskedDirective.safeSetSelection(self.inputElement, adjustedCaretPosition);
             }
         };
     }
 
     private static getSafeInputValue (inputValue: any): string {
-        if (MaskedInputDirective.isString(inputValue)) {
+        if (MaskedDirective.isString(inputValue)) {
             return inputValue;
-        } else if (MaskedInputDirective.isNumber(inputValue)) {
+        } else if (MaskedDirective.isNumber(inputValue)) {
             return String(inputValue);
         } else if (inputValue === undefined || inputValue === null) {
             return "";
@@ -172,8 +200,8 @@ export default class MaskedInputDirective implements OnInit, ControlValueAccesso
     }
 
     private static adjustCaretPosition (previousConformedInput: string = "",
-                                 conformToMaskResults: any = {},
-                                 currentCaretPosition: number = 0): number {
+                                        conformToMaskResults: any = {},
+                                        currentCaretPosition: number = 0): number {
         if (currentCaretPosition === 0) {
             return 0;
         }
@@ -182,7 +210,7 @@ export default class MaskedInputDirective implements OnInit, ControlValueAccesso
         const {input: rawInput = "", placeholderChar, placeholder}: any = meta;
 
         // Tells us the index of the first change. For (438) 394-4938 to (38) 394-4938, that would be 1
-        const indexOfFirstChange: number = MaskedInputDirective.getIndexOfFirstChange(previousConformedInput, rawInput);
+        const indexOfFirstChange: number = MaskedDirective.getIndexOfFirstChange(previousConformedInput, rawInput);
 
         // When user modifies string from (444) 444-44__ to (444) 444-444_ while caret is at position
         // 2, `indexOfChange` would be 12. This is what I call ambiguous change
@@ -339,12 +367,12 @@ export default class MaskedInputDirective implements OnInit, ControlValueAccesso
         const suppressGuide: boolean = guide === false && previousConformedInput !== undefined;
 
         // Tells us the index of the first change. For (438) 394-4938 to (38) 394-4938, that would be 1
-        const indexOfFirstChange: number = MaskedInputDirective.getIndexOfFirstChange(previousConformedInput, userInput);
+        const indexOfFirstChange: number = MaskedDirective.getIndexOfFirstChange(previousConformedInput, userInput);
 
         // This tells us the number of edited characters and the direction in which they were edited (+/-)
         const numberOfEditedChars: number = userInput.length - previousConformedInput.length;
 
-        const userInputArr: string[] = MaskedInputDirective.tokenize(userInput);
+        const userInputArr: string[] = MaskedDirective.tokenize(userInput);
 
         // In *no guide* mode, we need to know if the user is trying to add a character or not
         const isAddition: boolean = suppressGuide && !(userInput.length < previousConformedInput.length);
@@ -354,7 +382,7 @@ export default class MaskedInputDirective implements OnInit, ControlValueAccesso
         // in the algorithm when we insert user input characters into the placeholder, we don"t want the
         // code to think that we can insert a numeric character in the `1` spot (which when unescaped
         // stands for *any numeric character*).
-        const unescapedMask: string = MaskedInputDirective.unescapeMask(mask);
+        const unescapedMask: string = MaskedDirective.unescapeMask(mask);
 
         // The loop below removes masking characters from user input. For example, for mask
         // `00 (111)`, the placeholder would be `00 (___)`. If user input is `00 (234)`, the loop below
@@ -504,15 +532,15 @@ export default class MaskedInputDirective implements OnInit, ControlValueAccesso
     private isAcceptableCharacter (character: string = "", maskingCharacter: string): boolean {
         switch (maskingCharacter) {
             case this.maskingCharactersEnums.numeric:
-                return MaskedInputDirective.isNumeric(character);
+                return MaskedDirective.isNumeric(character);
 
             case this.maskingCharactersEnums.uppercase:
             case this.maskingCharactersEnums.lowercase:
             case this.maskingCharactersEnums.alphabetic:
-                return MaskedInputDirective.isAlphabetic(character);
+                return MaskedDirective.isAlphabetic(character);
 
             case this.maskingCharactersEnums.alphanumeric:
-                return MaskedInputDirective.isNumeric(character) || MaskedInputDirective.isAlphabetic(character);
+                return MaskedDirective.isNumeric(character) || MaskedDirective.isAlphabetic(character);
 
             case this.maskingCharactersEnums.any:
                 return true;
@@ -543,4 +571,3 @@ export default class MaskedInputDirective implements OnInit, ControlValueAccesso
         }
     }
 }
-export {MaskedInputDirective as Directive}
