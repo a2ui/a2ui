@@ -24,6 +24,7 @@ import {TableExampleComponent} from "./bootstrap/table/table.example.component";
 import {DatePickerExampleComponent} from "./bootstrap/datepicker/datepicker.example.component";
 import {DatePickerModule} from "../bootstrap/datepicker/date-picker.module";
 import {TypeaheadExampleComponent} from "./bootstrap/typeahead/typeahead.example.component";
+import {MaskExampleComponent} from "./utils/mask/mask.example.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, A2uiModule, routing],
@@ -31,7 +32,8 @@ import {TypeaheadExampleComponent} from "./bootstrap/typeahead/typeahead.example
         WelcomeExampleComponent, BootstrapExampleComponent, MyModalComponent, NavigationBar, OnInitExampleComponent,
         UtilsExampleComponent, WatcherExampleComponent, CopyAndCutExampleComponent, UploadExampleComponent, ModalExampleComponent,
         PopoverExampleComponent, ComponentInsidePopoverComponent, AccordionExampleComponent, DropdownExampleComponent,
-        TabsExampleComponent, PaginationExampleComponent, TableExampleComponent, DatePickerExampleComponent, TypeaheadExampleComponent
+        TabsExampleComponent, PaginationExampleComponent, TableExampleComponent, DatePickerExampleComponent, TypeaheadExampleComponent,
+        MaskExampleComponent
     ],
     entryComponents: [MyModalComponent, ComponentInsidePopoverComponent],
     providers: [appRoutingProviders],
