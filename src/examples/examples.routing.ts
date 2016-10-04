@@ -16,6 +16,7 @@ import {PaginationExampleComponent} from "./bootstrap/pagination/pagination.exam
 import {TableExampleComponent} from "./bootstrap/table/table.example.component";
 import {DatePickerExampleComponent} from "./bootstrap/datepicker/datepicker.example.component";
 import {TypeaheadExampleComponent} from "./bootstrap/typeahead/typeahead.example.component";
+import {MaskExampleComponent} from "./utils/mask/mask.example.component";
 
 export const appRoutes: Routes = [
     {path: "", component: WelcomeExampleComponent, data: {readable: "Welcome"}},
@@ -40,6 +41,7 @@ export const appRoutes: Routes = [
             {path: "copy-and-cut", component: CopyAndCutExampleComponent, data: {readable: "Copy & Cut"}},
             {path: "watcher", component: WatcherExampleComponent, data: {readable: "Watcher"}},
             {path: "upload", component: UploadExampleComponent, data: {readable: "Upload"}},
+            {path: "mask", component: MaskExampleComponent, data: {readable: "Maks"}},
         ]
     }
 ];
