@@ -7,15 +7,11 @@ let nextId: number = 0;
 })
 export class Tab {
 
-    @Input()
-    name: string = "tab-" + nextId++;
-    @Input()
-    public disabled: boolean = false;
+    @Input() name: string = "tab-" + nextId++;
+    @Input() disabled: boolean = false;
 
-    @ContentChild(forwardRef(() => TabHeader))
-    private header: TabHeader;
-    @ContentChild(forwardRef(() => TabBody))
-    private body: TabBody;
+    @ContentChild(forwardRef(() => TabHeader)) private header: TabHeader;
+    @ContentChild(forwardRef(() => TabBody)) private body: TabBody;
 }
 
 @Directive({

@@ -15,6 +15,8 @@ import {TabsExampleComponent} from "./bootstrap/tabs/tabs.example.component";
 import {PaginationExampleComponent} from "./bootstrap/pagination/pagination.example.component";
 import {TableExampleComponent} from "./bootstrap/table/table.example.component";
 import {DatePickerExampleComponent} from "./bootstrap/datepicker/datepicker.example.component";
+import {AlertExampleComponent} from "./bootstrap/alert/alert.example.component";
+import {RatingExampleComponent} from "./bootstrap/rating/rating.example.component";
 import {TypeaheadExampleComponent} from "./bootstrap/typeahead/typeahead.example.component";
 import {MaskExampleComponent} from "./utils/mask/mask.example.component";
 
@@ -23,15 +25,17 @@ export const appRoutes: Routes = [
     {
         path: "bootstrap", component: BootstrapExampleComponent, data: {readable: "Bootstrap"},
         children: [
-            {path: "typeahead", component: TypeaheadExampleComponent, data: {readable: "Typeahead"}},
-            {path: "modal", component: ModalExampleComponent, data: {readable: "Modal"}},
-            {path: "popover", component: PopoverExampleComponent, data: {readable: "Popover"}},
-            {path: "dropdown", component: DropdownExampleComponent, data: {readable: "Dropdown"}},
             {path: "accordion", component: AccordionExampleComponent, data: {readable: "Accordion"}},
-            {path: "tabs", component: TabsExampleComponent, data: {readable: "Tabs"}},
+            {path: "alert", component: AlertExampleComponent, data: {readable: "Alert"}},
+            {path: "datepicker", component: DatePickerExampleComponent, data: {readable: "Datepicker"}},
+            {path: "dropdown", component: DropdownExampleComponent, data: {readable: "Dropdown"}},
+            {path: "rating", component: RatingExampleComponent, data: {readable: "Rating"}},
+            {path: "modal", component: ModalExampleComponent, data: {readable: "Modal"}},
             {path: "pagination", component: PaginationExampleComponent, data: {readable: "Pagination"}},
+            {path: "popover", component: PopoverExampleComponent, data: {readable: "Popover"}},
             {path: "table", component: TableExampleComponent, data: {readable: "Table"}},
-            {path: "datepicker", component: DatePickerExampleComponent, data: {readable: "Datepicker"}}
+            {path: "tabs", component: TabsExampleComponent, data: {readable: "Tabs"}},
+            {path: "typeahead", component: TypeaheadExampleComponent, data: {readable: "Typeahead"}}
         ]
     },
     {

@@ -22,7 +22,7 @@ export class Alert implements OnInit {
         }
     }
 
-    skippAlert(): void {
+    private skippAlert(): void {
         this.skippable = false;
         clearTimeout(this.timeout);
         this.close.emit(undefined);

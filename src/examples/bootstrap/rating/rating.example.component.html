@@ -1,0 +1,18 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Rating</h2>
+    </div>
+
+    <button (click)="toggle()">{{ratingDisabled ? 'Enable' : 'Disable'}} selection mode</button>
+    <br/><br/>
+    Your rating: <input [(ngModel)]="rating" name="input" type="number" *ngIf="ratingDisabled">
+    <span *ngIf="!ratingDisabled">{{rating}}</span>
+    <br/><br/>
+
+    <div style="font-size: 20px">
+        <a2-rating [displayMode]="ratingDisabled" [rate]="rating" [max]="5" (rateChange)="ratingChange($event)"
+                   (hoover)="ratingHoover($event)"></a2-rating>
+        <br/>
+    </div>
+    <span *ngIf="!ratingDisabled">Hoovered value {{hooverRating}}</span>
+</div>
