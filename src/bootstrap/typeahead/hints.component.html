@@ -1,5 +1,4 @@
-<ul #listElement (keydown)="onKeyDown($event.keyCode)" [class.in]="hasItems()"
-    class="typeahead dropdown-menu collapse">
+<ul #listElement [class.in]="hasItems()" class="typeahead dropdown-menu collapse">
     <li *ngFor="let item of items" a2ui-hint [data]="item" class="hint">
         <a tabindex="1">{{item}}</a>
     </li>
