@@ -41,7 +41,7 @@ export const appRoutes: Routes = [
             {path: "copy-and-cut", component: CopyAndCutExampleComponent, data: {readable: "Copy & Cut"}},
             {path: "watcher", component: WatcherExampleComponent, data: {readable: "Watcher"}},
             {path: "upload", component: UploadExampleComponent, data: {readable: "Upload"}},
-            {path: "mask", component: MaskExampleComponent, data: {readable: "Maks"}},
+            {path: "mask", component: MaskExampleComponent, data: {readable: "Mask"}},
         ]
     }
 ];
