@@ -34,7 +34,10 @@ export class SuggestionsComponent implements AfterViewInit {
             this.point(hints.first);
         };
 
-        this.hints.changes.subscribe(onHints);
+        this.hints.changes
+            .filter(hints => hints.length > 0)
+            .subscribe(onHints);
+
         onHints(this.hints);
     }
 
@@ -51,14 +54,13 @@ export class SuggestionsComponent implements AfterViewInit {
     }
 
     point(hint: Hint): void {
-        let pointedInPast: Hint = this.pointedHint;
-        this.pointedHint = hint;
-        if (pointedInPast) {
-            pointedInPast.blur();
-        }
-        if (hint) {
-            hint.focus();
-        }
+        // with timeout to handle property change after checked 
+        setTimeout(() => {
+            let previous: Hint = this.pointedHint;
+            this.pointedHint = hint;
+            this.pointedHint.activate();
+            if (previous) previous.deactivate();
+        }, 1);
     }
 
     hide(): void {
@@ -67,7 +69,6 @@ export class SuggestionsComponent implements AfterViewInit {
     }
 
     select(hint: Hint): void {
-        this.point(hint);
         this.selectHint.emit(hint.data);
         this.hide();
     }
