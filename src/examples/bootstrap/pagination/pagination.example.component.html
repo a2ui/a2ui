@@ -5,7 +5,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <a2-pagination [selectedPageSize]="pageSize" [data]="eagerData">
+        <a2-pagination [pageSize]="pageSize" [data]="eagerData">
             <template pageTemplate let-persons="pageData">
                     <ul>
                         <li *ngFor="let person of persons">{{person.name}} {{person.surname}} Age:{{person.age}}</li>
@@ -20,7 +20,7 @@
 
     <button (click)="changePagerType()"> Change pager type</button><br/><br/>
     <div class="card-body card-padding">
-        <a2-pagination [selectedPageSize]="pageSize" [data]="eagerData" [pager]="pagerType" >
+        <a2-pagination [pageSize]="pageSize" [data]="eagerData" [pager]="pagerType" >
             <template pageTemplate let-persons="pageData">
                 <ul>
                     <li *ngFor="let person of persons">{{person.name}} {{person.surname}} Age:{{person.age}}</li>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <a2-pagination #eagerPaginator [(selectedPageSize)]="pageSize" [data]="eagerData" [availablePageSizes]="[5,10,15]"
+        <a2-pagination #eagerPaginator [(pageSize)]="pageSize" [data]="eagerData" [availablePageSizes]="[5,10,15]"
                        [filterFunction]="filterFunction" [sortFunction]="sortFunction">
             <template pageTemplate let-persons="pageData" let-restraints="restraints">
                 Filter oddities by name: <input [(ngModel)]="restraints.filterBy.name" (keyup)="eagerPaginator.filter()">
@@ -51,7 +51,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <a2-pagination [(selectedPageSize)]="pageSize" [data]="lazyData" [availablePageSizes]="[5,10,15]" (onLazy)="onLazy($event)" [lazy]="true">
+        <a2-pagination [(pageSize)]="pageSize" [data]="lazyData" [availablePageSizes]="[5,10,15]" (onLazy)="onLazy($event)" [lazy]="true">
             <template pageTemplate let-persons="pageData">
                 <ul>
                     <li *ngFor="let person of persons">{{person.name}} {{person.surname}} age {{person.age}}</li>
@@ -65,7 +65,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <a2-pagination #lazyPaginator [(selectedPageSize)]="pageSize" [data]="lazyDataWithFiltering" [availablePageSizes]="[5,10,15]" (onLazy)="onLazyWithFiltering($event)" [lazy]="true">
+        <a2-pagination #lazyPaginator [(pageSize)]="pageSize" [data]="lazyDataWithFiltering" [availablePageSizes]="[5,10,15]" (onLazy)="onLazyWithFiltering($event)" [lazy]="true">
             <template pageTemplate let-persons="pageData" let-restraints="restraints">
                 Filter oddities by name: <input [(ngModel)]="restraints.filterBy.name" (keyup)="lazyPaginator.filter()">
                 <button (click)="sortLazy('name', restraints)">Sort oddities {{lazyOrder === 1 ? 'ascending': 'descending'}} by name</button><br/><br/>
@@ -81,7 +81,7 @@
     </div>
 
     <div class="card-body card-padding">
-        <a2-pagination #eagerPaginatorCustom [(selectedPageSize)]="pageSize" [data]="eagerData" [availablePageSizes]="[5,10,15]"
+        <a2-pagination #eagerPaginatorCustom [(pageSize)]="pageSize" [data]="eagerData" [availablePageSizes]="[5,10,15]"
                        [filterFunction]="filterFunctionWithCustomImpl" [sortFunction]="sortFunction">
             <template pageTemplate let-persons="pageData" let-restraints="restraints">
                 Filter oddities by name: <input [(ngModel)]="restraints.filterBy.name" (keyup)="eagerPaginatorCustom.filter()">

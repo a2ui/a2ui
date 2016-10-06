@@ -1,5 +1,11 @@
-.rating-selection {
+.glyphicon-star:before {
+    content: "\e006";
     color: gold;
+}
+
+.glyphicon-star-empty:before {
+    content: "\e007";
+    color: darkgrey;
 }
 
 .dropzone {

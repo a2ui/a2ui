@@ -44,9 +44,9 @@ export class Accordion implements AfterContentInit, OnChanges {
         }
     }
 
-    public open(toBeOpened: string): void {
+    open(name: string): void {
         this.groups.forEach((group, index) => {
-            if (group.name === toBeOpened) {
+            if (group.name === name) {
                 group.opened = true;
                 this.change.emit({name: group.name, opened: group.opened});
                 if (this.closeOther) {
@@ -61,9 +61,9 @@ export class Accordion implements AfterContentInit, OnChanges {
         });
     }
 
-    public close(toBeClosed: string): void {
+    close(name: string): void {
         this.groups.forEach((group, index) => {
-            if (group.name === toBeClosed) {
+            if (group.name === name) {
                 group.opened = false;
                 if (this.closeOther) this.notifyNavigationState(index, undefined, index + 1);
             }

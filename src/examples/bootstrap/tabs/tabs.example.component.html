@@ -4,7 +4,13 @@
     </div>
 
     <div class="card-body card-padding">
-        <a2-tabs [openedTab]="openedTab" type="tabs">
+        <input type="button" (click)="toggleTabVisibility()" value="Toggle visibility">
+        <input type="button" (click)="tabs.open('a2')" value="Open 2nd tab">
+        <input type="button" (click)="switchTypes()" value="Switch types">
+        <br/><br/>
+
+        <a2-tabs #tabs openedTab="a1" [type]="type" (tabChange)="tabChange($event)"
+                 (contentChange)="contentChange($event)">
             <a2-tab name="a1">
                 <template tabHeader>Tab 1</template>
                 <template tabBody>
@@ -71,7 +77,31 @@
                     </table>
                 </template>
             </a2-tab>
+            <a2-tab name="a4" *ngIf="visible">
+                <template tabHeader>Tab 4</template>
+                <template tabBody>
+                    <table class="table">
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Age</th>
+                        </tr>
+                        <tr>
+                            <td>Bill</td>
+                            <td>Smith</td>
+                            <td>54</td>
+                        </tr>
+                        <tr>
+                            <td>Will</td>
+                            <td>Jackson</td>
+                            <td>34</td>
+                        </tr>
+                    </table>
+                </template>
+            </a2-tab>
         </a2-tabs>
 
+        Tabs state: {{tabsStates | json}}
+        Change event: {{lastTabChange | json}}
     </div>
 </div>
