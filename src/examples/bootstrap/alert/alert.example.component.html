@@ -1,0 +1,17 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Alert</h2>
+    </div>
+
+    <button (click)="createAlerts()">Add few alerts!</button>
+    <br/>
+    Alerts array:
+    {{alerts | json}}
+
+    <p *ngFor="let alert of alerts; let i = index">
+        <a2-alert [type]="alert.type" [skippable]="alert.skippable"
+               [displayTime]="alert.displayTime" (close)="hideEvent(i)">{{alert.content}}
+        </a2-alert>
+    </p>
+
+</div>

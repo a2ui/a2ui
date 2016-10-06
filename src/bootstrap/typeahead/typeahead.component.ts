@@ -59,8 +59,11 @@ export class TypeaheadComponent implements OnInit {
     }
 
 
-    @HostListener("keyup") onchange(): void {
+    @HostListener("keyup", ["$event.keyCode"]) onchange(key: number): void {
         this.dataStream.next(this.hostingElement.nativeElement.value);
+        if (this.suggestionsComponent && this.suggestionsComponent.instance.hasItems()) {
+            this.suggestionsComponent.instance.onKeyDown(key);
+        }
     }
 
     @HostListener("focus") focus(): void {

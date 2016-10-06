@@ -16,7 +16,7 @@ export class TypeaheadExampleComponent {
     typeaheadProps(): Array<string> {
         return Object.keys(this.typeahead)
                      .filter(property => {
-                         var val = this.typeahead[property];
+                         let val: any = this.typeahead[property];
                          return ["string", "number"].includes(typeof val);
                      });
     }

@@ -22,9 +22,10 @@ import {TabsExampleComponent} from "./bootstrap/tabs/tabs.example.component";
 import {PaginationExampleComponent} from "./bootstrap/pagination/pagination.example.component";
 import {TableExampleComponent} from "./bootstrap/table/table.example.component";
 import {DatePickerExampleComponent} from "./bootstrap/datepicker/datepicker.example.component";
-import {DatePickerModule} from "../bootstrap/datepicker/date-picker.module";
 import {TypeaheadExampleComponent} from "./bootstrap/typeahead/typeahead.example.component";
 import {MaskExampleComponent} from "./utils/mask/mask.example.component";
+import {AlertExampleComponent} from "./bootstrap/alert/alert.example.component";
+import {RatingExampleComponent} from "./bootstrap/rating/rating.example.component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, A2uiModule, routing],
@@ -33,7 +34,7 @@ import {MaskExampleComponent} from "./utils/mask/mask.example.component";
         UtilsExampleComponent, WatcherExampleComponent, CopyAndCutExampleComponent, UploadExampleComponent, ModalExampleComponent,
         PopoverExampleComponent, ComponentInsidePopoverComponent, AccordionExampleComponent, DropdownExampleComponent,
         TabsExampleComponent, PaginationExampleComponent, TableExampleComponent, DatePickerExampleComponent, TypeaheadExampleComponent,
-        MaskExampleComponent
+        MaskExampleComponent, RatingExampleComponent, AlertExampleComponent
     ],
     entryComponents: [MyModalComponent, ComponentInsidePopoverComponent],
     providers: [appRoutingProviders],

@@ -1,4 +1,4 @@
-import {Directive, Input, ElementRef, HostListener, forwardRef, Inject, Renderer} from "@angular/core";
+import {Directive, Input, HostBinding, HostListener, forwardRef, Inject} from "@angular/core";
 import {SuggestionsComponent} from "./hints.component";
 
 @Directive({
@@ -9,19 +9,20 @@ export class Hint {
     @Input("data") data: any;
     prev: Hint;
     next: Hint;
+    @HostBinding("class.active") selected: boolean = false;
 
-    constructor(private renderer: Renderer, private elem: ElementRef, @Inject(forwardRef(() => SuggestionsComponent)) private  parent: SuggestionsComponent) {
+    constructor(@Inject(forwardRef(() => SuggestionsComponent)) private  parent: SuggestionsComponent) {
     }
 
     @HostListener("click") click(): void {
         this.parent.select(this);
     }
 
-    public focus(): void {
-        this.renderer.invokeElementMethod(this.elem.nativeElement.children[0], "focus", []);
+    activate(): void {
+        this.selected = true;
     }
 
-    public blur(): void {
-        this.renderer.invokeElementMethod(this.elem.nativeElement.children[0], "blur", []);
+    deactivate(): void {
+        this.selected = false;
     }
 }

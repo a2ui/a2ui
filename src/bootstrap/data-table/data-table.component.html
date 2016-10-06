@@ -1,4 +1,4 @@
-<a2-pagination #paginator [selectedPageSize]="pageSize" [data]="data" [availablePageSizes]="availablePageSizes"
+<a2-pagination #paginator [pageSize]="pageSize" [data]="data" [availablePageSizes]="availablePageSizes"
                [lazy]="lazy" [filterFunction]="filterFunction" [sortFunction]="sortFunction"
                (onLazy)="handleLazyLoading($event)">
     <template pageTemplate let-rows="pageData" let-restraints="restraints">

@@ -17,7 +17,7 @@ import {
 export class Pagination implements OnInit, DoCheck, OnChanges {
 
     @Input() availablePageSizes: number[];
-    @Input() selectedPageSize: number = 10;
+    @Input() pageSize: number = 10;
     @Input() lazy: boolean = false;
     @Input() pager: string;
     @Input() maxVisiblePages: number = 5;
@@ -93,7 +93,7 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): any {
-        if ((changes.hasOwnProperty("selectedPageSize")) && this.totalRows && this._data.length > 0) {
+        if ((changes.hasOwnProperty("pageSize")) && this.totalRows && this._data.length > 0) {
             this.openFirst();
         }
     }
@@ -141,18 +141,18 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
 
     private preparePageContext(): any {
         this.pageContext.pageData = this.lazy ? this.dataToDisplay :
-            this.dataToDisplay.slice(this.currentPage * this.selectedPageSize, this.currentPage * this.selectedPageSize + this.selectedPageSize);
+            this.dataToDisplay.slice(this.currentPage * this.pageSize, this.currentPage * this.pageSize + this.pageSize);
     }
 
     private changePageSize(newPageSize: number): void {
-        this.selectedPageSize = newPageSize;
+        this.pageSize = newPageSize;
         this.openFirst();
     }
 
     private emitPageDataRequest(): void {
         this.onLazy.emit({
             page: this.currentPage,
-            rows: this.selectedPageSize,
+            rows: this.pageSize,
             restraints: this.pageContext.restraints
         });
     }
@@ -186,7 +186,7 @@ export class Pagination implements OnInit, DoCheck, OnChanges {
     }
 
     private getPageCount(): number {
-        return Math.ceil(this.totalRows / this.selectedPageSize) || 1;
+        return Math.ceil(this.totalRows / this.pageSize) || 1;
     }
 
     private hasDataChanged(): boolean {
