@@ -24,7 +24,7 @@
 * `ready` [Popover](/bootstrap/popover)
 * `ready` [Rating](/bootstrap/rating)
 * `ready` [Tabs](/bootstrap/tabs)
-* Typeahead
+* `ready` [Typeahead](/bootstrap/typeahead)
 * Feedback panel
 * Image viewer, image gallery
 
