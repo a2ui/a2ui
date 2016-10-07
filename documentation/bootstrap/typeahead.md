@@ -58,19 +58,21 @@ permalink: /bootstrap/typeahead
 
 # Types
    
-```TypeScript
-export type AutocompleteSupplier = (term: string) => Observable<Array<any>>;
+```typescript
+    export type AutocompleteSupplier = (term: string) => Observable<Array<any>>;
 ```
 
 # Examples
 
 HTML:
+
 ```html
-<input a2ui-typeahead  
-	[debounceTime]="500"
-	[supplier]="wikiServiceProvider"
-	[(ngModel)]="modelValue" 
-    [ngModelOptions]="{standalone: true}">
+    <input a2ui-typeahead  
+        [debounceTime]="500"
+        [supplier]="wikiServiceProvider"
+        [(ngModel)]="modelValue" 
+        [ngModelOptions]="{standalone: true}">
+
 ```
 
 TypeScript:
