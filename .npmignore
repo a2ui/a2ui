@@ -1,16 +1,1 @@
-fonts/
-typings/
-.idea/
-res/
-
-index.html
-system.config.js
-tsconfig.json
-tslint.json
-typings.json
-
-src/examples/
-src/main.ts
-src/app.module.ts
-src/app.component.ts
-src/app.component.html
+examples/
