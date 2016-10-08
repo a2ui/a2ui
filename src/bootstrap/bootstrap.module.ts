@@ -13,7 +13,7 @@ import {DataTable, Column} from "./data-table/data-table.component";
 import {Modal} from "./modal/modal";
 import {HttpModule, JsonpModule} from "@angular/http";
 import {DatePickerModule} from "./datepicker/date-picker.module";
-// import {Header, Footer} from "./common/common";
+import {Header, Footer} from "./common/common";
 import {TypeaheadComponent} from "./typeahead/typeahead.component";
 import {SuggestionsComponent} from "./typeahead/hints.component";
 import {Hint} from "./typeahead/hint.directive";
