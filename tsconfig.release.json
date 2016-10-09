@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "declaration": false,
+    "mapRoot": "",
+    "noEmitOnError": true,
+    "inlineSources": true,
+    "stripInternal": true,
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "src/examples",
+    "node_modules"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "./dist/",
+    "skipTemplateCodegen": true,
+    "debug": true
+  }
+}

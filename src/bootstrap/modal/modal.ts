@@ -14,7 +14,7 @@ import {Subject} from "rxjs/Subject";
 import "rxjs/add/operator/share";
 import "rxjs/add/operator/cache";
 
-type ModalBackdrop = "static" | boolean;
+export type ModalBackdrop = "static" | boolean;
 
 @Injectable()
 export class Modal {
