@@ -5,8 +5,5 @@ copy("src/**/*.html", "dist", function () {
     inlineResources("./dist");
 });
 
-copy(["package.json", ".npmignore"], "dist", function () {
+copy(["package.json", ".npmignore", "README.md"], "dist", function () {
 });
-
-
-
