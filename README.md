@@ -1,4 +1,4 @@
-# See full documentation at http://a2ui.codeweaver.pl
+See full documentation at [http://a2ui.codeweaver.pl](http://a2ui.codeweaver.pl)
 
 # Speed up your Angular 2 applications development using:
 

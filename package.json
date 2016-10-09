@@ -1,6 +1,8 @@
 {
   "name": "a2ui",
-  "version": "1.0.0",
+  "version": "1.0.5",
+  "license": "MIT",
+  "url" : "http://a2ui.codeweaver.pl/",
   "scripts": {
     "prestart": "tslint -c tslint.json \"src/**/*.ts\"",
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
@@ -12,10 +14,9 @@
     "build:compile": "node ./node_modules/@angular/compiler-cli/src/main.js -p tsconfig.release.json",
     "build:dt": "node ./node_modules/@angular/compiler-cli/src/main.js -p tsconfig.release.dt.json",
     "build:assets": "node scripts/build.js",
-    "build:publish": "cd dist && npm pack",
+    "build:publish": "cd dist && npm publish",
     "rimraf ": "rimraf"
   },
-  "license": "Commercial",
   "dependencies": {
     "@angular/common": "2.0.2",
     "@angular/compiler": "2.0.2",
