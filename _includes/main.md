@@ -28,6 +28,46 @@
 * Feedback panel
 * Image viewer, image gallery
 
+
+# Usage
+To use bootstrap components you need to have bootstrap.js and jQuery.
+There are no more external dependencies.
+
+Install with: `npm install a2ui --save`
+
+and use with SystemJS:
+
+{% highlight ts %}
+    System.config({
+        paths: {
+            'npm:': 'node_modules/'
+        },
+        map: {
+            ...
+            'a2ui': 'npm:a2ui'
+        },
+        packages: {
+            ...
+            a2ui: {
+                defaultExtension: 'js'
+            }
+        }
+    });
+{% endhighlight %}
+
+and example reference in code:
+
+{% highlight ts %}
+import {Alert} from "a2ui/bootstrap/alert/alert.component";
+
+@NgModule({
+    imports: [...],
+    declarations: [Alert]
+})
+export class AppModule {}
+
+{% endhighlight %}
+
 # Components under consideration
 
 * Color picker

@@ -6,10 +6,12 @@ permalink: /about/
 ---
 
 
-# Who am I?
-Hi, my name is Krzysztof Bogdan. I`m full stack developer from Poland.
+# Who are we?
+We are software house located in Poland with wide experience in design,
+building web applications and system integration.
 
-At the time of creating this page Angular 2 is still not released yet
-I have already finished few commercial projects based on Angular 2.
+# Why we did a2ui?
+To speed up our development with ready components based on Angular 2 and Bootstrap.
 
-I would like you to save your time by creating some common components.
+# Are you looking for company to build your software?
+Contact us: contact@codeweaver.pl
