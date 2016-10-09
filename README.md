@@ -3,30 +3,30 @@ See full documentation at [http://a2ui.codeweaver.pl](http://a2ui.codeweaver.pl)
 # Speed up your Angular 2 applications development using:
 
 # Utils:
-* `ready` [Clipboard copy and cut](/utils/copy-and-cut)
-* `ready` [On initialize expression](/utils/on-init)
-* `ready` [Upload component](/utils/upload)
-* `ready` [File drag events](/utils/file-drag-events)
-* `ready` [Changes watcher](/utils/watcher)
+* `ready` [Clipboard copy and cut](http://a2ui.codeweaver.pl/utils/copy-and-cut)
+* `ready` [On initialize expression](http://a2ui.codeweaver.pl/utils/on-init)
+* `ready` [Upload component](http://a2ui.codeweaver.pl/utils/upload)
+* `ready` [File drag events](http://a2ui.codeweaver.pl/utils/file-drag-events)
+* `ready` [Changes watcher](http://a2ui.codeweaver.pl/utils/watcher)
 * Table helpers
 * Validation helpers
 * Utility pipes collection
 * Http cache
 
 # Bootstrap:
-* `ready` [Accordion](/bootstrap/accordion)
-* `ready` [Alert](/bootstrap/alert)
-* `ready` [Date picker](/bootstrap/date-picker)
-* `ready` [Date time picker](/bootstrap/date-time-picker)
-* `ready` [Date range picker](/bootstrap/date-range-picker)
-* `ready` [Date time range picker](/bootstrap/date-time-range-picker)
-* `ready` [Data table](/bootstrap/data-table)
-* `ready` [Modal](/bootstrap/modal)
-* `ready` [Pagination](/bootstrap/pagination)
-* `ready` [Popover](/bootstrap/popover)
-* `ready` [Rating](/bootstrap/rating)
-* `ready` [Tabs](/bootstrap/tabs)
-* `ready` [Typeahead](/bootstrap/typeahead)
+* `ready` [Accordion](http://a2ui.codeweaver.pl/bootstrap/accordion)
+* `ready` [Alert](http://a2ui.codeweaver.pl/bootstrap/alert)
+* `ready` [Date picker](http://a2ui.codeweaver.pl/bootstrap/date-picker)
+* `ready` [Date time picker](http://a2ui.codeweaver.pl/bootstrap/date-time-picker)
+* `ready` [Date range picker](http://a2ui.codeweaver.pl/bootstrap/date-range-picker)
+* `ready` [Date time range picker](http://a2ui.codeweaver.pl/bootstrap/date-time-range-picker)
+* `ready` [Data table](http://a2ui.codeweaver.pl/bootstrap/data-table)
+* `ready` [Modal](http://a2ui.codeweaver.pl/bootstrap/modal)
+* `ready` [Pagination](http://a2ui.codeweaver.pl/bootstrap/pagination)
+* `ready` [Popover](http://a2ui.codeweaver.pl/bootstrap/popover)
+* `ready` [Rating](http://a2ui.codeweaver.pl/bootstrap/rating)
+* `ready` [Tabs](http://a2ui.codeweaver.pl/bootstrap/tabs)
+* `ready` [Typeahead](http://a2ui.codeweaver.pl/bootstrap/typeahead)
 * Feedback panel
 * Image viewer, image gallery
 
