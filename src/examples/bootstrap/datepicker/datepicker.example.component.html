@@ -7,7 +7,7 @@
     <div class="card-body card-padding" (a2OnInit)="dropdownEvents = []" style="width: 300px;">
 
         <p>Date</p>
-        <input date-picker [(ngModel)]="date"
+        <input a2DatePicker [(ngModel)]="date"
                class="form-control input-sm"
                type="text"
                name="testDate"
@@ -15,7 +15,7 @@
                [maxDate]="maxDate" />
 
         <p>Date range</p>
-        <input date-range-picker [(ngModel)]="dateRange"
+        <input a2DateRangePicker [(ngModel)]="dateRange"
                class="form-control input-sm"
                type="text"
                name="testDate"
@@ -23,7 +23,7 @@
                [maxDate]="maxDate" />
 
         <p>Date time</p>
-        <input date-time-picker [(ngModel)]="dateWithTime"
+        <input a2DateTimePicker [(ngModel)]="dateWithTime"
                class="form-control input-sm"
                type="text"
                name="testDateTime"
@@ -31,7 +31,7 @@
                [maxDate]="maxDate" />
 
         <p>Date time range</p>
-        <input date-time-range-picker [(ngModel)]="dateWithTimeRange"
+        <input a2DateTimeRangePicker [(ngModel)]="dateWithTimeRange"
                class="form-control input-sm"
                type="text"
                name="testDateTime"

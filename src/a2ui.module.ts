@@ -5,7 +5,7 @@ import {BootstrapModule} from "./bootstrap/bootstrap.module";
 import {UPLOAD_DIRECTIVES} from "./upload/upload.directive";
 import {MaskedDirective} from "./mask/input-mask.directive";
 
-const ANGULAR_HELPERS: any[] = [WatchDirective, OnInitDirective, UPLOAD_DIRECTIVES, MaskedDirective];
+const ANGULAR_HELPERS: any[] = [WatchDirective, OnInitDirective, UPLOAD_DIRECTIVES];
 
 @NgModule({
     imports: [BootstrapModule],

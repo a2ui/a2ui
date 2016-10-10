@@ -1,6 +1,7 @@
 import {Component, Input, Output, Directive, forwardRef, ViewContainerRef, ComponentRef, ComponentFactory, ComponentFactoryResolver, Renderer} from "@angular/core";
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from "@angular/forms";
 import {isBlank} from "./tooltip";
+import {MaskCreator} from "../../mask/mask-creator";
 
 const DATE_TIME_RANGE_PICKER_ACCESS: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -9,7 +10,7 @@ const DATE_TIME_RANGE_PICKER_ACCESS: any = {
 };
 
 @Directive({
-    selector: "[date-time-range-picker]",
+    selector: "[a2DateTimeRangePicker]",
     host: {"(input)": "onChange($event.target.value)", "(blur)": "onTouched()"},
     providers: [DATE_TIME_RANGE_PICKER_ACCESS]
 })
@@ -20,6 +21,9 @@ export class DateTimeRangePickerInputComponent implements ControlValueAccessor {
 
     _minDate: Date;
     _maxDate: Date;
+
+    private maskedText: string = "1111-11-11 11:11 - 1111-11-11 11:11";
+    private textMaskInputElement: any;
 
     onChange = (_: any) => {
     };
@@ -34,19 +38,23 @@ export class DateTimeRangePickerInputComponent implements ControlValueAccessor {
         this.instance = <any>ref.instance;
         this.instance.hidden = false;
         this.instance.directive = this;
+
+        this.textMaskInputElement = MaskCreator.createTextMaskInputElement(this.vcr.element.nativeElement, this.maskedText);
     }
 
     writeValue (obj: any): void {
         this.model = obj;
         this.instance.model = this.model;
-        let normalizedValue: string = isBlank(obj) ? "" : obj;
+        let normalizedValue: string = isBlank(this.model) ? "" : this.model;
+        this.updateMaskedText(normalizedValue);
         this._renderer.setElementProperty(this.vcr.element.nativeElement, "value", normalizedValue);
     }
 
     registerOnChange (fn: any): void {
         this.onChange = (value: any) => {
-            this.model = value;
+            this.model = MaskCreator.getEscapedMaskedValue(value, this.maskedText);
             this.instance.model = this.model;
+            this.updateMaskedText(this.model);
             fn(value);
         };
         this.instance.onChange = (val: any) => {
@@ -61,6 +69,12 @@ export class DateTimeRangePickerInputComponent implements ControlValueAccessor {
             fn();
         };
         this.instance.onTouched = this.onTouched;
+    }
+
+    private updateMaskedText (value: string): void {
+        if (this.textMaskInputElement !== undefined) {
+            this.textMaskInputElement.update(value);
+        }
     }
 
     private createComponent (): ComponentRef<DateTimeRangePicker> {

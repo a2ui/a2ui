@@ -16,10 +16,12 @@ import {DatePickerContainer} from "./date-picker-container.component";
 import {DateRangePickerComponent} from "./date-range-picker.component";
 import {DateTimePickerComponent} from "./date-time-picker.component";
 import {DateTimeRangePickerComponent} from "./date-time-range-picker.component";
+import {MaskedDirective} from "../../mask/input-mask.directive";
 
 const EXPORTS: any[] = [
     DatePickerInputComponent, DateTimePickerInputComponent,
-    DateRangePickerInputComponent, DateTimeRangePickerInputComponent
+    DateRangePickerInputComponent, DateTimeRangePickerInputComponent,
+    MaskedDirective
 ];
 
 const DECLARATIONS: any[] = [
@@ -27,7 +29,7 @@ const DECLARATIONS: any[] = [
     DatePickerInputComponent, DateTimePickerInputComponent, DateRangePickerInputComponent,
     DateTimeRangePickerInputComponent, DatePickerComponent, DatePickerContainer,
     DateRangePickerComponent, DateTimePickerComponent, DateTimeRangePickerComponent, 
-    DatePicker, DateRangePicker, DateTimePicker, DateTimeRangePicker
+    DatePicker, DateRangePicker, DateTimePicker, DateTimeRangePicker, MaskedDirective
 ];
 
 @NgModule({

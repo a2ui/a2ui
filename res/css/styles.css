@@ -126,6 +126,15 @@ date-range-picker-input .content {
     width: 70px;
 }
 
+.timepicker input {
+    width: 42px;
+}
+
+.timepicker .glyphicon {
+    padding-left: 15px;
+    cursor: pointer;
+}
+
 .date-picker {
     width: 618px;
     overflow: hidden;
