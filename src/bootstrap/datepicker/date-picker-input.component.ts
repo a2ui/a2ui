@@ -1,6 +1,19 @@
-import {Component, Input, Output, Directive, forwardRef, EventEmitter, ComponentFactoryResolver, Renderer, ViewContainerRef, ComponentRef, ComponentFactory} from "@angular/core";
+import {
+    Component,
+    Input,
+    Output,
+    Directive,
+    forwardRef,
+    EventEmitter,
+    ComponentFactoryResolver,
+    Renderer,
+    ViewContainerRef,
+    ComponentRef,
+    ComponentFactory
+} from "@angular/core";
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from "@angular/forms";
 import {isBlank} from "./tooltip";
+import {MaskCreator} from "../../mask/mask-creator";
 
 const DATEPICKER_ACCESS: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -9,7 +22,7 @@ const DATEPICKER_ACCESS: any = {
 };
 
 @Directive({
-    selector: "[date-picker]",
+    selector: "[a2DatePicker]",
     host: {"(input)": "onChange($event.target.value)", "(blur)": "onTouched()"},
     providers: [DATEPICKER_ACCESS]
 })
@@ -21,14 +34,8 @@ export class DatePickerInputComponent implements ControlValueAccessor {
     _minDate: Date;
     _maxDate: Date;
 
-    constructor (private vcr: ViewContainerRef,
-                 private componentFactoryResolver: ComponentFactoryResolver,
-                 private _renderer: Renderer) {
-        let ref: ComponentRef<DatePicker> = this.createComponent();
-        this.instance = <any>ref.instance;
-        this.instance.hidden = false;
-        this.instance.directive = this;
-    }
+    private maskedText: string = "1111-11-11";
+    private textMaskInputElement: any;
 
     onChange = (_: any) => {
     };
@@ -36,18 +43,31 @@ export class DatePickerInputComponent implements ControlValueAccessor {
     onTouched = () => {
     };
 
+    constructor (private vcr: ViewContainerRef,
+                 private componentFactoryResolver: ComponentFactoryResolver,
+                 private _renderer: Renderer) {
+        let ref: ComponentRef<DatePicker> = this.createComponent();
+        this.instance = <any>ref.instance;
+        this.instance.hidden = false;
+        this.instance.directive = this;
+
+        this.textMaskInputElement = MaskCreator.createTextMaskInputElement(this.vcr.element.nativeElement, this.maskedText);
+    }
+
     writeValue (obj: any): void {
         this.model = obj;
         this.instance.model = this.model;
-        let normalizedValue: string = isBlank(obj) ? "" : obj;
+        let normalizedValue: string = isBlank(this.model) ? "" : this.model;
+        this.updateMaskedText(normalizedValue);
         this._renderer.setElementProperty(this.vcr.element.nativeElement, "value", normalizedValue);
     }
 
     registerOnChange (fn: any): void {
         this.onChange = (value: any) => {
-            this.model = value;
+            this.model = MaskCreator.getEscapedMaskedValue(value, this.maskedText);
             this.instance.model = this.model;
-            fn(value);
+            this.updateMaskedText(this.model);
+            fn(this.model);
         };
         this.instance.onChange = (val: any) => {
             this.writeValue(val);
@@ -61,6 +81,12 @@ export class DatePickerInputComponent implements ControlValueAccessor {
             fn();
         };
         this.instance.onTouched = this.onTouched;
+    }
+
+    private updateMaskedText (value: string): void {
+        if (this.textMaskInputElement !== undefined) {
+            this.textMaskInputElement.update(value);
+        }
     }
 
     private createComponent (): ComponentRef<DatePicker> {

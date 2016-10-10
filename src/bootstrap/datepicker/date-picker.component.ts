@@ -36,6 +36,9 @@ export class DatePickerComponent implements ControlValueAccessor {
             this.activeDate = new Date(value.getTime());
         } else if (value) {
             this.activeDate = DateFormatter.parse(value);
+            if (isNaN(this.activeDate.getTime())) {
+                this.activeDate = new Date();
+            }
         }
     }
 

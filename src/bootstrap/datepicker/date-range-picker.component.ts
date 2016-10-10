@@ -38,7 +38,13 @@ export class DateRangePickerComponent implements ControlValueAccessor {
         } else if (value) {
             let parts: string[] = value.split(" - ");
             this.startDate = parts[0] ? DateFormatter.parse(parts[0]) : new Date();
+            if (isNaN(this.startDate.getTime())) {
+                this.startDate = new Date();
+            }
             this.endDate = parts[1] ? DateFormatter.parse(parts[1]) : new Date();
+            if (isNaN(this.endDate.getTime())) {
+                this.endDate = new Date();
+            }
         }
     }
 

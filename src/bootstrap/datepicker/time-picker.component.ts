@@ -13,6 +13,8 @@ export class TimePickerComponent implements ng.OnInit {
     hour: number = 12;
     minute: number = 0;
 
+    type: string = HourType[0];
+
     constructor (public container: DatePickerContainer) {
     }
 
@@ -44,6 +46,75 @@ export class TimePickerComponent implements ng.OnInit {
         this.container.refreshView();
     }
 
+    changeType (): void {
+        if (this.type === HourType[0]) {
+            this.type = HourType[1];
+        } else {
+            this.type = HourType[0];
+        }
+    }
+
+    onHourKeyUp (event: KeyboardEvent): void {
+        if (TimePickerComponent.isUpKey(event.keyCode)) {
+            this.changeHour(true);
+        } else if (TimePickerComponent.isUpDown(event.keyCode)) {
+            this.changeHour(false);
+        }
+    }
+
+    changeHour (increase: boolean) {
+        if (increase) {
+            if (this.hour === 12) {
+                this.hour = 1;
+            } else {
+                this.hour++;
+            }
+        } else {
+            if (this.hour === 1) {
+                this.hour = 12;
+            } else {
+                this.hour--;
+            }
+        }
+    }
+
+    onMinutesKeyUp (event: KeyboardEvent): void {
+        if (TimePickerComponent.isUpKey(event.keyCode)) {
+            this.changeMinutes(true);
+        } else if (TimePickerComponent.isUpDown(event.keyCode)) {
+            this.changeMinutes(false);
+        }
+    }
+
+    changeMinutes (increase: boolean) {
+        if (increase) {
+            if (this.minute === 60) {
+                this.minute = 1;
+            } else {
+                this.minute++;
+            }
+        } else {
+            if (this.minute === 1) {
+                this.minute = 60;
+            } else {
+                this.minute--;
+            }
+        }
+    }
+
+    onTypeKeyUp (event: KeyboardEvent): void {
+
+    }
+
+    private static isUpKey (keyCode: number): boolean {
+        return keyCode === 38;
+    }
+
+    private static isUpDown (keyCode: number): boolean {
+        return keyCode === 40;
+    }
+
+
     private hourChanged (hour: any): void {
         this.container.selectTime(hour, this.minute);
     }
@@ -62,5 +133,10 @@ export class TimePickerComponent implements ng.OnInit {
         result.setMinutes(from.getMinutes());
         return result;
     }
+}
+
+enum HourType {
+    AM,
+    PM
 }
 
