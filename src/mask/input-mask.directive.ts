@@ -48,11 +48,6 @@ export class MaskedDirective implements OnInit, ControlValueAccessor {
     private textMaskInputElement: any;
     private inputElement: HTMLInputElement;
 
-    private _onTouched = () => {
-    };
-    private _onChange = (_: any) => {
-    };
-
     constructor (private element: ElementRef) {
     }
 
@@ -75,16 +70,21 @@ export class MaskedDirective implements OnInit, ControlValueAccessor {
     }
 
     registerOnChange (fn: (value: any) => any): void {
-        this._onChange = fn
+        this._onChange = fn;
     }
 
     registerOnTouched (fn: () => any): void {
-        this._onTouched = fn
+        this._onTouched = fn;
     }
 
     onInput (): void {
         this.textMaskInputElement.update(this.inputElement.value);
         this._onChange(this.inputElement.value);
     }
+
+    private _onTouched = () => {
+    };
+    private _onChange = (_: any) => {
+    };
 }
 

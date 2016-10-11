@@ -75,15 +75,8 @@ export class TimePickerComponent implements ng.OnInit {
     }
 
     isValid (): boolean {
-        return this.hour !== null && this.minute !== null;
-    }
-
-    private changeType (): void {
-        if (this.type === HourType[0]) {
-            this.type = HourType[1];
-        } else {
-            this.type = HourType[0];
-        }
+        return this.hour !== null && !isNaN(this.hour)
+            && this.minute !== null && !isNaN(this.minute);
     }
 
     private onHourKeyUp (event: KeyboardEvent): void {
@@ -99,9 +92,9 @@ export class TimePickerComponent implements ng.OnInit {
 
         if (this.hourAsString) {
             if (this.hourAsString.startsWith("0")) {
-                this.hour = parseInt(this.hourAsString.substr(1, 2));
+                this.hour = parseInt(this.hourAsString.substr(1, 2), 2);
             } else {
-                this.hour = parseInt(this.hourAsString);
+                this.hour = parseInt(this.hourAsString, 2);
                 if (this.hour > 12) {
                     this.hour = 12;
                     this.hourAsString = "12";
@@ -161,9 +154,9 @@ export class TimePickerComponent implements ng.OnInit {
 
         if (this.minuteAsString) {
             if (this.minuteAsString.startsWith("0")) {
-                this.minute = parseInt(this.minuteAsString.substr(1, 2));
+                this.minute = parseInt(this.minuteAsString.substr(1, 2), 2);
             } else {
-                this.minute = parseInt(this.minuteAsString);
+                this.minute = parseInt(this.minuteAsString, 2);
                 if (this.minute > 59) {
                     this.minute = 59;
                     this.minuteAsString = "59";
