@@ -30,7 +30,6 @@ export class MaskCreator {
 
             update(valueToConform: string = inputElement.value): void {
                 if (valueToConform === state.previousConformedInput) {
-                    //inputElement.value = valueToConform;
                     return;
                 }
 
