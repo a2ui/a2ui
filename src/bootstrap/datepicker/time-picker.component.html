@@ -1,21 +1,3 @@
-<div class="timepicker">
-    <div class="select">
-        <select [(ngModel)]="hour" (change)="hourChanged($event.target.value)" class="form-control">
-            <option *ngFor="let hour of hours" value="{{hour[0]}}">
-                {{hour[1]}}
-            </option>
-        </select>
-    </div>
-    <span class="divide">:</span>
-    <div class="select">
-        <select [(ngModel)]="minute" (change)="minuteChanged($event.target.value)" class="form-control">
-            <option *ngFor="let minute of minutes" value="{{minute[0]}}">
-                {{minute[1]}}
-            </option>
-        </select>
-    </div>
-</div>
-
 <table class="timepicker">
     <tbody>
     <tr>
@@ -28,18 +10,16 @@
     <tr>
         <td><input type="text"
                    class="bootstrap-timepicker-hour"
-                   [ngModel]="hour"
+                   [(ngModel)]="hourAsString"
                    [a2Mask]="'11'"
-                   (keyup)="onHourKeyUp($event)"
-                   maxlength="2">
+                   (keyup)="onHourKeyUp($event)">
         </td>
         <td class="separator">:</td>
         <td><input type="text"
                    class="bootstrap-timepicker-minute"
-                   [ngModel]="minute"
+                   [(ngModel)]="minuteAsString"
                    [a2Mask]="'11'"
-                   (keyup)="onMinutesKeyUp($event)"
-                   maxlength="2">
+                   (keyup)="onMinutesKeyUp($event)">
         </td>
         <td class="separator">&nbsp;</td>
         <td><input type="text"

@@ -48,6 +48,11 @@ export class MaskedDirective implements OnInit, ControlValueAccessor {
     private textMaskInputElement: any;
     private inputElement: HTMLInputElement;
 
+    private _onTouched = () => {
+    };
+    private _onChange = (_: any) => {
+    };
+
     constructor (private element: ElementRef) {
     }
 
@@ -61,28 +66,25 @@ export class MaskedDirective implements OnInit, ControlValueAccessor {
         }
 
         this.textMaskInputElement = MaskCreator.createTextMaskInputElement(this.inputElement, this.mask);
-
-        // This ensures that initial model value gets masked
-        setTimeout(() => this.onInput());
     }
 
     writeValue (value: any): void {
         if (this.textMaskInputElement !== undefined) {
             this.textMaskInputElement.update(value);
         }
-        this.formControl.setValue(value);
     }
 
-    registerOnChange (fn: any): void {
-        this.formControl.valueChanges.subscribe(fn);
+    registerOnChange (fn: (value: any) => any): void {
+        this._onChange = fn
     }
 
-    registerOnTouched (fn: any): void {
+    registerOnTouched (fn: () => any): void {
+        this._onTouched = fn
     }
 
     onInput (): void {
-        this.textMaskInputElement.update();
-        this.writeValue(this.inputElement.value);
+        this.textMaskInputElement.update(this.inputElement.value);
+        this._onChange(this.inputElement.value);
     }
 }
 

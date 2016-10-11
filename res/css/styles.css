@@ -186,3 +186,11 @@ date-range-picker-input .content {
 .month-picker-button {
     width:85px;
 }
+
+.glyphicon-chevron-down {
+    color: #333;
+}
+
+.glyphicon-chevron-up {
+    color: #333;
+}
