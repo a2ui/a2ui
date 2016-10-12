@@ -10,7 +10,7 @@ const DATE_RANGE_PICKER_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: "date-range-picker",
+    selector: "a2-date-range-picker",
     templateUrl: "/src/bootstrap/datepicker/date-range-picker.component.html",
     providers: [DATE_RANGE_PICKER_VALUE_ACCESSOR]
 })

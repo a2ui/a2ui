@@ -1,28 +1,31 @@
-<table class="timepicker">
+<table class="timepicker" [class.timepicker-full-mode]="fullMode">
     <tbody>
     <tr>
         <td><a (click)="changeHour(true)"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
         <td class="separator">&nbsp;</td>
         <td><a (click)="changeMinutes(true)"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
-        <td class="separator">&nbsp;</td>
-        <td class="meridian-column"><a (click)="changeType()"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+        <td *ngIf="!fullMode" class="separator">&nbsp;</td>
+        <td *ngIf="!fullMode" class="meridian-column"><a (click)="changeType()"><span class="glyphicon glyphicon-chevron-up"></span></a>
+        </td>
     </tr>
     <tr>
         <td><input type="text"
                    class="bootstrap-timepicker-hour"
                    [(ngModel)]="hourAsString"
                    [a2Mask]="'11'"
-                   (keyup)="onHourKeyUp($event)">
+                   (keyup)="onHourKeyUp($event)"
+                   (blur)="onHoursBlur()">
         </td>
         <td class="separator">:</td>
         <td><input type="text"
                    class="bootstrap-timepicker-minute"
                    [(ngModel)]="minuteAsString"
                    [a2Mask]="'11'"
-                   (keyup)="onMinutesKeyUp($event)">
+                   (keyup)="onMinutesKeyUp($event)"
+                   (blur)="onMinutesBlur()">
         </td>
-        <td class="separator">&nbsp;</td>
-        <td><input type="text"
+        <td *ngIf="!fullMode" class="separator">&nbsp;</td>
+        <td *ngIf="!fullMode"><input type="text"
                    class="bootstrap-timepicker-meridian"
                    disabled
                    (keyup)="onTypeKeyUp($event)"
@@ -34,8 +37,8 @@
         <td><a (click)="changeHour(false)"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
         <td class="separator"></td>
         <td><a (click)="changeMinutes(false)"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
-        <td class="separator">&nbsp;</td>
-        <td><a (click)="changeType()"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+        <td *ngIf="!fullMode" class="separator">&nbsp;</td>
+        <td *ngIf="!fullMode"><a (click)="changeType()"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
     </tr>
     </tbody>
 </table>

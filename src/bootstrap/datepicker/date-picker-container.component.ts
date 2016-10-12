@@ -8,7 +8,7 @@ const INIT_MAX_MODE: string = "year";
 const STARTING_DAY: number = 0;
 
 @Component({
-    selector: "date-picker-container",
+    selector: "a2-date-picker-container",
     template: `
     <div [hidden]="!datepickerMode" class="well well-sm bg-faded p-a card margin-bottom-8" role="application" >
       <ng-content></ng-content>

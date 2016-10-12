@@ -1,77 +1,81 @@
-import * as ng from "@angular/core";
+import {Component, Input, OnInit, forwardRef} from "@angular/core";
 import {DatePickerContainer} from "./date-picker-container.component";
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
-@ng.Component({
-    selector: "time-picker",
-    templateUrl: "/src/bootstrap/datepicker/time-picker.component.html"
+const IS_24_HOURS_MODE: boolean = true;
+
+const TIME_PICKER_ACCESS: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TimePickerComponent),
+    multi: true
+};
+
+@Component({
+    selector: "a2-time-picker",
+    templateUrl: "/src/bootstrap/datepicker/time-picker.component.html",
+    providers: [TIME_PICKER_ACCESS]
 })
-export class TimePickerComponent implements ng.OnInit {
+export class TimePickerComponent implements OnInit, ControlValueAccessor {
 
-    hours: any[] = [];
-    minutes: any[] = [];
+    @Input("24HoursMode")
+    fullMode: boolean = IS_24_HOURS_MODE;
+
+    @Input()
+    container: DatePickerContainer = null;
 
     hour: number = 12;
     hourAsString: string = "12";
     minute: number = 0;
-    minuteAsString: string = "0";
+    minuteAsString: string = "00";
 
     type: string = HourType[0];
 
-    constructor (public container: DatePickerContainer) {
+    onChange = (_: any) => {
+    };
+
+    onTouched = () => {
+    };
+
+    writeValue (val: any): void {
+        if (val) {
+            let values: string[] = val.split(":");
+            this.hour = (this.fullMode) ? parseInt(values[0]) : this.prepareHour(parseInt(values[0]));
+            this.minute = parseInt(values[1]);
+            this.format();
+        }
+    }
+
+    registerOnChange (fn: any): void {
+        this.onChange = fn;
+    }
+
+    registerOnTouched (fn: any): void {
+        this.onTouched = fn;
     }
 
     ngOnInit (): void {
-        let self: TimePickerComponent = this;
-        for (let i: number = 0; i <= 23; i++) {
-            this.hours.push([i, TimePickerComponent.prefixWithZeroIfSmallerThanTen(i)]);
-        }
-        for (let i: number = 0; i <= 59; i++) {
-            this.minutes.push([i, TimePickerComponent.prefixWithZeroIfSmallerThanTen(i)]);
-        }
+        if (!this.isSelfMode()) {
+            let self: TimePickerComponent = this;
 
-        this.container.setRefreshViewHandler((): void => {
-            if (this.container.isDateEmpty()) {
-                let now: Date = new Date();
-                let hour: number = this.container.getDate().getHours();
-                if (hour === 12) {
-                    self.type = HourType[1];
-                } else if (hour > 12) {
-                    hour -= 12;
-                    self.type = HourType[1];
+            this.container.setRefreshViewHandler((): void => {
+                if (this.container.isDateEmpty()) {
+                    let now: Date = new Date();
+                    self.hour = (this.fullMode) ? now.getHours() : self.prepareHour(now.getHours());
+                    self.minute = now.getMinutes();
+                    this.container.selectTime(self.hour, self.minute);
                 } else {
-                    self.type = HourType[0];
-                    if (hour === 0) {
-                        hour = 12;
-                    }
+                    self.hour = (this.fullMode) ? this.container.getDate().getHours() : self.prepareHour(this.container.getDate().getHours());
+                    self.minute = this.container.getDate().getMinutes();
                 }
-                self.hour = hour;
-                self.minute = now.getMinutes();
-                this.container.selectTime(self.hour, self.minute);
-            } else {
-                let hour: number = this.container.getDate().getHours();
-                if (hour === 12) {
-                    self.type = HourType[1];
-                } else if (hour > 12) {
-                    hour -= 12;
-                    self.type = HourType[1];
-                } else {
-                    self.type = HourType[0];
-                    if (hour === 0) {
-                        hour = 12;
-                    }
-                }
-                self.hour = hour;
-                self.minute = this.container.getDate().getMinutes();
-            }
-            this.hourToString();
-            this.minuteToString();
-        }, "time");
+                this.format();
+            }, "time");
 
-        this.container.setCompareHandler((date1: Date, date2: Date): number => {
-            return TimePickerComponent.dateWithTime(date1).getTime() - TimePickerComponent.dateWithTime(date2).getTime();
-        }, "time");
+            this.container.setCompareHandler((date1: Date, date2: Date): number => {
+                return TimePickerComponent.dateWithTime(date1).getTime() - TimePickerComponent.dateWithTime(date2).getTime();
+            }, "time");
 
-        this.container.refreshView();
+            this.container.refreshView();
+        }
     }
 
     isValid (): boolean {
@@ -79,62 +83,114 @@ export class TimePickerComponent implements ng.OnInit {
             && this.minute !== null && !isNaN(this.minute);
     }
 
-    private onHourKeyUp (event: KeyboardEvent): void {
+    private onHoursBlur (): void {
+        this.formatHours();
+        if (this.isValid()) {
+            this.changeTime();
+        }
+    }
 
-        let shouldChangeTime: boolean = false;
+    private onMinutesBlur (): void {
+        this.formatMinutes();
+        if (this.isValid()) {
+            this.changeTime();
+        }
+    }
+
+    private format (): void {
+        this.formatHours();
+        this.formatMinutes();
+    }
+
+    private prepareHour (hour: number): number {
+        if (hour === 12) {
+            this.type = HourType[1];
+        } else if (hour > 12) {
+            hour -= 12;
+            this.type = HourType[1];
+        } else {
+            this.type = HourType[0];
+            if (hour === 0) {
+                hour = 12;
+            }
+        }
+        return hour;
+    }
+
+    private onHourKeyUp (event: KeyboardEvent): void {
         if (TimePickerComponent.isUpKey(event.keyCode)) {
             this.changeHour(true);
         } else if (TimePickerComponent.isUpDown(event.keyCode)) {
             this.changeHour(false);
-        } else {
-            shouldChangeTime = true;
         }
 
         if (this.hourAsString) {
-            if (this.hourAsString.startsWith("0")) {
-                this.hour = parseInt(this.hourAsString.substr(1, 2), 2);
+            if (this.hourAsString.startsWith("0") && this.hourAsString.length > 1) {
+                this.hour = parseInt(this.hourAsString.substr(1, 2), 0);
             } else {
-                this.hour = parseInt(this.hourAsString, 2);
-                if (this.hour > 12) {
-                    this.hour = 12;
-                    this.hourAsString = "12";
+                this.hour = parseInt(this.hourAsString, 0);
+                if (this.fullMode && this.hour > 24) {
+                    this.setHourAndFormat(23);
+                } else if (this.hour > 12) {
+                    this.setHourAndFormat(12);
                 }
             }
         } else {
             this.hour = null;
         }
-
-        if (shouldChangeTime) {
-            this.changeTime();
-        }
     }
 
     private changeHour (increase: boolean): void {
         if (increase) {
-            if (this.hour === 12) {
-                this.hour = 1;
-            } else if (this.hour === 11) {
-                this.hour = 12;
-                this.changeType();
+            if (this.fullMode) {
+                if (this.hour === 23) {
+                    this.hour = 0;
+                } else {
+                    this.hour++;
+                }
             } else {
-                this.hour++;
+                if (this.hour === 12) {
+                    this.hour = 1;
+                } else if (this.hour === 11) {
+                    this.hour = 12;
+                    this.changeType();
+                } else {
+                    this.hour++;
+                }
             }
         } else {
-            if (this.hour === 1) {
-                this.hour = 12;
-            } else if (this.hour === 12) {
-                this.hour = 11;
-                this.changeType();
+            if (this.fullMode) {
+                if (this.hour === 0) {
+                    this.hour = 23;
+                } else {
+                    this.hour--;
+                }
             } else {
-                this.hour--;
+                if (this.hour === 1) {
+                    this.hour = 12;
+                } else if (this.hour === 12) {
+                    this.hour = 11;
+                    this.changeType();
+                } else {
+                    this.hour--;
+                }
             }
         }
-        this.hourToString();
+        this.formatHours();
         this.changeTime();
     }
 
-    private hourToString (): void {
-        if (this.hour < 10) {
+    private setHourAndFormat(hour: number): void {
+        this.hour = hour;
+        this.formatHours();
+    }
+
+    private formatHours (): void {
+        if (this.hour === null || isNaN(this.hour)) {
+            this.hour = 0;
+            this.hourAsString = "00";
+            this.changeTime();
+        } else if (this.hour < 10) {
             this.hourAsString = "0" + this.hour;
         } else {
             this.hourAsString = "" + this.hour;
@@ -142,21 +198,17 @@ export class TimePickerComponent implements ng.OnInit {
     }
 
     private onMinutesKeyUp (event: KeyboardEvent): void {
-
-        let shouldChangeTime: boolean = false;
         if (TimePickerComponent.isUpKey(event.keyCode)) {
             this.changeMinutes(true);
         } else if (TimePickerComponent.isUpDown(event.keyCode)) {
             this.changeMinutes(false);
-        } else {
-            shouldChangeTime = true;
         }
 
         if (this.minuteAsString) {
-            if (this.minuteAsString.startsWith("0")) {
-                this.minute = parseInt(this.minuteAsString.substr(1, 2), 2);
+            if (this.minuteAsString.startsWith("0") && this.minuteAsString.length > 1) {
+                this.minute = parseInt(this.minuteAsString.substr(1, 2), 0);
             } else {
-                this.minute = parseInt(this.minuteAsString, 2);
+                this.minute = parseInt(this.minuteAsString, 0);
                 if (this.minute > 59) {
                     this.minute = 59;
                     this.minuteAsString = "59";
@@ -164,10 +216,6 @@ export class TimePickerComponent implements ng.OnInit {
             }
         } else {
             this.minute = null;
-        }
-
-        if (shouldChangeTime) {
-            this.changeTime();
         }
     }
 
@@ -185,12 +233,16 @@ export class TimePickerComponent implements ng.OnInit {
                 this.minute--;
             }
         }
-        this.minuteToString();
+        this.formatMinutes();
         this.changeTime();
     }
 
-    private minuteToString (): void {
-        if (this.minute < 10) {
+    private formatMinutes (): void {
+        if (this.minute === null || isNaN(this.minute)) {
+            this.minute = 0;
+            this.minuteAsString = "00";
+            this.changeTime();
+        } else if (this.minute < 10) {
             this.minuteAsString = "0" + this.minute;
         } else {
             this.minuteAsString = "" + this.minute;
@@ -213,18 +265,25 @@ export class TimePickerComponent implements ng.OnInit {
     private changeTime (): void {
         if (this.isValid()) {
             let hour: number = this.hour;
-            if (this.type === HourType[1] && hour < 12) {
-                hour = hour + 12;
+            if (!this.fullMode) {
+                if (this.type === HourType[1] && hour < 12) {
+                    hour = hour + 12;
+                }
+                if (this.type === HourType[0] && hour === 12) {
+                    hour = 0;
+                }
             }
-            if (this.type === HourType[0] && hour === 12) {
-                hour = 0;
+            if (this.isSelfMode()) {
+                this.formatHours();
+                this.onChange(((hour < 10) ? "0" + hour : hour ) + ":" + this.minuteAsString);
+            } else {
+                this.container.selectTime(hour, this.minute);
             }
-            this.container.selectTime(hour, this.minute);
         }
     }
 
-    private static prefixWithZeroIfSmallerThanTen (i: number): string {
-        return i < 10 ? "0" + i : i + "";
+    private isSelfMode (): boolean {
+        return this.container === null;
     }
 
     private static dateWithTime (from: Date): Date {

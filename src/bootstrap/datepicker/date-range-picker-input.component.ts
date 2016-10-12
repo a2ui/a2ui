@@ -111,7 +111,7 @@ export class DateRangePickerInputComponent implements ControlValueAccessor {
 }
 
 @Component({
-    selector: "date-range-picker-input",
+    selector: "a2-date-range-picker-input",
     templateUrl: "/src/bootstrap/datepicker/date-range-picker-input.component.html"
 })
 export class DateRangePicker {

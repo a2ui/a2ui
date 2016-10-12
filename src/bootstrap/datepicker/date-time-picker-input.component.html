@@ -10,12 +10,12 @@
         <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
     </button>
     <template #dateTimePicker>
-        <date-time-picker [(ngModel)]="model"
+        <a2-date-time-picker [(ngModel)]="model"
                           (ngModelChange)="onChange($event);"
                           (close)="onTouched(); dateTimePickerCtrl.hide();"
                           [showWeeks]="true"
                           [minDate]="minDate"
                           [maxDate]="maxDate">
-        </date-time-picker>
+        </a2-date-time-picker>
     </template>
 </div>
