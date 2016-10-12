@@ -8,7 +8,7 @@ const FORMAT_DAY_HEADER: string = "EEE";
 const FORMAT_DAY: string = "dd";
 
 @Component({
-    selector: "day-picker",
+    selector: "a2-day-picker",
     templateUrl: "/src/bootstrap/datepicker/day-picker.component.html"
 })
 export class DayPickerComponent implements OnInit {

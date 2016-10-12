@@ -8,28 +8,28 @@
         </button>
     </div>
     <div class="date-range-picker-from">
-        <date-picker-container [activeDate]="startDate"
+        <a2-date-picker-container [activeDate]="startDate"
                                (update)="onUpdate($event, 0)"
                                [initDate]="startDate"
                                [minDate]="minDate"
                                [maxDate]="maxDate">
-            <day-picker [showWeeks]="showWeeks">
-            </day-picker>
-            <month-picker></month-picker>
-            <year-picker></year-picker>
-        </date-picker-container>
+            <a2-day-picker [showWeeks]="showWeeks">
+            </a2-day-picker>
+            <a2-month-picker></a2-month-picker>
+            <a2-year-picker></a2-year-picker>
+        </a2-date-picker-container>
     </div>
     <div class="date-range-picker-to">
-        <date-picker-container [activeDate]="endDate"
+        <a2-date-picker-container [activeDate]="endDate"
                                (update)="onUpdate($event, 1)"
                                [initDate]="endDate"
                                [minDate]="minDate"
                                [maxDate]="maxDate">
-            <day-picker [showWeeks]="showWeeks">
-            </day-picker>
-            <month-picker></month-picker>
-            <year-picker></year-picker>
-        </date-picker-container>
+            <a2-day-picker [showWeeks]="showWeeks">
+            </a2-day-picker>
+            <a2-month-picker></a2-month-picker>
+            <a2-year-picker></a2-year-picker>
+        </a2-date-picker-container>
     </div>
     <div class="paper-actions" class="date-picker-footer">
         <span class="forward">
