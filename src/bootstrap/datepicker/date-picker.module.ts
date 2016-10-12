@@ -21,7 +21,7 @@ import {MaskedDirective} from "../../mask/input-mask.directive";
 const EXPORTS: any[] = [
     DatePickerInputComponent, DateTimePickerInputComponent,
     DateRangePickerInputComponent, DateTimeRangePickerInputComponent,
-    MaskedDirective
+    MaskedDirective, TimePickerComponent
 ];
 
 const DECLARATIONS: any[] = [
@@ -36,7 +36,7 @@ const DECLARATIONS: any[] = [
     imports: [BrowserModule, FormsModule],
     declarations: DECLARATIONS,
     exports: EXPORTS,
-    entryComponents: [DatePicker, DateRangePicker, DateTimePicker, DateTimeRangePicker]
+    entryComponents: [DatePicker, DateRangePicker, DateTimePicker, DateTimeRangePicker, TimePickerComponent]
 })
 export class DatePickerModule {
 }

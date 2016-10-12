@@ -101,7 +101,7 @@ export class DateTimePickerInputComponent implements ControlValueAccessor {
 }
 
 @Component({
-    selector: "date-time-picker-input",
+    selector: "a2-date-time-picker-input",
     styles: [".content {float: right; bottom: 30px; position: relative;}"],
     templateUrl: "/src/bootstrap/datepicker/date-time-picker-input.component.html"
 })

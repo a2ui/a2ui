@@ -5,7 +5,7 @@ const YEAR_RANGE: number = 16;
 const FORMAT_YEAR: string = "yyyy";
 
 @Component({
-    selector: "year-picker",
+    selector: "a2-year-picker",
     templateUrl: "/src/bootstrap/datepicker/year-picker.component.html"
 })
 export class YearPickerComponent implements OnInit {

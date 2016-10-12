@@ -10,7 +10,7 @@ const DATE_TIME_PICKER_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: "date-time-picker",
+    selector: "a2-date-time-picker",
     templateUrl: "/src/bootstrap/datepicker/date-time-picker.component.html",
     providers: [DATE_TIME_PICKER_VALUE_ACCESSOR]
 })

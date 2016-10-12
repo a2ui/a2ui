@@ -12,4 +12,7 @@ export class DatePickerExampleComponent {
 
     minDate: Date = new Date(new Date().getTime() - 7 * 86400000);
     maxDate: Date = new Date(new Date().getTime() + 7 * 86400000);
+
+    hour12: string = "09:08";
+    hour24: string = "18:32";
 }
