@@ -1,9 +1,9 @@
 <table class="timepicker" [class.timepicker-full-mode]="fullMode">
     <tbody>
     <tr>
-        <td><a (click)="changeHour(true)"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+        <td><a (click)="increaseHour()"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
         <td class="separator">&nbsp;</td>
-        <td><a (click)="changeMinutes(true)"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+        <td><a (click)="increaseMinutes()"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
         <td *ngIf="!fullMode" class="separator">&nbsp;</td>
         <td *ngIf="!fullMode" class="meridian-column"><a (click)="changeType()"><span class="glyphicon glyphicon-chevron-up"></span></a>
         </td>
@@ -34,9 +34,9 @@
         </td>
     </tr>
     <tr>
-        <td><a (click)="changeHour(false)"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+        <td><a (click)="decreaseHour()"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
         <td class="separator"></td>
-        <td><a (click)="changeMinutes(false)"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+        <td><a (click)="decreaseMinutes()"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
         <td *ngIf="!fullMode" class="separator">&nbsp;</td>
         <td *ngIf="!fullMode"><a (click)="changeType()"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
     </tr>

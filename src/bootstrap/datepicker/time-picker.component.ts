@@ -119,9 +119,9 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
 
     private onHourKeyUp (event: KeyboardEvent): void {
         if (TimePickerComponent.isUpKey(event.keyCode)) {
-            this.changeHour(true);
+            this.increaseHour();
         } else if (TimePickerComponent.isUpDown(event.keyCode)) {
-            this.changeHour(false);
+            this.decreaseHour();
         }
 
         if (this.hourAsString) {
@@ -140,40 +140,42 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    private changeHour (increase: boolean): void {
-        if (increase) {
-            if (this.fullMode) {
-                if (this.hour === 23) {
-                    this.hour = 0;
-                } else {
-                    this.hour++;
-                }
+    private increaseHour (): void {
+        if (this.fullMode) {
+            if (this.hour === 23) {
+                this.hour = 0;
             } else {
-                if (this.hour === 12) {
-                    this.hour = 1;
-                } else if (this.hour === 11) {
-                    this.hour = 12;
-                    this.changeType();
-                } else {
-                    this.hour++;
-                }
+                this.hour++;
             }
         } else {
-            if (this.fullMode) {
-                if (this.hour === 0) {
-                    this.hour = 23;
-                } else {
-                    this.hour--;
-                }
+            if (this.hour === 12) {
+                this.hour = 1;
+            } else if (this.hour === 11) {
+                this.hour = 12;
+                this.changeType();
             } else {
-                if (this.hour === 1) {
-                    this.hour = 12;
-                } else if (this.hour === 12) {
-                    this.hour = 11;
-                    this.changeType();
-                } else {
-                    this.hour--;
-                }
+                this.hour++;
+            }
+        }
+        this.formatHours();
+        this.changeTime();
+    }
+
+    private decreaseHour (): void {
+        if (this.fullMode) {
+            if (this.hour === 0) {
+                this.hour = 23;
+            } else {
+                this.hour--;
+            }
+        } else {
+            if (this.hour === 1) {
+                this.hour = 12;
+            } else if (this.hour === 12) {
+                this.hour = 11;
+                this.changeType();
+            } else {
+                this.hour--;
             }
         }
         this.formatHours();
@@ -199,9 +201,9 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
 
     private onMinutesKeyUp (event: KeyboardEvent): void {
         if (TimePickerComponent.isUpKey(event.keyCode)) {
-            this.changeMinutes(true);
+            this.increaseMinutes();
         } else if (TimePickerComponent.isUpDown(event.keyCode)) {
-            this.changeMinutes(false);
+            this.decreaseMinutes();
         }
 
         if (this.minuteAsString) {
@@ -219,19 +221,21 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    private changeMinutes (increase: boolean): void {
-        if (increase) {
-            if (this.minute === 59) {
-                this.minute = 0;
-            } else {
-                this.minute++;
-            }
+    private increaseMinutes (): void {
+        if (this.minute === 59) {
+            this.minute = 0;
         } else {
-            if (this.minute === 0) {
-                this.minute = 59;
-            } else {
-                this.minute--;
-            }
+            this.minute++;
+        }
+        this.formatMinutes();
+        this.changeTime();
+    }
+
+    private decreaseMinutes (): void {
+        if (this.minute === 0) {
+            this.minute = 59;
+        } else {
+            this.minute--;
         }
         this.formatMinutes();
         this.changeTime();
