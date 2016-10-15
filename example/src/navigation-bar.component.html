@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default" #navbar>
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+                <li *ngFor="let route of routes"
+                    [class.dropdown]="route?.children"
+                    [class.active]="false">
+
+                    <a *ngIf="route?.children"
+                       href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{route.data.readable}}
+                    </a>
+                    <a *ngIf="!route?.children" (click)="route.data.toggle = !route.data.toggle"
+                       routerLink="{{route.path}}">
+                        {{route.data.readable}}
+                    </a>
+
+                    <ul *ngIf="route?.children" class="dropdown-menu" role="menu">
+                        <li *ngFor="let child of route.children">
+                            <a routerLink="{{route.path}}/{{child.path}}">{{child.data.readable}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

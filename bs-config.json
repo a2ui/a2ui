@@ -1,0 +1,14 @@
+{
+  "injectChanges": false,
+  "files": [
+    "./**/*.{html,htm,css,js}"
+  ],
+  "watchOptions": {
+    "ignored": [
+      "example",
+      "node_modules"
+    ],
+    "ignoreInitial": true
+  },
+  "port": 3000
+}
