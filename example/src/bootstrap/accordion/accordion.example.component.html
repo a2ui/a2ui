@@ -1,0 +1,149 @@
+<div class="card">
+    <div class="card-header">
+        <h2>Accordion</h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <button (click)="toggle('ignoreDisabled')" class="btn btn-default btn-sm m-t-5">{{ignoreDisabled ? 'Disable' :
+            'Enable'}} Ignoring disabled groups
+        </button>
+        <button (click)="toggle('groupPresent')" class="btn btn-default btn-sm m-t-5">{{groupPresent ? 'Remove' :
+            'Add'}} group
+        </button>
+        <button (click)="toggle('closeOthers')" class="btn btn-default btn-sm m-t-5">{{closeOthers ? 'Disable' :
+            'Enable'}} Close others
+        </button>
+
+        <button (click)="prev();" class="btn btn-default btn-sm m-t-5" [disabled]="!closeOthers">Prev</button>
+        <button (click)="next();" class="btn btn-default btn-sm m-t-5" [disabled]="!closeOthers">Next</button>
+
+        <a2-accordion #acc [closeOther]="closeOthers" [ignoreDisabled]="ignoreDisabled">
+            <a2-accordion-group [opened]="true" header="One" type="success">
+                <ul>
+                    <li>Example content</li>
+                    <li>Example content</li>
+                </ul>
+            </a2-accordion-group>
+            <a2-accordion-group [disabled]="true" header="Two" type="info">
+                <ul>
+                    <li>Example content</li>
+                    <li>Example content</li>
+                </ul>
+            </a2-accordion-group>
+            <a2-accordion-group header="Three" type="danger">
+                <ul>
+                    <li>Example content</li>
+                    <li>Example content</li>
+                </ul>
+            </a2-accordion-group>
+            <a2-accordion-group *ngIf="groupPresent" header="Four">
+                <ul>
+                    <li>Example content</li>
+                    <li>Example content</li>
+                </ul>
+            </a2-accordion-group>
+        </a2-accordion>
+
+        Accordion navigation state:<br/>
+        <ul>
+            <li>Prev: {{accordionNavigationState.prev}}</li>
+            <li>Current: {{accordionNavigationState.current}}</li>
+            <li>Next: {{accordionNavigationState.next}}</li>
+        </ul>
+        Accordion content state:<br/>
+        {{accordionContentState | json}}
+
+    </div>
+
+    <div class="card-header">
+        <h2>Accordion wizard</h2>
+    </div>
+
+    <div class="card-body card-padding">
+
+        <a2-accordion #wizard [closeOther]="true">
+            <a2-accordion-group [opened]="true" [disabled]="ownerForm.invalid" header="Owner"
+                                [type]="ownerForm.valid ? 'success' :  ownerSubmitted ? 'danger': 'default'">
+                <form #ownerForm="ngForm" (ngSubmit)="wizardNext($event)">
+                    <p>
+                        <label>First Name:</label>
+                        <input [(ngModel)]="owner.firstName" name="firstName" required>
+                    </p>
+                    <p>
+                        <label>Last Name:</label>
+                        <input [(ngModel)]="owner.lastName" name="lastName" required>
+                    </p>
+                    <button (click)="wizardPrev();" class="btn btn-default btn-sm m-t-5" type="button">Prev</button>
+                    <button class="btn btn-default btn-sm m-t-5" (click)="ownerSubmitted=true" style="" type="submit">
+                        Next
+                    </button>
+                </form>
+            </a2-accordion-group>
+            <a2-accordion-group [disabled]="coOwnerForm.invalid" header="Co-Owner"
+                                [type]="coOwnerForm.valid ? 'success' :  coOwnerSubmitted ? 'danger': 'default'">
+                <form #coOwnerForm="ngForm" (ngSubmit)="wizardNext($event)">
+                    <p>
+                        <label>First Name:</label>
+                        <input [(ngModel)]="coOwner.firstName" name="firstName" required>
+                    </p>
+                    <p>
+                        <label>Last Name:</label>
+                        <input [(ngModel)]="coOwner.lastName" name="lastName" required>
+                    </p>
+                    <button (click)="wizardPrev();" class="btn btn-default btn-sm m-t-5" type="button">Prev</button>
+                    <button class="btn btn-default btn-sm m-t-5" type="submit" (click)="coOwnerSubmitted=true">Next
+                    </button>
+                </form>
+            </a2-accordion-group>
+            <a2-accordion-group [disabled]="ownerForm.invalid || coOwnerForm.invalid" header="Summary" type="info">
+                Owner:
+                <ul>
+                    <li>Name: {{owner.firstName}}</li>
+                    <li>Surname: {{owner.lastName}}</li>
+                </ul>
+                Co-Owner:
+                <ul>
+                    <li>Name: {{coOwner.firstName}}</li>
+                    <li>Surname: {{coOwner.lastName}}</li>
+                </ul>
+                <button (click)="wizardPrev();" class="btn btn-default btn-sm m-t-5" type="button">Prev</button>
+            </a2-accordion-group>
+        </a2-accordion>
+    </div>
+
+    <div class="card-header">
+        <h2>Templating</h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <a2-accordion [closeOther]="true">
+            <a2-accordion-group [opened]="true" type="success">
+                <a2-header>
+                    <div><b><i>One</i></b></div>
+                </a2-header>
+                <ul>
+                    <li>Example content</li>
+                    <li>Example content</li>
+                </ul>
+                <a2-footer><i>Footer</i></a2-footer>
+            </a2-accordion-group>
+            <a2-accordion-group type="success">
+                <a2-header>
+                    <div><b><i>Two</i></b></div>
+                </a2-header>
+                <ul>
+                    <li>Example content</li>
+                    <li>Example content</li>
+                </ul>
+            </a2-accordion-group>
+            <a2-accordion-group header="Three" type="success">
+                <ul>
+                    <li>Example content</li>
+                    <li>Example content</li>
+                </ul>
+                <a2-footer><i>Footer</i></a2-footer>
+            </a2-accordion-group>
+        </a2-accordion>
+
+    </div>
+</div>

@@ -19,7 +19,8 @@
     ]
   },
   "exclude": [
-    "src/examples",
+    "example",
+    "src/sandbox",
     "node_modules"
   ],
   "angularCompilerOptions": {

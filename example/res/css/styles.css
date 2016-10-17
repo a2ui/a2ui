@@ -1,0 +1,196 @@
+.glyphicon-star:before {
+    content: "\e006";
+    color: gold;
+}
+
+.glyphicon-star-empty:before {
+    content: "\e007";
+    color: darkgrey;
+}
+
+.dropzone {
+    border: 2px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dropzone-global {
+    border: 2px dashed #0057A4;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dropzone-local {
+    border: 2px solid #0057A4;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.sqbrackets:before {
+    content: " ";
+    border-left: 2px solid #666;
+    border-top: 2px solid #666;
+    border-bottom: 2px solid #666;
+    margin-right: 10px;
+    padding: 10px 5px 10px 5px;
+}
+
+.sqbrackets:after {
+    content: " ";
+    padding: 10px 5px 10px 5px;
+    border-right: 2px solid #666;
+    border-top: 2px solid #666;
+    border-bottom: 2px solid #666;
+    margin-left: 10px;
+}
+
+.sqbrackets-global.sqbrackets:before {
+    border-color: #0057A4;
+}
+
+.sqbrackets-global.sqbrackets:after {
+    border-color: #0057A4;
+}
+
+.sqbrackets-local.sqbrackets:before {
+    border-color: #a40800;
+}
+
+.sqbrackets-local.sqbrackets:after {
+    border-color: #A40800;
+}
+
+.sub-menu ul {
+    display: block;
+}
+
+date-picker-input .popover {
+    max-width: 340px !important;
+}
+
+date-range-picker-input .popover {
+    max-width: 650px !important;
+}
+
+date-time-picker-input .popover {
+    max-width: 340px !important;
+}
+
+.divide {
+    margin-top: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.btn-info.active, .btn-info:active, .btn-info:hover, .open > .dropdown-toggle.btn-info {
+    color: #fff;
+    background-color: #00b8e6;
+    border-color: #006f7d;
+}
+
+.popover-content {
+    padding: 5px !important;
+}
+
+date-picker-input .content {
+    float: right;
+    bottom: 30px;
+    position: relative;
+}
+
+date-time-picker-input .content {
+    float: right;
+    bottom: 30px;
+    position: relative;
+}
+
+date-range-picker-input .content {
+    float: right;
+    bottom: 30px;
+    position: relative;
+}
+
+.timepicker {
+    display: flex;
+    width: 140px;
+    margin: auto;
+    padding-top: 5px;
+}
+
+.btn-done {
+    float: right;
+    margin-bottom: 5px;
+}
+
+.timepicker .select {
+    width: 70px;
+}
+
+.timepicker input {
+    width: 42px;
+}
+
+.timepicker .glyphicon {
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.date-picker {
+    width: 618px;
+    overflow: hidden;
+}
+
+.date-picker-header {
+    height: 20px;
+}
+
+.date-range-picker-from {
+    float: left;
+    margin-right: 5px;
+}
+
+.date-range-picker-to {
+    float: left;
+}
+
+.date-picker-footer {
+    margin-right: 2px;
+}
+
+.date-time-picker-footer {
+    margin: 5px 0;
+}
+
+.date-picker-button {
+    margin-left: 3px;
+    height: 30px;
+}
+
+.margin-bottom-8 {
+    margin-bottom: 8px;
+}
+
+.day-picker-button {
+    width: 100%;
+    height: 24px
+}
+
+.day-picker-btn-today {
+    margin-top: 10px !important;
+}
+
+.day-picker-headers {
+    line-height:30px;
+}
+
+.month-picker-button {
+    width:85px;
+}
+
+.glyphicon-chevron-down {
+    color: #333;
+}
+
+.glyphicon-chevron-up {
+    color: #333;
+}
