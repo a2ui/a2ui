@@ -19,7 +19,6 @@
     ]
   },
   "exclude": [
-    "example",
     "src/sandbox",
     "node_modules"
   ],
