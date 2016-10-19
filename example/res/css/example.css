@@ -1,0 +1,77 @@
+.glyphicon-star:before {
+    content: "\e006";
+    color: gold;
+}
+
+.glyphicon-star-empty:before {
+    content: "\e007";
+    color: darkgrey;
+}
+
+.dropzone {
+    border: 2px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dropzone-global {
+    border: 2px dashed #0057A4;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dropzone-local {
+    border: 2px solid #0057A4;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.sqbrackets:before {
+    content: " ";
+    border-left: 2px solid #666;
+    border-top: 2px solid #666;
+    border-bottom: 2px solid #666;
+    margin-right: 10px;
+    padding: 10px 5px 10px 5px;
+}
+
+.sqbrackets:after {
+    content: " ";
+    padding: 10px 5px 10px 5px;
+    border-right: 2px solid #666;
+    border-top: 2px solid #666;
+    border-bottom: 2px solid #666;
+    margin-left: 10px;
+}
+
+.sqbrackets-global.sqbrackets:before {
+    border-color: #0057A4;
+}
+
+.sqbrackets-global.sqbrackets:after {
+    border-color: #0057A4;
+}
+
+.sqbrackets-local.sqbrackets:before {
+    border-color: #a40800;
+}
+
+.sqbrackets-local.sqbrackets:after {
+    border-color: #A40800;
+}
+
+.sub-menu ul {
+    display: block;
+}
+
+.divide {
+    margin-top: 10px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.btn-info.active, .btn-info:active, .btn-info:hover, .open > .dropdown-toggle.btn-info {
+    color: #fff;
+    background-color: #00b8e6;
+    border-color: #006f7d;
+}

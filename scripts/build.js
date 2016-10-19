@@ -7,3 +7,6 @@ copy("src/**/*.html", "dist", function () {
 
 copy(["package.json", ".npmignore", "README.md"], "dist", function () {
 });
+
+copy(["src/styles.css", "example/res/css/example.css"], "dist/css", {flatten: true}, function () {
+});
