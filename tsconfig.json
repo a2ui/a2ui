@@ -12,7 +12,6 @@
     "noImplicitAny": false
   },
   "exclude": [
-    "example",
     "node_modules"
   ]
 }
