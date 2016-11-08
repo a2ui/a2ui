@@ -76,6 +76,7 @@ a2-date-time-picker-input .popover {
     max-width: 340px !important;
 }
 
+date-picker-input .content {
 .divide {
     margin-top: 10px;
     margin-left: 2px;

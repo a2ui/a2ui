@@ -1,10 +1,8 @@
 import {
     Component,
     Input,
-    Output,
     Directive,
     forwardRef,
-    EventEmitter,
     ComponentFactoryResolver,
     Renderer,
     ViewContainerRef,
