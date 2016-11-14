@@ -6,7 +6,7 @@ const FORMAT_MONTH_TITLE: string = "yyyy";
 const FORMAT_MONTH: string = "MMMM";
 
 @Component({
-    selector: "month-picker",
+    selector: "a2-month-picker",
     templateUrl: "/src/bootstrap/datepicker/month-picker.component.html"
 })
 export class MonthPickerComponent implements OnInit {

@@ -2,7 +2,7 @@ import * as ng from "@angular/core";
 import {DatePickerContainer} from "./date-picker-container.component";
 
 @ng.Component({
-    selector: "time-picker",
+    selector: "a2-time-picker",
     templateUrl: "/src/bootstrap/datepicker/time-picker.component.html"
 })
 export class TimePickerComponent implements ng.OnInit {
