@@ -1,28 +1,28 @@
-date-picker-input .popover {
+a2-date-picker-input .popover {
     max-width: 340px !important;
 }
 
-date-range-picker-input .popover {
+a2-date-range-picker-input .popover {
     max-width: 650px !important;
 }
 
-date-time-picker-input .popover {
+a2-date-time-picker-input .popover {
     max-width: 340px !important;
 }
 
-date-picker-input .content {
+a2-date-picker-input .content {
     float: right;
     bottom: 30px;
     position: relative;
 }
 
-date-time-picker-input .content {
+a2-date-time-picker-input .content {
     float: right;
     bottom: 30px;
     position: relative;
 }
 
-date-range-picker-input .content {
+a2-date-range-picker-input .content {
     float: right;
     bottom: 30px;
     position: relative;

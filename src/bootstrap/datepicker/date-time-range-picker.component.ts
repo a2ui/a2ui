@@ -11,7 +11,7 @@ const DATE_TIME_RANGE_PICKER_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: "date-time-range-picker",
+    selector: "a2-date-time-range-picker",
     templateUrl: "/src/bootstrap/datepicker/date-time-range-picker.component.html",
     providers: [DATE_TIME_RANGE_PICKER_VALUE_ACCESSOR]
 })
